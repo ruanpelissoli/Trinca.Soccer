@@ -1,4 +1,6 @@
 ﻿using Prism.Unity;
+using Trinca.Soccer.App.Constants;
+using Trinca.Soccer.App.ViewModels;
 using Trinca.Soccer.App.Views;
 using Xamarin.Forms;
 
@@ -6,19 +8,21 @@ namespace Trinca.Soccer.App
 {
     public partial class App : PrismApplication
     {
-        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+        public App(IPlatformInitializer initializer = null) : base(initializer)
+        {
+        }
 
         protected override void OnInitialized()
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            NavigationService.NavigateAsync(Routes.Login());
         }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }

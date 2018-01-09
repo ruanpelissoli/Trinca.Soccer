@@ -11,7 +11,7 @@ namespace Trinca.Soccer.Services
 {
     public interface IWebScraper
     {
-        Task<IEnumerable<Worker>> GetTrincaWorkers(string url);
+        Task<IEnumerable<Employee>> GetTrincaWorkers(string url);
     }
 
     public class WebScraper : IWebScraper
@@ -37,7 +37,7 @@ namespace Trinca.Soccer.Services
             return document;
         }
 
-        public async Task<IEnumerable<Worker>> GetTrincaWorkers(string url)
+        public async Task<IEnumerable<Employee>> GetTrincaWorkers(string url)
         {
             var htmlDocument = await GetHtmlDocument(url);
 
@@ -51,10 +51,10 @@ namespace Trinca.Soccer.Services
                 let workerName = item.Descendants("p").FirstOrDefault()?.InnerText.Trim()
                 let workerPicture = item.Descendants("img").FirstOrDefault()?.Attributes["src"].Value
                 where workerPicture == null || !workerPicture.Contains("joker")
-                select new Worker
+                select new Employee
                 {
                     Name = workerName,
-                    PictureUrl = workerPicture,
+                    PictureUrl = workerPicture
                 }).ToList();
         }
     }

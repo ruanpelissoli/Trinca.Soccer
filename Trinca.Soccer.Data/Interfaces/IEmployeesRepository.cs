@@ -2,7 +2,7 @@
 
 namespace Trinca.Soccer.Data.Interfaces
 {
-    public interface IGameRepository : IBaseRepository<Game>
+    public interface IEmployeesRepository : IBaseRepository<Employee>
     {
     }
 }
