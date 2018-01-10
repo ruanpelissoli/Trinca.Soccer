@@ -13,7 +13,7 @@ namespace Trinca.Soccer.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710222308334_Initial"; }
+            get { return "201801022319289_Initial"; }
         }
         
         string IMigrationMetadata.Source

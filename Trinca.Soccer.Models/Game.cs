@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Trinca.Soccer.Models
@@ -8,13 +7,16 @@ namespace Trinca.Soccer.Models
     {
         [Key]
         public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public int MinimumPlayers { get; set; }
-        public int Players { get; set; }
         public string Place { get; set; }
-        public bool Canceled { get; set; }
-        public bool Finished { get; set; }
+        public string Time { get; set; }
+        public int MinimumPlayers { get; set; }
+        public decimal Value { get; set; }
+        public bool WithBarbecue { get; set; }
+        public decimal BarbecueValue { get; set; }
+        public bool IsFinished { get; set; }
+        public int BlueTeamScore { get; set; }
+        public int RedTeamScore { get; set; }
 
-        public virtual List<Worker> Workers { get; set; }
+        public virtual List<Team> Teams { get; set; }
     }
 }

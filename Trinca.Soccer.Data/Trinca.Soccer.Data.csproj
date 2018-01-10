@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,17 +49,15 @@
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
-    <Compile Include="Interfaces\IGameRepository.cs" />
-    <Compile Include="Interfaces\IWorkerRepository.cs" />
-    <Compile Include="Migrations\201710222308334_Initial.cs" />
-    <Compile Include="Migrations\201710222308334_Initial.Designer.cs">
-      <DependentUpon>201710222308334_Initial.cs</DependentUpon>
+    <Compile Include="Interfaces\IEmployeesRepository.cs" />
+    <Compile Include="Migrations\201801022319289_Initial.cs" />
+    <Compile Include="Migrations\201801022319289_Initial.Designer.cs">
+      <DependentUpon>201801022319289_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
-    <Compile Include="Repository\GameRepository.cs" />
-    <Compile Include="Repository\WorkerRepository.cs" />
+    <Compile Include="Repository\EmployeesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -72,8 +70,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710222308334_Initial.resx">
-      <DependentUpon>201710222308334_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801022319289_Initial.resx">
+      <DependentUpon>201801022319289_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

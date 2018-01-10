@@ -11,13 +11,20 @@ namespace Trinca.Soccer.Data
         {
         }
 
-        public virtual DbSet<Worker> ApplicationParameter { get; set; }
-        public virtual DbSet<Game> SystemLog { get; set; }
+        public virtual DbSet<Player> Players { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<Employee>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("Employees");
+            });
         }
 
         public interface IDbContextFactory
