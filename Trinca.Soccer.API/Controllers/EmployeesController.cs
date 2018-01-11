@@ -5,7 +5,7 @@ using Trinca.Soccer.Services;
 
 namespace Trinca.Soccer.API.Controllers
 {
-    [RoutePrefix("api/employees")]
+    [RoutePrefix("employees")]
     public class EmployeesController : ApiController
     {
         private readonly IEmployeesServices _employeesServices;
@@ -15,23 +15,23 @@ namespace Trinca.Soccer.API.Controllers
             _employeesServices = employeesServices;
         }
 
-        public async Task<IHttpActionResult> GetAll()
-        {
-            var employees = await _employeesServices.GetAll();
-            return Ok(employees);
-        }
+        //public async Task<IHttpActionResult> GetAll()
+        //{
+        //    var employees = await _employeesServices.GetAll();
+        //    return Ok(employees);
+        //}
 
-        public async Task<IHttpActionResult> CreateAllFromSite()
-        {
-            await _employeesServices.CreateAllFromSite();
-            return Ok();
-        }
+        //public async Task<IHttpActionResult> CreateAllFromSite()
+        //{
+        //    await _employeesServices.CreateAllFromSite();
+        //    return Ok();
+        //}
 
-        public async Task<IHttpActionResult> GetAllFromSite()
-        {
-            var employees = await _employeesServices.GetAllFromSite();
-            return Ok(employees);
-        }
+        //public async Task<IHttpActionResult> GetAllFromSite()
+        //{
+        //    var employees = await _employeesServices.GetAllFromSite();
+        //    return Ok(employees);
+        //}
 
         [Route("login")]
         [HttpPost]

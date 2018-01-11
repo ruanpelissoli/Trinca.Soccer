@@ -6,6 +6,7 @@ using Foundation;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using PCLAppConfig;
 
 namespace Trinca.Soccer.App.iOS
 {
@@ -25,6 +26,13 @@ namespace Trinca.Soccer.App.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            try
+            {
+                ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
+            }
+            catch { }
+
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);

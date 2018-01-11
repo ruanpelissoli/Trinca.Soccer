@@ -18,6 +18,11 @@ namespace Trinca.Soccer.App
 
             ApiClient.ApiClient.Initialize();
 
+            //if (!Settings.IsLoggedIn)
+            //    NavigationService.NavigateAsync($"NavigationPage/{nameof(LoginPage)}");
+            //else
+            //    NavigationService.NavigateAsync($"{nameof(MenuPage)}/NavigationPage/{nameof(LoadingPostersPage)}");
+
             NavigationService.NavigateAsync(Routes.Login());
         }
 
@@ -25,6 +30,7 @@ namespace Trinca.Soccer.App
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<LoginPage, LoginPageViewModel>();
+            Container.RegisterTypeForNavigation<LoadingGamesPage, LoadingGamesPageViewModel>();
         }
     }
 }

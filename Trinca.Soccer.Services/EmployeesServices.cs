@@ -42,7 +42,7 @@ namespace Trinca.Soccer.Services
 
                 if (dbEmployee != null) continue;
 
-                employee.Username = employee.Name.ToLower().Replace(" ", ".");
+                employee.Username = GetUsername(employee.PictureUrl);
                 employee.Password = Cryptography.GetMd5Hash("trinca137");
                 await _employeesRepository.CreateAsync(employee);
             }
@@ -71,6 +71,12 @@ namespace Trinca.Soccer.Services
 
             await _employeesRepository.DeleteAsync(employee);
             return string.Empty;
+        }
+
+        private string GetUsername(string pictureUrl)
+        {
+            var end = pictureUrl.IndexOf(".jpg");
+            return pictureUrl.Substring(0, end - 0).Replace("http://trin.ca/wp-content/themes/trinca/interface/build/img/team/", "").ToLower().Replace("-", ".");
         }
     }
 }

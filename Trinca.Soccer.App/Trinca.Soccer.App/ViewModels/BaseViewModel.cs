@@ -1,9 +1,12 @@
 ﻿using Prism.Mvvm;
+using Prism.Navigation;
 
 namespace Trinca.Soccer.App.ViewModels
 {
-    public class BaseViewModel : BindableBase
+    public class BaseViewModel : BindableBase, INavigationAware
     {
+        protected INavigationService NavigationService;
+
         private string _title;
         public string Title
         {
@@ -18,9 +21,26 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _showLoading, value);
         }
 
-        public BaseViewModel()
+        public BaseViewModel(INavigationService navigationService)
         {
+            NavigationService = navigationService;
+
             Title = string.Empty;
+        }
+
+        public virtual void OnNavigatedFrom(NavigationParameters parameters)
+        {
+            
+        }
+
+        public virtual void OnNavigatedTo(NavigationParameters parameters)
+        {
+            
+        }
+
+        public virtual void OnNavigatingTo(NavigationParameters parameters)
+        {
+            
         }
     }
 }

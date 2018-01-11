@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using PCLAppConfig;
 
 namespace Trinca.Soccer.App.Droid
 {
@@ -22,6 +23,13 @@ namespace Trinca.Soccer.App.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            try
+            {
+                ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
+            }
+            catch { }
+
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

@@ -8,6 +8,19 @@ namespace Trinca.Soccer.Data.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Employee",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Username = c.String(),
+                        Password = c.String(),
+                        Role = c.String(),
+                        PictureUrl = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Game",
                 c => new
                     {
@@ -49,36 +62,23 @@ namespace Trinca.Soccer.Data.Migrations
                         IsGuest = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Employees", t => t.EmployeeId)
+                .ForeignKey("dbo.Employee", t => t.EmployeeId)
                 .Index(t => t.EmployeeId);
-            
-            CreateTable(
-                "dbo.Employees",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Username = c.String(),
-                        Password = c.String(),
-                        Role = c.String(),
-                        PictureUrl = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Team", "PlayerId", "dbo.Player");
-            DropForeignKey("dbo.Player", "EmployeeId", "dbo.Employees");
+            DropForeignKey("dbo.Player", "EmployeeId", "dbo.Employee");
             DropForeignKey("dbo.Team", "GameId", "dbo.Game");
             DropIndex("dbo.Player", new[] { "EmployeeId" });
             DropIndex("dbo.Team", new[] { "PlayerId" });
             DropIndex("dbo.Team", new[] { "GameId" });
-            DropTable("dbo.Employees");
             DropTable("dbo.Player");
             DropTable("dbo.Team");
             DropTable("dbo.Game");
+            DropTable("dbo.Employee");
         }
     }
 }

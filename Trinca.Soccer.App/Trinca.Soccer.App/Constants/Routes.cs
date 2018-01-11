@@ -8,5 +8,10 @@ namespace Trinca.Soccer.App.Constants
         {
             return $"NavigationPage/{nameof(LoginPage)}";
         }
+
+        public static string LoadingGames()
+        {
+            return $"NavigationPage/{nameof(LoadingGamesPage)}";
+        }
     }
 }
