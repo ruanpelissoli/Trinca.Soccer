@@ -1,17 +1,18 @@
 ﻿using Prism.Commands;
 using System;
+using Trinca.Soccer.App.Models;
 
 namespace Trinca.Soccer.App.ViewModels
 {
     public class LoginPageViewModel : BaseViewModel
     {
-        private string _email;
-        public string Email
+        private string _username;
+        public string Username
         {
-            get => _email;
+            get => _username;
             set
             {
-                SetProperty(ref _email, value);
+                SetProperty(ref _username, value);
                 LoginCommand.RaiseCanExecuteChanged();
             }
         }
@@ -40,7 +41,13 @@ namespace Trinca.Soccer.App.ViewModels
         {
             try
             {
+                var loginModel = new LoginModel
+                {
+                    Username = Username,
+                    Password = Password
+                };
 
+                await ApiClient.ApiClient.Employees.Login(loginModel);
             }
             catch (Exception ex)
             {
@@ -54,7 +61,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         private bool LoginCanExecuteCommand()
         {
-            return !string.IsNullOrEmpty(Email) &&
+            return !string.IsNullOrEmpty(Username) &&
                    !string.IsNullOrEmpty(Password);
         }
     }

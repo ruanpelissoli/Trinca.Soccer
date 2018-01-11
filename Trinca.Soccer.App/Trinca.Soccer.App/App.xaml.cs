@@ -16,6 +16,8 @@ namespace Trinca.Soccer.App
         {
             InitializeComponent();
 
+            ApiClient.ApiClient.Initialize();
+
             NavigationService.NavigateAsync(Routes.Login());
         }
 

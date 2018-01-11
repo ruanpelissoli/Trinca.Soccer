@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Trinca.Soccer.Data.Interfaces;
 using Trinca.Soccer.Models;
@@ -12,6 +13,7 @@ namespace Trinca.Soccer.Services
         Task<IEnumerable<Employee>> GetAll();
         Task CreateAllFromSite();
         Task<IEnumerable<Employee>> GetAllFromSite();
+        Task<string> Login(string userName, string password);
     }
 
     public class EmployeesServices : IEmployeesServices
@@ -49,6 +51,26 @@ namespace Trinca.Soccer.Services
         public async Task<IEnumerable<Employee>> GetAllFromSite()
         {
             return await _webScraper.GetTrincaWorkers(@"http://trin.ca");
+        }
+
+        public async Task<string> Login(string userName, string password)
+        {
+            if (!_employeesRepository.GetAll().Any())
+                await CreateAllFromSite();
+
+            var employessFromSite = await GetAllFromSite();
+
+            var hashPassword = Cryptography.GetMd5Hash(password);
+            var employee = await _employeesRepository.GetLoggedUser(userName, hashPassword);
+
+            if (employee == null)
+                return string.Empty;
+
+            if (employessFromSite.Select(w => w.Username).Contains(employee.Username))
+                return Guid.NewGuid().ToString();
+
+            await _employeesRepository.DeleteAsync(employee);
+            return string.Empty;
         }
     }
 }
