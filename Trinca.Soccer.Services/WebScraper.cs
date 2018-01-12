@@ -49,13 +49,21 @@ namespace Trinca.Soccer.Services
 
             return (from item in htmlWorkersList
                 let workerName = item.Descendants("p").FirstOrDefault()?.InnerText.Trim()
+                let workerUserName = GetUsername(item.Descendants("img").FirstOrDefault()?.Attributes["src"].Value)
                 let workerPicture = item.Descendants("img").FirstOrDefault()?.Attributes["src"].Value
                 where workerPicture == null || !workerPicture.Contains("joker")
                 select new Employee
                 {
                     Name = workerName,
+                    Username = workerUserName,
                     PictureUrl = workerPicture
                 }).ToList();
+        }
+
+        private string GetUsername(string pictureUrl)
+        {
+            var end = pictureUrl.IndexOf(".jpg");
+            return pictureUrl.Substring(0, end - 0).Replace("http://trin.ca/wp-content/themes/trinca/interface/build/img/team/", "").ToLower().Replace("-", ".");
         }
     }
 }

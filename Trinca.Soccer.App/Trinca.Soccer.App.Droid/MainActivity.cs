@@ -22,6 +22,11 @@ namespace Trinca.Soccer.App.Droid
 
             base.OnCreate(bundle);
 
+            AppDomain.CurrentDomain.UnhandledException += (sender, unhandledExceptionEventArgs) =>
+            {
+                Console.WriteLine(new Exception("UnhandledException", unhandledExceptionEventArgs.ExceptionObject as Exception).StackTrace);
+            };
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             try

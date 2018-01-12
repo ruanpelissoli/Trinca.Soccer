@@ -8,7 +8,7 @@ namespace Trinca.Soccer.App.Helpers
 	    private static ISettings AppSettings => CrossSettings.Current;
 
 	    const string UserIdKey = "userid";
-	    static readonly string UserIdDefault = string.Empty;
+	    static readonly int UserIdDefault = 0;
 
 	    const string AuthTokenKey = "authtoken";
 	    static readonly string AuthTokenDefault = string.Empty;
@@ -25,7 +25,7 @@ namespace Trinca.Soccer.App.Helpers
 	        }
 	    }
 
-	    public static string UserId
+	    public static int UserId
 	    {
 	        get
 	        {
@@ -37,12 +37,12 @@ namespace Trinca.Soccer.App.Helpers
 	        }
 	    }
 
-	    public static bool IsLoggedIn => !string.IsNullOrEmpty(AuthToken);
+	    public static bool IsLoggedIn => UserId > 0;
 
 	    public static void Clear()
 	    {
 	        AuthToken = null;
-	        UserId = null;
+	        UserId = 0;
 	    }
     }
 }

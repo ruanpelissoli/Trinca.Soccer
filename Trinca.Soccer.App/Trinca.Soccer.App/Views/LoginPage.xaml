@@ -8,16 +8,16 @@
   <StackLayout Padding="20, 0"
                VerticalOptions="CenterAndExpand"
                HorizontalOptions="FillAndExpand">
-      <Entry Text="{Binding Username}"
+        <Entry Text="{Binding Username}"
              HorizontalOptions="FillAndExpand"
-             Placeholder="Username">
-      </Entry>
-      <Entry Text="{Binding Password}"
+             Placeholder="Username" />
+        <Entry Text="{Binding Password}"
              IsPassword="True"
              HorizontalOptions="FillAndExpand"
-             Placeholder="Password">
-      </Entry>
+             Placeholder="Password" />
       <Button Text="Login"
-              Command="{Binding LoginCommand}"></Button>
+              Command="{Binding LoginCommand}"
+              IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
+      <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />
     </StackLayout>
 </ContentPage>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Prism.Navigation;
 using Prism.Services;
 using Refit;
+using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
 using Trinca.Soccer.App.Models;
@@ -58,10 +59,10 @@ namespace Trinca.Soccer.App.ViewModels
                     Password = Password
                 };
 
-                var token = await ApiClient.ApiClient.Employees.Login(loginModel);
-                Settings.AuthToken = token;
+                var employee = await ClientApi.Employees.Login(loginModel);
+                Settings.UserId = employee.Id;
 
-                await NavigationService.NavigateAsync($"app:///{Routes.LoadingGames()}");
+                await NavigationService.NavigateAsync($"app:///{Routes.Matches()}");
             }
             catch (Exception ex)
             {
@@ -69,7 +70,7 @@ namespace Trinca.Soccer.App.ViewModels
                 if (exception != null)
                 {
                     var refiEx = exception;
-                    if (refiEx.Content.Equals("Unauthorized"))
+                    if (refiEx.ReasonPhrase.Equals("Unauthorized"))
                     {
                         await _dialogService.DisplayAlertAsync("Erro!", "Usuário ou senha inválidos.", "Ok");
                     }

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Trinca.Soccer.Models
+namespace Trinca.Soccer.App.Models
 {
-    public class Game
+    public class MatchModel
     {
-        [Key]
         public int Id { get; set; }
         public string Place { get; set; }
         public string Time { get; set; }
@@ -16,7 +14,6 @@ namespace Trinca.Soccer.Models
         public bool IsFinished { get; set; }
         public int BlueTeamScore { get; set; }
         public int RedTeamScore { get; set; }
-
-        public virtual List<Team> Teams { get; set; }
+        public List<TeamModel> Teams { get; set; }
     }
 }

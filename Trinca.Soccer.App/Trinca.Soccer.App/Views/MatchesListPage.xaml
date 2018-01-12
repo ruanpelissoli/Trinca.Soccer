@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Trinca.Soccer.App.Views.MatchesListPage"
+             Title="{Binding Title}">
+    <ListView HasUnevenRows="True"
+              ItemsSource="{Binding Matches}"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshCommand}"
+              IsRefreshing="{Binding IsRefreshing}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ImageCell Text="{Binding Place}"
+                           Detail="{Binding Place}">
+                </ImageCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

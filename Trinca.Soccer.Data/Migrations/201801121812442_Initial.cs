@@ -21,12 +21,13 @@ namespace Trinca.Soccer.Data.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Game",
+                "dbo.Match",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        CreatedBy = c.Int(nullable: false),
                         Place = c.String(),
-                        Time = c.String(),
+                        Date = c.DateTime(nullable: false),
                         MinimumPlayers = c.Int(nullable: false),
                         Value = c.Decimal(nullable: false, precision: 18, scale: 2),
                         WithBarbecue = c.Boolean(nullable: false),
@@ -34,22 +35,25 @@ namespace Trinca.Soccer.Data.Migrations
                         IsFinished = c.Boolean(nullable: false),
                         BlueTeamScore = c.Int(nullable: false),
                         RedTeamScore = c.Int(nullable: false),
+                        CreateDate = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Employee", t => t.CreatedBy)
+                .Index(t => t.CreatedBy);
             
             CreateTable(
                 "dbo.Team",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        GameId = c.Int(nullable: false),
+                        MatchId = c.Int(nullable: false),
                         TeamId = c.Int(nullable: false),
                         PlayerId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Game", t => t.GameId)
+                .ForeignKey("dbo.Match", t => t.MatchId)
                 .ForeignKey("dbo.Player", t => t.PlayerId)
-                .Index(t => t.GameId)
+                .Index(t => t.MatchId)
                 .Index(t => t.PlayerId);
             
             CreateTable(
@@ -71,13 +75,15 @@ namespace Trinca.Soccer.Data.Migrations
         {
             DropForeignKey("dbo.Team", "PlayerId", "dbo.Player");
             DropForeignKey("dbo.Player", "EmployeeId", "dbo.Employee");
-            DropForeignKey("dbo.Team", "GameId", "dbo.Game");
+            DropForeignKey("dbo.Team", "MatchId", "dbo.Match");
+            DropForeignKey("dbo.Match", "CreatedBy", "dbo.Employee");
             DropIndex("dbo.Player", new[] { "EmployeeId" });
             DropIndex("dbo.Team", new[] { "PlayerId" });
-            DropIndex("dbo.Team", new[] { "GameId" });
+            DropIndex("dbo.Team", new[] { "MatchId" });
+            DropIndex("dbo.Match", new[] { "CreatedBy" });
             DropTable("dbo.Player");
             DropTable("dbo.Team");
-            DropTable("dbo.Game");
+            DropTable("dbo.Match");
             DropTable("dbo.Employee");
         }
     }

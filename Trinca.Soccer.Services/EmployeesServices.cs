@@ -8,20 +8,20 @@ using Trinca.Soccer.Services.Util;
 
 namespace Trinca.Soccer.Services
 {
-    public interface IEmployeesServices
+    public interface IEmployeesService
     {
         Task<IEnumerable<Employee>> GetAll();
         Task CreateAllFromSite();
         Task<IEnumerable<Employee>> GetAllFromSite();
-        Task<string> Login(string userName, string password);
+        Task<Employee> Login(string userName, string password);
     }
 
-    public class EmployeesServices : IEmployeesServices
+    public class EmployeesService : IEmployeesService
     {
         private readonly IEmployeesRepository _employeesRepository;
         private readonly IWebScraper _webScraper;
 
-        public EmployeesServices(IEmployeesRepository employeesRepository, IWebScraper webScraper)
+        public EmployeesService(IEmployeesRepository employeesRepository, IWebScraper webScraper)
         {
             _employeesRepository = employeesRepository;
             _webScraper = webScraper;
@@ -42,7 +42,6 @@ namespace Trinca.Soccer.Services
 
                 if (dbEmployee != null) continue;
 
-                employee.Username = GetUsername(employee.PictureUrl);
                 employee.Password = Cryptography.GetMd5Hash("trinca137");
                 await _employeesRepository.CreateAsync(employee);
             }
@@ -53,7 +52,7 @@ namespace Trinca.Soccer.Services
             return await _webScraper.GetTrincaWorkers(@"http://trin.ca");
         }
 
-        public async Task<string> Login(string userName, string password)
+        public async Task<Employee> Login(string userName, string password)
         {
             if (!_employeesRepository.GetAll().Any())
                 await CreateAllFromSite();
@@ -64,19 +63,13 @@ namespace Trinca.Soccer.Services
             var employee = await _employeesRepository.GetLoggedUser(userName, hashPassword);
 
             if (employee == null)
-                return string.Empty;
+                return new Employee();
 
             if (employessFromSite.Select(w => w.Username).Contains(employee.Username))
-                return Guid.NewGuid().ToString();
+                return employee;
 
             await _employeesRepository.DeleteAsync(employee);
-            return string.Empty;
-        }
-
-        private string GetUsername(string pictureUrl)
-        {
-            var end = pictureUrl.IndexOf(".jpg");
-            return pictureUrl.Substring(0, end - 0).Replace("http://trin.ca/wp-content/themes/trinca/interface/build/img/team/", "").ToLower().Replace("-", ".");
+            return new Employee();
         }
     }
 }

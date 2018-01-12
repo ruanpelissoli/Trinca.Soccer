@@ -50,14 +50,16 @@
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IEmployeesRepository.cs" />
-    <Compile Include="Migrations\201801112123330_Initial.cs" />
-    <Compile Include="Migrations\201801112123330_Initial.Designer.cs">
-      <DependentUpon>201801112123330_Initial.cs</DependentUpon>
+    <Compile Include="Interfaces\IMatchesRepository.cs" />
+    <Compile Include="Migrations\201801121812442_Initial.cs" />
+    <Compile Include="Migrations\201801121812442_Initial.Designer.cs">
+      <DependentUpon>201801121812442_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\EmployeesRepository.cs" />
+    <Compile Include="Repository\MatchesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -70,8 +72,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801112123330_Initial.resx">
-      <DependentUpon>201801112123330_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801121812442_Initial.resx">
+      <DependentUpon>201801121812442_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

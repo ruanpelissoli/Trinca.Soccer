@@ -1,5 +1,7 @@
 ﻿using Prism.Unity;
+using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
+using Trinca.Soccer.App.Helpers;
 using Trinca.Soccer.App.ViewModels;
 using Trinca.Soccer.App.Views;
 using Xamarin.Forms;
@@ -15,22 +17,19 @@ namespace Trinca.Soccer.App
         protected override void OnInitialized()
         {
             InitializeComponent();
+            
+            ClientApi.Initialize();
 
-            ApiClient.ApiClient.Initialize();
-
-            //if (!Settings.IsLoggedIn)
-            //    NavigationService.NavigateAsync($"NavigationPage/{nameof(LoginPage)}");
-            //else
-            //    NavigationService.NavigateAsync($"{nameof(MenuPage)}/NavigationPage/{nameof(LoadingPostersPage)}");
-
-            NavigationService.NavigateAsync(Routes.Login());
+            NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : Routes.Matches());
         }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<LoginPage, LoginPageViewModel>();
-            Container.RegisterTypeForNavigation<LoadingGamesPage, LoadingGamesPageViewModel>();
+            Container.RegisterTypeForNavigation<MatchesPage, MatchesPageViewModel>();
+            Container.RegisterTypeForNavigation<MatchesListPage, MatchesListPageViewModel>();
+            Container.RegisterTypeForNavigation<NewMatchPage, NewMatchPageViewModel>();
         }
     }
 }
