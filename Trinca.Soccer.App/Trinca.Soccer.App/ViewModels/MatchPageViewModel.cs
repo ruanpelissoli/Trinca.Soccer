@@ -1,12 +1,8 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Prism.Navigation;
+﻿using Prism.Navigation;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Models;
+using Prism.Services;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -19,7 +15,7 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _match, value);
         }
 
-        public MatchPageViewModel(INavigationService navigationService) : base(navigationService)
+        public MatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = "texte";
         }

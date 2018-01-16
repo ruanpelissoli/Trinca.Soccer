@@ -6,7 +6,7 @@ using Trinca.Soccer.Services;
 namespace Trinca.Soccer.API.Controllers
 {
     [RoutePrefix("employees")]
-    public class EmployeesController : ApiController
+    public class EmployeesController : BaseController
     {
         private readonly IEmployeesService _employeesService;
 
@@ -19,12 +19,15 @@ namespace Trinca.Soccer.API.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Login(LoginViewModel loginViewModel)
         {
-            var employee = await _employeesService.Login(loginViewModel.Username, loginViewModel.Password);
+            return await TryCatchAsync(async () =>
+            {
+                var employee = await _employeesService.Login(loginViewModel.Username, loginViewModel.Password);
 
-            if (employee.Id == 0)
-                return Unauthorized();
+                if (employee.Id == 0)
+                    return Unauthorized();
 
-            return Ok(employee);
+                return Ok(employee);
+            });
         }
     }
 }

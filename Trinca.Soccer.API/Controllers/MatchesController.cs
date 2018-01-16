@@ -12,7 +12,7 @@ using Trinca.Soccer.Services;
 namespace Trinca.Soccer.API.Controllers
 {
     [RoutePrefix("matches")]
-    public class MatchesController : ApiController
+    public class MatchesController : BaseController
     {
         private readonly IMatchesService _matchesServices;
 
@@ -23,25 +23,34 @@ namespace Trinca.Soccer.API.Controllers
 
         public async Task<IHttpActionResult> GetAll()
         {
-            var matches = await _matchesServices.GetAll();
-            return Ok(matches);
+            return await TryCatchAsync(async () =>
+            {
+                var matches = await _matchesServices.GetAll();
+                return Ok(matches);
+            });            
         }
 
         [Route("{id}")]
         public async Task<IHttpActionResult> GetById(int id)
         {
-            var match = await _matchesServices.GetById(id);
+            return await TryCatchAsync(async () =>
+            {
+                var match = await _matchesServices.GetById(id);
 
-            if (match.Id == 0)
-                return NotFound();
+                if (match.Id == 0)
+                    return NotFound();
 
-            return Ok(match);
+                return Ok(match);
+            });            
         }
 
         [HttpPost]
         public async Task<IHttpActionResult> Create(Match match)
         {
-            return Ok(await _matchesServices.Create(match));
+            return await TryCatchAsync(async () =>
+            {
+                return Ok(await _matchesServices.Create(match));
+            });            
         }
     }
 }

@@ -4,6 +4,8 @@ using Prism.Navigation;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Models;
+using Trinca.Soccer.App.Helpers;
+using Prism.Services;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -60,7 +62,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         public DelegateCommand CreateCommand { get; set; }
 
-        public NewMatchPageViewModel(INavigationService navigationService) : base(navigationService)
+        public NewMatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = "New Match";
 
@@ -69,26 +71,24 @@ namespace Trinca.Soccer.App.ViewModels
 
         private async void CreateCommandExecute()
         {
-            ShowLoading = true;
-            try
+            await TryCatchAsync(async () =>
             {
                 var match = new MatchModel
                 {
-
+                    CreatedBy = Settings.UserId,
+                    Date = Date.Add(Hour),
+                    Place = Place,
+                    MinimumPlayers = MinimumPlayers,
+                    Value = Value,
+                    WithBarbecue = WithBarbecue,
+                    BarbecueValue = BarbecueValue,
+                    CreateDate = DateTime.Now
                 };
 
                 await ClientApi.Matches.Create(match);
 
                 await NavigationService.NavigateAsync(Routes.Matches());
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                ShowLoading = false;
-            }
+            });
         }
     }
 }

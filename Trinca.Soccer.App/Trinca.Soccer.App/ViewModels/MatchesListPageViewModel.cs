@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Navigation;
-using Refit;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
-using Trinca.Soccer.App.Helpers;
 using Trinca.Soccer.App.Models;
+using Prism.Services;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -31,7 +28,7 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _isRefreshing, value);
         }
 
-        public MatchesListPageViewModel(INavigationService navigationService) : base(navigationService)
+        public MatchesListPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = "Matches";
 
@@ -41,24 +38,10 @@ namespace Trinca.Soccer.App.ViewModels
 
         private async Task LoadMatches()
         {
-            try
+            await TryCatchAsync(async () =>
             {
                 Matches = new ObservableCollection<MatchModel>(await ClientApi.Matches.GetAll());
-            }
-            catch (Exception ex)
-            {
-                var exception = ex as ApiException;
-                if (exception != null)
-                {
-                    var refitEx = exception;
-                    if (refitEx.ReasonPhrase.Equals("Unauthorized"))
-                    {
-                        Settings.Clear();
-                        await NavigationService.NavigateAsync($"app:///{Routes.Login()}");
-                    }
-                }
-                Debug.WriteLine(ex.StackTrace);
-            }
+            });
         }
 
         private async void RefreshCommandExecute()
