@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Trinca.Soccer.API.Models;
+using Trinca.Soccer.Models;
 using Trinca.Soccer.Services;
 
 namespace Trinca.Soccer.API.Controllers
@@ -35,6 +36,12 @@ namespace Trinca.Soccer.API.Controllers
                 return NotFound();
 
             return Ok(match);
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> Create(Match match)
+        {
+            return Ok(await _matchesServices.Create(match));
         }
     }
 }

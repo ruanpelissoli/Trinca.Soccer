@@ -3,5 +3,6 @@
     public static class Parameters
     {
         public static readonly string Matches = "matches";
+        public static readonly string MatchId = "matchId";
     }
 }

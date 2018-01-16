@@ -5,7 +5,28 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.NewMatchPage"
              Title="{Binding Title}">
-  <StackLayout>
-      <Label Text="New Game"></Label>
-  </StackLayout>
+    <ScrollView>
+        <StackLayout Orientation="Vertical"
+                     Padding="10, 10"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+            <Label Text="Place"></Label>
+            <Entry Text="{Binding Place}"></Entry>
+            <Label Text="Date"></Label>
+            <DatePicker Date="{Binding Date}"></DatePicker>
+            <Label Text="Hour"></Label>
+            <DatePicker Date="{Binding Hour}"></DatePicker>
+            <Label Text="Minimum players required"></Label>
+            <Entry Keyboard="Numeric" Text="{Binding MinimumPlayers}"></Entry>
+            <Label Text="Match value"></Label>
+            <Entry Keyboard="Numeric" Text="{Binding Value}"></Entry>
+            <Label Text="With Barbecue?"></Label>
+            <Switch IsToggled="{Binding WithBarbecue}"></Switch>
+            <Label Text="Match value"></Label>
+            <Entry Keyboard="Numeric" Text="{Binding BarbecueValue}"></Entry>
+            <Button Text="Create"
+                    IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"></Button>
+            <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

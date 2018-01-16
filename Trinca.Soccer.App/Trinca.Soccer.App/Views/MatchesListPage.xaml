@@ -2,14 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.MatchesListPage"
              Title="{Binding Title}">
-    <ListView HasUnevenRows="True"
+    <custom:ListView HasUnevenRows="True"
               ItemsSource="{Binding Matches}"
               IsPullToRefreshEnabled="True"
               RefreshCommand="{Binding RefreshCommand}"
-              IsRefreshing="{Binding IsRefreshing}">
+              IsRefreshing="{Binding IsRefreshing}"
+              ItemTappedCommand="{Binding SelectedItemCommand}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ImageCell Text="{Binding Place}"
@@ -17,5 +19,5 @@
                 </ImageCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-    </ListView>
+    </custom:ListView>
 </ContentPage>

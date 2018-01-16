@@ -2,9 +2,9 @@
 
 namespace Trinca.Soccer.App.Views
 {
-    public partial class MatchesPage : TabbedPage
+    public partial class MainPage : TabbedPage
     {
-        public MatchesPage()
+        public MainPage()
         {
             InitializeComponent();
         }

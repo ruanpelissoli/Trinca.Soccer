@@ -13,5 +13,8 @@ namespace Trinca.Soccer.App.API
 
         [Get("/matches/{id}")]
         Task<MatchModel> GetById(int id);
+
+        [Post("/matches")]
+        Task<MatchModel> Create(MatchModel match);
     }
 }

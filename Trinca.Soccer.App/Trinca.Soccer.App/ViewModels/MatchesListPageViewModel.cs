@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -23,6 +22,7 @@ namespace Trinca.Soccer.App.ViewModels
         }
 
         public DelegateCommand RefreshCommand { get; set; }
+        public DelegateCommand<MatchModel> SelectedItemCommand { get; set; }
 
         private bool _isRefreshing = false;
         public bool IsRefreshing
@@ -36,6 +36,7 @@ namespace Trinca.Soccer.App.ViewModels
             Title = "Matches";
 
             RefreshCommand = new DelegateCommand(RefreshCommandExecute);
+            SelectedItemCommand = new DelegateCommand<MatchModel>(SelectedItemCommandExecute);
         }
 
         private async Task LoadMatches()
@@ -65,6 +66,13 @@ namespace Trinca.Soccer.App.ViewModels
             IsRefreshing = true;
             await LoadMatches();
             IsRefreshing = false;
+        }
+
+        private async void SelectedItemCommandExecute(MatchModel match)
+        {
+            if (match == null || match.Id == 0) return;
+
+            await NavigationService.NavigateAsync(Routes.Match(match.Id));
         }
 
         public override async void OnNavigatedTo(NavigationParameters parameters)

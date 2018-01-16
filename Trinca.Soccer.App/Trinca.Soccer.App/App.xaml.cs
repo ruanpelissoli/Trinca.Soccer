@@ -27,9 +27,10 @@ namespace Trinca.Soccer.App
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<LoginPage, LoginPageViewModel>();
-            Container.RegisterTypeForNavigation<MatchesPage, MatchesPageViewModel>();
+            Container.RegisterTypeForNavigation<MainPage, MainPageViewModel>();
             Container.RegisterTypeForNavigation<MatchesListPage, MatchesListPageViewModel>();
             Container.RegisterTypeForNavigation<NewMatchPage, NewMatchPageViewModel>();
+            Container.RegisterTypeForNavigation<MatchPage, MatchPageViewModel>();
         }
     }
 }
