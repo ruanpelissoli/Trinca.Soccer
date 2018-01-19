@@ -4,7 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.MatchPage"
-             Title="{Binding Match.Place}">
+             Title="{Binding Title}">
   <StackLayout>
       <Label Text="{Binding Match.Place}"></Label>
   </StackLayout>

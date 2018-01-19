@@ -1,5 +1,7 @@
 ﻿using Prism.Navigation;
 using Prism.Services;
+using Trinca.Soccer.App.Constants;
+using Xamarin.Forms;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -7,7 +9,14 @@ namespace Trinca.Soccer.App.ViewModels
     {
         public MainPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
-           Title = "Trinca Soccer";
+            Title = Strings.AppName;
+            
+            MessagingCenter.Subscribe<MatchPageViewModel, string>(this, Strings.TitleChange, OnTitleChanged);
+        }
+
+        private void OnTitleChanged(MatchPageViewModel source, string title)
+        {
+            Title = title;
         }
     }
 }

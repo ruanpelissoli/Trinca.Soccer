@@ -7,8 +7,10 @@
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <util:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+            <util:DecimalConverter x:Key="DecimalConverter" />
           
             <x:String x:Key="AppDefaultColor">#000000</x:String>
+          
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource AppDefaultColor}"/>
                 <Setter Property="BarTextColor" Value="White"/>

@@ -15,49 +15,77 @@ namespace Trinca.Soccer.App.ViewModels
         public string Place
         {
             get => _place;
-            set => SetProperty(ref _place, value);
+            set
+            {
+                SetProperty(ref _place, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
-        private DateTime _date;
+        private DateTime _date = DateTime.Now;
         public DateTime Date
         {
             get => _date;
-            set => SetProperty(ref _date, value);
+            set
+            {
+                SetProperty(ref _date, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private TimeSpan _hour;
         public TimeSpan Hour
         {
             get => _hour;
-            set => SetProperty(ref _hour, value);
+            set
+            {
+                SetProperty(ref _hour, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private int _minimumPlayers;
         public int MinimumPlayers
         {
             get => _minimumPlayers;
-            set => SetProperty(ref _minimumPlayers, value);
+            set
+            {
+                SetProperty(ref _minimumPlayers, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private decimal _value;
         public decimal Value
         {
             get => _value;
-            set => SetProperty(ref _value, value);
+            set
+            {
+                SetProperty(ref _value, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private bool _withBarbecue;
         public bool WithBarbecue
         {
             get => _withBarbecue;
-            set => SetProperty(ref _withBarbecue, value);
+            set
+            {
+                SetProperty(ref _withBarbecue, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private decimal _barbecueValue;
         public decimal BarbecueValue
         {
             get => _barbecueValue;
-            set => SetProperty(ref _barbecueValue, value);
+            set
+            {
+                SetProperty(ref _barbecueValue, value);
+                CreateCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public DelegateCommand CreateCommand { get; set; }
@@ -66,7 +94,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             Title = "New Match";
 
-            CreateCommand = new DelegateCommand(CreateCommandExecute);
+            CreateCommand = new DelegateCommand(CreateCommandExecute, CreateCanExecuteCommand);
         }
 
         private async void CreateCommandExecute()
@@ -89,6 +117,14 @@ namespace Trinca.Soccer.App.ViewModels
 
                 await NavigationService.NavigateAsync(Routes.Matches());
             });
+        }
+
+        private bool CreateCanExecuteCommand()
+        {
+            return !string.IsNullOrEmpty(Place) &&
+                   MinimumPlayers > 0 &&
+                   Value > 0 && 
+                   (!WithBarbecue || BarbecueValue > 0);
         }
     }
 }

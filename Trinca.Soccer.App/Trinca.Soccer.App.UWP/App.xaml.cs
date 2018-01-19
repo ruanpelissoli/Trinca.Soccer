@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using PCLAppConfig;
 
 namespace Trinca.Soccer.App.UWP
 {
@@ -59,6 +60,8 @@ namespace Trinca.Soccer.App.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+
+                ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

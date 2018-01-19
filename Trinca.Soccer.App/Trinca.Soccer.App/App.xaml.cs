@@ -17,7 +17,7 @@ namespace Trinca.Soccer.App
         protected override void OnInitialized()
         {
             InitializeComponent();
-            
+
             ClientApi.Initialize();
 
             NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : Routes.Matches());

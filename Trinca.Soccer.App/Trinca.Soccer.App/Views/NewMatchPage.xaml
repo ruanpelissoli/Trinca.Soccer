@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.NewMatchPage"
              Title="{Binding Title}">
@@ -15,18 +16,30 @@
             <Label Text="Date"></Label>
             <DatePicker Date="{Binding Date}"></DatePicker>
             <Label Text="Hour"></Label>
-            <DatePicker Date="{Binding Hour}"></DatePicker>
+            <TimePicker Time="{Binding Hour}"></TimePicker>
             <Label Text="Minimum players required"></Label>
-            <Entry Keyboard="Numeric" Text="{Binding MinimumPlayers}"></Entry>
+            <Entry Keyboard="Numeric" 
+                   Text="{Binding MinimumPlayers}"></Entry>
             <Label Text="Match value"></Label>
-            <Entry Keyboard="Numeric" Text="{Binding Value}"></Entry>
-            <Label Text="With Barbecue?"></Label>
-            <Switch IsToggled="{Binding WithBarbecue}"></Switch>
-            <Label Text="Match value"></Label>
-            <Entry Keyboard="Numeric" Text="{Binding BarbecueValue}"></Entry>
+            <custom:FormattedNumberEntry Keyboard="Numeric" 
+                   Text="{Binding Value}" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="With Barbecue?" 
+                       HorizontalOptions="StartAndExpand" />
+                <Switch IsToggled="{Binding WithBarbecue}"
+                        HorizontalOptions="End"/>
+            </StackLayout>
+            <Label Text="Barbecue value"
+                   IsVisible="{Binding WithBarbecue}" />
+            <custom:FormattedNumberEntry Keyboard="Numeric" 
+                                         Text="{Binding BarbecueValue}"
+                                         IsVisible="{Binding WithBarbecue}"/>
             <Button Text="Create"
-                    IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"></Button>
-            <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />
+                    Command="{Binding CreateCommand}"
+                    IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}" />
+            <ActivityIndicator IsVisible="{Binding ShowLoading}" 
+                               IsRunning="{Binding ShowLoading}" 
+                               Color="#000000" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

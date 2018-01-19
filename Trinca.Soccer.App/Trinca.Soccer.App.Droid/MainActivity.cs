@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Globalization;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -21,6 +21,8 @@ namespace Trinca.Soccer.App.Droid
             ToolbarResource = Resource.Layout.toolbar;
 
             base.OnCreate(bundle);
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("pt-BR");
 
             AppDomain.CurrentDomain.UnhandledException += (sender, unhandledExceptionEventArgs) =>
             {

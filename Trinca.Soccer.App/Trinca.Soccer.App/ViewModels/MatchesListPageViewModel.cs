@@ -21,7 +21,7 @@ namespace Trinca.Soccer.App.ViewModels
         public DelegateCommand RefreshCommand { get; set; }
         public DelegateCommand<MatchModel> SelectedItemCommand { get; set; }
 
-        private bool _isRefreshing = false;
+        private bool _isRefreshing;
         public bool IsRefreshing
         {
             get => _isRefreshing;
@@ -40,15 +40,15 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
+                IsRefreshing = true;
                 Matches = new ObservableCollection<MatchModel>(await ClientApi.Matches.GetAll());
             });
+            IsRefreshing = false;
         }
 
         private async void RefreshCommandExecute()
         {
-            IsRefreshing = true;
             await LoadMatches();
-            IsRefreshing = false;
         }
 
         private async void SelectedItemCommandExecute(MatchModel match)
