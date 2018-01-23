@@ -42,47 +42,33 @@ namespace Trinca.Soccer.Data.Migrations
                 .Index(t => t.CreatedBy);
             
             CreateTable(
-                "dbo.Team",
+                "dbo.Player",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         MatchId = c.Int(nullable: false),
                         TeamId = c.Int(nullable: false),
-                        PlayerId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Match", t => t.MatchId)
-                .ForeignKey("dbo.Player", t => t.PlayerId)
-                .Index(t => t.MatchId)
-                .Index(t => t.PlayerId);
-            
-            CreateTable(
-                "dbo.Player",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         EmployeeId = c.Int(),
                         IsGuest = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Employee", t => t.EmployeeId)
+                .ForeignKey("dbo.Match", t => t.MatchId)
+                .Index(t => t.MatchId)
                 .Index(t => t.EmployeeId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Team", "PlayerId", "dbo.Player");
+            DropForeignKey("dbo.Player", "MatchId", "dbo.Match");
             DropForeignKey("dbo.Player", "EmployeeId", "dbo.Employee");
-            DropForeignKey("dbo.Team", "MatchId", "dbo.Match");
             DropForeignKey("dbo.Match", "CreatedBy", "dbo.Employee");
             DropIndex("dbo.Player", new[] { "EmployeeId" });
-            DropIndex("dbo.Team", new[] { "PlayerId" });
-            DropIndex("dbo.Team", new[] { "MatchId" });
+            DropIndex("dbo.Player", new[] { "MatchId" });
             DropIndex("dbo.Match", new[] { "CreatedBy" });
             DropTable("dbo.Player");
-            DropTable("dbo.Team");
             DropTable("dbo.Match");
             DropTable("dbo.Employee");
         }

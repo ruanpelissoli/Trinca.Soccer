@@ -19,11 +19,13 @@ namespace Trinca.Soccer.IoC
             // Repositories
             container.Register<IEmployeesRepository, EmployeesRepository>(lifestyle);
             container.Register<IMatchesRepository, MatchesRepository>(lifestyle);
+            container.Register<IPlayersRepository, PlayersRepository>(lifestyle);
 
             //Services
             container.Register<IWebScraper, WebScraper>(lifestyle);
             container.Register<IEmployeesService, EmployeesService>(lifestyle);
             container.Register<IMatchesService, MatchesService>(lifestyle);
+            container.Register<IPlayersService, PlayersService>(lifestyle);
         }
     }
 }

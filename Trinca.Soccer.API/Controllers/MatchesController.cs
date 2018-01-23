@@ -21,6 +21,7 @@ namespace Trinca.Soccer.API.Controllers
             _matchesServices = matchesServices;
         }
 
+        [Route("")]
         public async Task<IHttpActionResult> GetAll()
         {
             return await TryCatchAsync(async () =>
@@ -45,6 +46,7 @@ namespace Trinca.Soccer.API.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public async Task<IHttpActionResult> Create(Match match)
         {
             return await TryCatchAsync(async () =>

@@ -23,6 +23,6 @@ namespace Trinca.Soccer.Models
 
         [ForeignKey(nameof(CreatedBy))]
         public virtual Employee Employee { get; set; }
-        public virtual List<Team> Teams { get; set; }
+        public virtual List<Player> Players { get; set; }
     }
 }

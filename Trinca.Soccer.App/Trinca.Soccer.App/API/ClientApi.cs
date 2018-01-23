@@ -9,11 +9,13 @@ namespace Trinca.Soccer.App.API
 
         public static IEmployeesApi Employees { get; private set; }
         public static IMatchesApi Matches { get; private set; }
+        public static IPlayersApi Players { get; private set; }
 
         public static void Initialize()
         {
             Employees = RestService.For<IEmployeesApi>(ApiUrl);
             Matches = RestService.For<IMatchesApi>(ApiUrl);
+            Players = RestService.For<IPlayersApi>(ApiUrl);
         }
     }
 }

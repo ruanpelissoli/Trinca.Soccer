@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MatchesService.cs" />
+    <Compile Include="PlayersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Cryptography.cs" />
     <Compile Include="WebScraper.cs" />
