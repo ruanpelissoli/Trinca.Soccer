@@ -1,8 +1,8 @@
 ﻿using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Trinca.Soccer.App.Models;
 using Trinca.Soccer.App.Util;
+using Trinca.Soccer.Dto.Player;
 
 namespace Trinca.Soccer.App.API
 {
@@ -10,8 +10,10 @@ namespace Trinca.Soccer.App.API
     public interface IPlayersApi
     {
         [Get("/players/{matchId}")]
-        Task<IEnumerable<PlayersModel>> GetAllByMatch(int matchId);
+        Task<IEnumerable<PlayerOutputDto>> GetAllByMatch(int matchId);
         [Get("/players/{matchId}/{teamId}")]
-        Task<IEnumerable<PlayersModel>> GetAllByTeam(int matchId, ETeams teamId);
+        Task<IEnumerable<PlayerOutputDto>> GetAllByTeam(int matchId, ETeams teamId);
+        [Post("/players")]
+        Task<PlayerOutputDto> Create(PlayerInputDto playerInput);
     }
 }

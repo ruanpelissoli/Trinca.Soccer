@@ -3,9 +3,9 @@ using Prism.Commands;
 using Prism.Navigation;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
-using Trinca.Soccer.App.Models;
 using Trinca.Soccer.App.Helpers;
 using Prism.Services;
+using Trinca.Soccer.Dto.Match;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -101,7 +101,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                var match = new MatchModel
+                var match = new MatchInputDto
                 {
                     CreatedBy = Settings.UserId,
                     Date = Date.Add(Hour),

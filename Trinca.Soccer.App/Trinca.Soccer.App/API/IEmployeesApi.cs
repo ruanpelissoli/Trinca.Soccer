@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Refit;
-using Trinca.Soccer.App.Models;
+using Trinca.Soccer.Dto.Employee;
+using Trinca.Soccer.Dto.Login;
 
 namespace Trinca.Soccer.App.API
 {
@@ -8,6 +9,9 @@ namespace Trinca.Soccer.App.API
     public interface IEmployeesApi
     {
         [Post("/employees/login")]
-        Task<EmployeeModel> Login(LoginModel model);
+        Task<LoginOutputDto> Login(LoginInputDto model);
+
+        [Get("/employees/{id}")]
+        Task<EmployeeOutputDto> GetEmployee(int id);
     }
 }

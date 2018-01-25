@@ -14,6 +14,7 @@ namespace Trinca.Soccer.Services
         Task CreateAllFromSite();
         Task<IEnumerable<Employee>> GetAllFromSite();
         Task<Employee> Login(string userName, string password);
+        Task<Employee> GetById(int id);
     }
 
     public class EmployeesService : IEmployeesService
@@ -70,6 +71,11 @@ namespace Trinca.Soccer.Services
 
             await _employeesRepository.DeleteAsync(employee);
             return new Employee();
+        }
+
+        public async Task<Employee> GetById(int id)
+        {
+            return await _employeesRepository.FindAsync(id);
         }
     }
 }

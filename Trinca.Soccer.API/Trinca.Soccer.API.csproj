@@ -162,7 +162,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapping\MappingConfig.cs" />
-    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -179,6 +178,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Trinca.Soccer.Dto\Trinca.Soccer.Dto.csproj">
+      <Project>{921c253d-c12a-432f-a208-881bdf1e4359}</Project>
+      <Name>Trinca.Soccer.Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Trinca.Soccer.IoC\Trinca.Soccer.IoC.csproj">
       <Project>{a05f40c2-46ce-490e-9bb1-0b0e504c7a84}</Project>
       <Name>Trinca.Soccer.IoC</Name>

@@ -1,10 +1,11 @@
-﻿using Prism.Commands;
+﻿using System;
+using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
-using Trinca.Soccer.App.Models;
+using Trinca.Soccer.Dto.Login;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -45,14 +46,14 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                var loginModel = new LoginModel
+                var loginDto = new LoginInputDto
                 {
                     Username = Username,
                     Password = Password
                 };
 
-                var employee = await ClientApi.Employees.Login(loginModel);
-                Settings.UserId = employee.Id;
+                var loginOutput = await ClientApi.Employees.Login(loginDto);
+                Settings.UserId = loginOutput.Id;
 
                 await NavigationService.NavigateAsync($"app:///{Routes.Matches()}");
             });

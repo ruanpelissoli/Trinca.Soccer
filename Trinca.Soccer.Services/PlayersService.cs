@@ -10,6 +10,7 @@ namespace Trinca.Soccer.Services
     {
         Task<IEnumerable<Player>> GetAllByMatch(int matchId);
         Task<IEnumerable<Player>> GetAllByTeam(int matchId, ETeams teamId);
+        Task<Player> Create(Player player);
     }
 
     public class PlayersService : IPlayersService
@@ -29,6 +30,11 @@ namespace Trinca.Soccer.Services
         public async Task<IEnumerable<Player>> GetAllByTeam(int matchId, ETeams teamId)
         {
             return await _playersRepository.GetAllAsync(w => w.MatchId == matchId && w.TeamId == teamId);
+        }
+
+        public async Task<Player> Create(Player player)
+        {
+            return await _playersRepository.CreateAsync(player);
         }
     }
 }

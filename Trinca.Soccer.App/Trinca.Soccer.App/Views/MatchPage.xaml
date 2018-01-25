@@ -2,10 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:customControls="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.MatchPage"
              Title="{Binding Title}">
-  <StackLayout>
-      <Label Text="{Binding Match.Place}"></Label>
-  </StackLayout>
+  <StackLayout Padding="5">
+      <Button Text="Join Match"
+              HorizontalOptions="FillAndExpand"
+              Command="{Binding JoinMatchCommand}"
+              IsVisible="{Binding JoinMatchIsVisibile}"></Button>
+      <customControls:ListView HasUnevenRows="True"
+                       ItemsSource="{Binding Players}"
+                       IsPullToRefreshEnabled="True"
+                       RefreshCommand="{Binding RefreshCommand}"
+                       IsRefreshing="{Binding IsRefreshing}"
+                       ItemTappedCommand="{Binding SelectedItemCommand}">
+          <ListView.ItemTemplate>
+              <DataTemplate>
+                  <ViewCell>
+                      <StackLayout Padding="5">
+                          <Label Text="{Binding Name}" />
+                      </StackLayout>
+                  </ViewCell>
+              </DataTemplate>
+          </ListView.ItemTemplate>
+      </customControls:ListView>
+    </StackLayout>
 </ContentPage>

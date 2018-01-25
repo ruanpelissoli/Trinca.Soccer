@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Trinca.Soccer.API.Models;
+using Trinca.Soccer.API.Mapping;
+using Trinca.Soccer.Dto.Employee;
+using Trinca.Soccer.Dto.Login;
 using Trinca.Soccer.Services;
 
 namespace Trinca.Soccer.API.Controllers
@@ -17,16 +19,26 @@ namespace Trinca.Soccer.API.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<IHttpActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IHttpActionResult> Login(LoginInputDto loginDto)
         {
             return await TryCatchAsync(async () =>
             {
-                var employee = await _employeesService.Login(loginViewModel.Username, loginViewModel.Password);
+                var employee = await _employeesService.Login(loginDto.Username, loginDto.Password);
 
                 if (employee.Id == 0)
                     return Unauthorized();
 
-                return Ok(employee);
+                return Ok(MappingConfig.Mapper().Map<LoginOutputDto>(employee));
+            });
+        }
+        [Route("{id}")]
+        public async Task<IHttpActionResult> GetEmployee(int id)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                var employee = await _employeesService.GetById(id);
+
+                return Ok(MappingConfig.Mapper().Map<EmployeeOutputDto>(employee));
             });
         }
     }

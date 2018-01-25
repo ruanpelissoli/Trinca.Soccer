@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Refit;
-using Trinca.Soccer.App.Models;
+using Trinca.Soccer.Dto.Match;
 
 namespace Trinca.Soccer.App.API
 {
@@ -9,12 +9,12 @@ namespace Trinca.Soccer.App.API
     public interface IMatchesApi
     {
         [Get("/matches")]
-        Task<IEnumerable<MatchModel>> GetAll();
+        Task<IEnumerable<MatchListOutputDto>> GetAll();
 
         [Get("/matches/{id}")]
-        Task<MatchModel> GetById(int id);
+        Task<MatchOutputDto> GetById(int id);
 
         [Post("/matches")]
-        Task<MatchModel> Create(MatchModel match);
+        Task<MatchOutputDto> Create(MatchInputDto match);
     }
 }

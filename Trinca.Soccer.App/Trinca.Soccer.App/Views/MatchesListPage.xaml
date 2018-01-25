@@ -16,10 +16,11 @@
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Padding="5">
-                        <Label Text="{Binding PlaceTime}" FontSize="Medium" FontAttributes="Bold" />
+                        <Label Text="{Binding Place}" FontSize="Medium" FontAttributes="Bold" />
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding CreatedByTitle}" HorizontalOptions="StartAndExpand" />
-                            <Label Text="{Binding Score}" HorizontalOptions="End" />                            
+                            <Label Text="{Binding CreatedBy}" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding Score}" HorizontalOptions="End" />
+                            <Label Text="{Binding TotalPlayers}" HorizontalOptions="End" />
                         </StackLayout>                        
                     </StackLayout>
                 </ViewCell>

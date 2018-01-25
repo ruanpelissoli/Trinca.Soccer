@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Trinca.Soccer.API.Models;
+using Trinca.Soccer.API.Mapping;
+using Trinca.Soccer.Dto.Match;
 using Trinca.Soccer.Models;
 using Trinca.Soccer.Services;
 
@@ -15,10 +13,12 @@ namespace Trinca.Soccer.API.Controllers
     public class MatchesController : BaseController
     {
         private readonly IMatchesService _matchesServices;
+        private readonly IPlayersService _playersServices;
 
-        public MatchesController(IMatchesService matchesServices)
+        public MatchesController(IMatchesService matchesServices, IPlayersService playersServices)
         {
             _matchesServices = matchesServices;
+            _playersServices = playersServices;
         }
 
         [Route("")]
@@ -27,7 +27,16 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var matches = await _matchesServices.GetAll();
-                return Ok(matches);
+
+                var matchesListOutputDto = MappingConfig.Mapper().Map<List<MatchListOutputDto>>(matches);
+
+                foreach (var matchListOutputDto in matchesListOutputDto)
+                {
+                    var totalPlayers = await _playersServices.GetAllByMatch(matchListOutputDto.Id);
+                    matchListOutputDto.TotalPlayers = $"{totalPlayers.Count()}/{matchListOutputDto.MinimumPlayers} Players";
+                }
+
+                return Ok(matchesListOutputDto);
             });            
         }
 
@@ -41,17 +50,20 @@ namespace Trinca.Soccer.API.Controllers
                 if (match.Id == 0)
                     return NotFound();
 
-                return Ok(match);
+                return Ok(MappingConfig.Mapper().Map<MatchOutputDto>(match));
             });            
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Create(Match match)
+        public async Task<IHttpActionResult> Create(MatchInputDto matchInput)
         {
             return await TryCatchAsync(async () =>
             {
-                return Ok(await _matchesServices.Create(match));
+                var match = MappingConfig.Mapper().Map<Match>(matchInput);
+                match = await _matchesServices.Create(match);
+
+                return Ok(MappingConfig.Mapper().Map<MatchOutputDto>(match));
             });            
         }
     }

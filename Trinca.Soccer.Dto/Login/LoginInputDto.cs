@@ -1,6 +1,6 @@
-﻿namespace Trinca.Soccer.App.Models
+﻿namespace Trinca.Soccer.Dto.Login
 {
-    public class LoginModel
+    public class LoginInputDto
     {
         public string Username { get; set; }
         public string Password { get; set; }

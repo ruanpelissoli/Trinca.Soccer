@@ -4,22 +4,22 @@ using Prism.Commands;
 using Prism.Navigation;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
-using Trinca.Soccer.App.Models;
 using Prism.Services;
+using Trinca.Soccer.Dto.Match;
 
 namespace Trinca.Soccer.App.ViewModels
 {
     public class MatchesListPageViewModel : BaseViewModel
     {
-        private ObservableCollection<MatchModel> _matches;
-        public ObservableCollection<MatchModel> Matches
+        private ObservableCollection<MatchListOutputDto> _matches;
+        public ObservableCollection<MatchListOutputDto> Matches
         {
             get => _matches;
             set => SetProperty(ref _matches, value);
         }
 
         public DelegateCommand RefreshCommand { get; set; }
-        public DelegateCommand<MatchModel> SelectedItemCommand { get; set; }
+        public DelegateCommand<MatchListOutputDto> SelectedItemCommand { get; set; }
 
         private bool _isRefreshing;
         public bool IsRefreshing
@@ -33,7 +33,7 @@ namespace Trinca.Soccer.App.ViewModels
             Title = "Matches";
 
             RefreshCommand = new DelegateCommand(RefreshCommandExecute);
-            SelectedItemCommand = new DelegateCommand<MatchModel>(SelectedItemCommandExecute);
+            SelectedItemCommand = new DelegateCommand<MatchListOutputDto>(SelectedItemCommandExecute);
         }
 
         private async Task LoadMatches()
@@ -41,7 +41,7 @@ namespace Trinca.Soccer.App.ViewModels
             await TryCatchAsync(async () =>
             {
                 IsRefreshing = true;
-                Matches = new ObservableCollection<MatchModel>(await ClientApi.Matches.GetAll());
+                Matches = new ObservableCollection<MatchListOutputDto>(await ClientApi.Matches.GetAll());
             });
             IsRefreshing = false;
         }
@@ -51,7 +51,7 @@ namespace Trinca.Soccer.App.ViewModels
             await LoadMatches();
         }
 
-        private async void SelectedItemCommandExecute(MatchModel match)
+        private async void SelectedItemCommandExecute(MatchListOutputDto match)
         {
             if (match == null || match.Id == 0) return;
 
