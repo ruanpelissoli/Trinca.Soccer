@@ -1,4 +1,5 @@
 ﻿using Prism.Unity;
+using System.Reflection;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
@@ -14,13 +15,14 @@ namespace Trinca.Soccer.App
         {
         }
 
-        protected override void OnInitialized()
+        protected async override void OnInitialized()
         {
             InitializeComponent();
 
             ClientApi.Initialize();
+            await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
 
-            NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : Routes.Matches());
+            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : Routes.Matches());
         }
 
         protected override void RegisterTypes()
@@ -32,5 +34,7 @@ namespace Trinca.Soccer.App
             Container.RegisterTypeForNavigation<NewMatchPage, NewMatchPageViewModel>();
             Container.RegisterTypeForNavigation<MatchPage, MatchPageViewModel>();
         }
+
+        
     }
 }

@@ -4,6 +4,7 @@ namespace Trinca.Soccer.Dto.Player
 {
     public class PlayerInputDto
     {
+        public int Id { get; set; }
         public int MatchId { get; set; }
         public ETeams TeamId { get; set; }
         public string Name { get; set; }

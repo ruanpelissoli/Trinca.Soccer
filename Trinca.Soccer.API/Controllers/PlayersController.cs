@@ -19,7 +19,7 @@ namespace Trinca.Soccer.API.Controllers
             _playersServices = playersServices;
         }
 
-        [Route("{matchId}")]
+        [Route("bymatch/{matchId}")]
         public async Task<IHttpActionResult> GetByMatch(int matchId)
         {
             return await TryCatchAsync(async () =>
@@ -30,8 +30,8 @@ namespace Trinca.Soccer.API.Controllers
             });
         }
 
-        [Route("{matchId}/{teamId}")]
-        public async Task<IHttpActionResult> GetByMatch(int matchId, ETeams teamId)
+        [Route("bymatch/{matchId}/{teamId}")]
+        public async Task<IHttpActionResult> GetByTeam(int matchId, ETeams teamId)
         {
             return await TryCatchAsync(async () =>
             {
@@ -49,6 +49,30 @@ namespace Trinca.Soccer.API.Controllers
             {
                 var player = MappingConfig.Mapper().Map<Player>(playerDto);
                 player = await _playersServices.Create(player);
+
+                return Ok(MappingConfig.Mapper().Map<PlayerOutputDto>(player));
+            });
+        }
+
+        [Route("")]
+        [HttpPut]
+        public async Task<IHttpActionResult> Update(PlayerInputDto playerDto)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                var player = MappingConfig.Mapper().Map<Player>(playerDto);
+                await _playersServices.Update(player);
+
+                return Ok();
+            });
+        }
+
+        [Route("{id}")]
+        public async Task<IHttpActionResult> GetById(int id)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                var player = await _playersServices.GetById(id);
 
                 return Ok(MappingConfig.Mapper().Map<PlayerOutputDto>(player));
             });

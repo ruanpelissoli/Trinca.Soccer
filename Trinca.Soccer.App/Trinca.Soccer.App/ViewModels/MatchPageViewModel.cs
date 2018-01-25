@@ -10,6 +10,7 @@ using Trinca.Soccer.App.Helpers;
 using Trinca.Soccer.Dto.Match;
 using Trinca.Soccer.Dto.Player;
 using Xamarin.Forms;
+using Trinca.Soccer.Dto.Enums;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -29,6 +30,20 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _players, value);
         }
 
+        private ObservableCollection<PlayerOutputDto> _blueTeam;
+        public ObservableCollection<PlayerOutputDto> BlueTeam
+        {
+            get => _blueTeam;
+            set => SetProperty(ref _blueTeam, value);
+        }
+
+        private ObservableCollection<PlayerOutputDto> _redTeam;
+        public ObservableCollection<PlayerOutputDto> RedTeam
+        {
+            get => _redTeam;
+            set => SetProperty(ref _redTeam, value);
+        }
+
         private bool _joinMatchIsVisibile;
         public bool JoinMatchIsVisibile
         {
@@ -37,10 +52,16 @@ namespace Trinca.Soccer.App.ViewModels
         }
 
         public DelegateCommand JoinMatchCommand { get; set; }
+        public DelegateCommand<int?> AddToBlueTeamCommand { get; set; }
+        public DelegateCommand<int?> AddToRedTeamCommand { get; set; }
+        public DelegateCommand<int?> RemoveFromTeamCommand { get; set; }
 
         public MatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             JoinMatchCommand = new DelegateCommand(JoinMatchCommandExecute);
+            AddToBlueTeamCommand = new DelegateCommand<int?>(AddToBlueTeamCommandExecute);
+            AddToRedTeamCommand = new DelegateCommand<int?>(AddToRedTeamCommandExecute);
+            RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute);
         }
 
         private async Task LoadMatch(int matchId)
@@ -54,9 +75,13 @@ namespace Trinca.Soccer.App.ViewModels
                 MessagingCenter.Send(this, Strings.TitleChange, title);
                 Title = title;
 
-                Players = new ObservableCollection<PlayerOutputDto>(Match.Players);
+                Players = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
+                BlueTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.BlueTeam));
+                RedTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.RedTeam));
 
-                JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.UserId);
+                JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
+                                      !BlueTeam.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
+                                      !RedTeam.Select(s => s.EmployeeId).Contains(Settings.UserId);
             });
         }
 
@@ -86,6 +111,50 @@ namespace Trinca.Soccer.App.ViewModels
 
                 Players.Add(playerOutput);
                 JoinMatchIsVisibile = false;
+            });
+        }
+
+        private async void AddToBlueTeamCommandExecute(int? playerId)
+        {
+            await TryCatchAsync(async () =>
+            {
+                var player = await ClientApi.Players.GetById(playerId.Value);
+
+                player.TeamId = ETeams.BlueTeam;
+                await ClientApi.Players.Update(player);
+
+                Players.Remove(Players.Where(w => w.Id == player.Id).First());
+                BlueTeam.Add(player);
+            });
+        }
+
+        private async void AddToRedTeamCommandExecute(int? playerId)
+        {
+            await TryCatchAsync(async () =>
+            {
+                var player = await ClientApi.Players.GetById(playerId.Value);
+
+                player.TeamId = ETeams.RedTeam;
+                await ClientApi.Players.Update(player);
+
+                Players.Remove(Players.Where(w => w.Id == player.Id).First());
+                RedTeam.Add(player);
+            });
+        }
+
+        private async void RemoveFromTeamCommandExecute(int? playerId)
+        {
+            await TryCatchAsync(async () =>
+            {
+                var player = await ClientApi.Players.GetById(playerId.Value);
+
+                player.TeamId = ETeams.NoTeam;
+                await ClientApi.Players.Update(player);
+
+                BlueTeam.Remove(BlueTeam.Where(w => w.Id == player.Id).FirstOrDefault());
+                RedTeam.Remove(RedTeam.Where(w => w.Id == player.Id).FirstOrDefault());
+
+                Players.Add(player);
             });
         }
     }
