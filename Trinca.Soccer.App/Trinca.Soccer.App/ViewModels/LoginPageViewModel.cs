@@ -37,7 +37,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
-            Title = "Trinca Soccer";
+            Title = Strings.AppName;
 
             LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCanExecuteCommand);
         }
