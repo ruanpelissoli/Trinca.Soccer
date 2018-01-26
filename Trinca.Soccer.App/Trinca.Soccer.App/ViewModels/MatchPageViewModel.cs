@@ -11,6 +11,7 @@ using Trinca.Soccer.Dto.Match;
 using Trinca.Soccer.Dto.Player;
 using Xamarin.Forms;
 using Trinca.Soccer.Dto.Enums;
+using System.Collections.Specialized;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -51,6 +52,14 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _joinMatchIsVisibile, value);
         }
 
+        private int LineHeight = 30;
+        private int _listViewHeight;
+        public int ListViewHeight
+        {
+            get => _listViewHeight;
+            set => SetProperty(ref _listViewHeight, value);
+        }
+
         public DelegateCommand JoinMatchCommand { get; set; }
         public DelegateCommand InviteGuestCommand { get; set; }
         public DelegateCommand LeaveMatchCommand { get; set; }
@@ -66,6 +75,8 @@ namespace Trinca.Soccer.App.ViewModels
             AddToBlueTeamCommand = new DelegateCommand<int?>(AddToBlueTeamCommandExecute);
             AddToRedTeamCommand = new DelegateCommand<int?>(AddToRedTeamCommandExecute);
             RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute);
+
+            MessagingCenter.Subscribe<AddGuestPageViewModel, PlayerOutputDto>(this, Strings.UpdateMatchPage, OnUpdateMatchPage);
         }
 
         private async Task LoadMatch(int matchId)
@@ -86,18 +97,14 @@ namespace Trinca.Soccer.App.ViewModels
                 JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
                                       !BlueTeam.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
                                       !RedTeam.Select(s => s.EmployeeId).Contains(Settings.UserId);
+
+                Players.CollectionChanged += this.OnCollectionChanged;
             });
         }
 
-        public override async void OnNavigatedTo(NavigationParameters parameters)
+        private void OnUpdateMatchPage(AddGuestPageViewModel source, PlayerOutputDto player)
         {
-            var matchId = parameters.GetValue<int>(Parameters.MatchId);
-            await LoadMatch(matchId);
-        }
-
-        public override void OnNavigatedFrom(NavigationParameters parameters)
-        {
-            MessagingCenter.Send(this, Strings.TitleChange, "Trinca Soccer");
+            Players.Add(player);
         }
 
         private async void JoinMatchCommandExecute()
@@ -122,18 +129,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                var playerInput = new PlayerInputDto
-                {
-                    Name = Match.Employee.Name,
-                    EmployeeId = Settings.UserId,
-                    IsGuest = true,
-                    MatchId = Match.Id
-                };
-
-                var playerOutput = await ClientApi.Players.Create(playerInput);
-
-                Players.Add(playerOutput);
-                JoinMatchIsVisibile = false;
+                await NavigationService.NavigateAsync(Routes.AddGuest(Match.Id), useModalNavigation: true);
             });
         }
 
@@ -193,6 +189,23 @@ namespace Trinca.Soccer.App.ViewModels
 
                 Players.Add(player);
             });
+        }
+        
+        public override async void OnNavigatedTo(NavigationParameters parameters)
+        {
+            var matchId = parameters.GetValue<int>(Parameters.MatchId);
+            await LoadMatch(matchId);
+        }
+
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
+            MessagingCenter.Send(this, Strings.TitleChange, Strings.AppName);
+        }
+
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var totalHeight = Players.Count * LineHeight;
+            ListViewHeight = totalHeight;
         }
     }
 }

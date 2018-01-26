@@ -43,7 +43,6 @@
     <Compile Include="Constants\Routes.cs" />
     <Compile Include="Constants\Strings.cs" />
     <Compile Include="CustomControls\FormattedNumberEntry.cs" />
-    <Compile Include="CustomControls\HideableToolbarItem.cs" />
     <Compile Include="CustomControls\ListView.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -53,12 +52,16 @@
     <Compile Include="Util\ETeams.cs" />
     <Compile Include="Util\ImageResourceExtension.cs" />
     <Compile Include="Util\NegateBooleanConverter.cs" />
+    <Compile Include="ViewModels\AddGuestPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\MatchesListPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MatchPageViewModel.cs" />
     <Compile Include="ViewModels\NewMatchPageViewModel.cs" />
+    <Compile Include="Views\AddGuestPage.xaml.cs">
+      <DependentUpon>AddGuestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MatchesListPage.xaml.cs">
       <DependentUpon>MatchesListPage.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AddGuestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

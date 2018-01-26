@@ -8,111 +8,121 @@
              x:Class="Trinca.Soccer.App.Views.MatchPage"
              x:Name="MatchPage"
              Title="{Binding Title}">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" 
-                     Icon="exit.png" 
-                     Command="{Binding LeaveMatchCommand}" />
-    </ContentPage.ToolbarItems>
-    <StackLayout Padding="5">
-        <Button Text="Join Match"
-              HorizontalOptions="FillAndExpand"
-              Command="{Binding JoinMatchCommand}"
-              IsVisible="{Binding JoinMatchIsVisibile}" />
-        <Button Text="Invite Guest"
+    <ScrollView>
+        <StackLayout Padding="5">
+            <Button Text="Join Match"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding JoinMatchCommand}"
+                HeightRequest="30"
+                IsVisible="{Binding JoinMatchIsVisibile}" />
+            <Button Text="Invite Guest"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding InviteGuestCommand}"
                 IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}" />
-        <customControls:ListView HasUnevenRows="True"
-                       ItemsSource="{Binding Players}"
+            <ListView  ItemsSource="{Binding Players}"
                        HorizontalOptions="Start">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal"
                                      Padding="5">
-                            <Image 
-                                Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-left.png}" 
-                                Aspect="AspectFit" 
-                                HorizontalOptions="Start" 
-                                HeightRequest="24" 
-                                WidthRequest="24">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                         NumberOfTapsRequired="1" 
-                                         Command="{Binding Path=BindingContext.AddToBlueTeamCommand, Source={x:Reference MatchPage}}" 
-                                         CommandParameter="{Binding Id}" />
-                                </Image.GestureRecognizers>
-                            </Image>
-                            <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </customControls:ListView>
-        <StackLayout Padding="5"
+                                <Image 
+                                    Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-left.png}" 
+                                    Aspect="AspectFit" 
+                                    HorizontalOptions="Start" 
+                                    HeightRequest="24" 
+                                    WidthRequest="24">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                             NumberOfTapsRequired="1" 
+                                             Command="{Binding Path=BindingContext.AddToBlueTeamCommand, Source={x:Reference MatchPage}}" 
+                                             CommandParameter="{Binding Id}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
+                                <Image 
+                                    Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-right.png}" 
+                                    Aspect="AspectFit" 
+                                    HorizontalOptions="Start" 
+                                    HeightRequest="24" 
+                                    WidthRequest="24">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                             NumberOfTapsRequired="1" 
+                                             Command="{Binding Path=BindingContext.AddToRedTeamCommand, Source={x:Reference MatchPage}}" 
+                                             CommandParameter="{Binding Id}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Padding="5"
                      Orientation="Horizontal">
-            <StackLayout>
-                <Label Text="Blue Team" TextColor="Blue" />
-                <customControls:ListView HasUnevenRows="True"
+                <StackLayout>
+                    <Label Text="Blue Team" TextColor="Blue" />
+                    <ListView HasUnevenRows="True"
                        ItemsSource="{Binding BlueTeam}"
                        HorizontalOptions="Start">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal"
                                              Padding="5">
-                                    <Image 
-                                        Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
-                                        Aspect="AspectFit" 
-                                        HorizontalOptions="Start" 
-                                        HeightRequest="16" 
-                                        WidthRequest="16">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer 
-                                             NumberOfTapsRequired="1" 
-                                             Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
-                                             CommandParameter="{Binding Id}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                    <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </customControls:ListView>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Red Team" TextColor="Red" HorizontalTextAlignment="End" />
-                <customControls:ListView HasUnevenRows="True"
+                                        <Image 
+                                            Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
+                                            Aspect="AspectFit" 
+                                            HorizontalOptions="Start" 
+                                            HeightRequest="16" 
+                                            WidthRequest="16">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                     NumberOfTapsRequired="1" 
+                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     CommandParameter="{Binding Id}" /> 
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Red Team" TextColor="Red" HorizontalTextAlignment="End" />
+                    <ListView HasUnevenRows="True"
                            ItemsSource="{Binding RedTeam}"
                            HorizontalOptions="Start">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                    <Label Text="{Binding Name}" 
+                                        <Label Text="{Binding Name}" 
                                            HorizontalOptions="EndAndExpand" 
                                            HorizontalTextAlignment="End" />
-                                    <Image 
-                                        Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
-                                        Aspect="AspectFit" 
-                                        HorizontalOptions="Start" 
-                                        HeightRequest="16" 
-                                        WidthRequest="16">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer 
-                                                 NumberOfTapsRequired="1" 
-                                                 Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
-                                                 CommandParameter="{Binding Id}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </customControls:ListView>
+                                        <Image 
+                                            Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
+                                            Aspect="AspectFit" 
+                                            HorizontalOptions="Start" 
+                                            HeightRequest="16" 
+                                            WidthRequest="16">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                     NumberOfTapsRequired="1" 
+                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     CommandParameter="{Binding Id}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
-    </StackLayout>
+        </ScrollView>
 </ContentPage>
