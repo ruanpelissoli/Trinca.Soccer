@@ -52,6 +52,8 @@ namespace Trinca.Soccer.App.ViewModels
         }
 
         public DelegateCommand JoinMatchCommand { get; set; }
+        public DelegateCommand InviteGuestCommand { get; set; }
+        public DelegateCommand LeaveMatchCommand { get; set; }
         public DelegateCommand<int?> AddToBlueTeamCommand { get; set; }
         public DelegateCommand<int?> AddToRedTeamCommand { get; set; }
         public DelegateCommand<int?> RemoveFromTeamCommand { get; set; }
@@ -59,6 +61,8 @@ namespace Trinca.Soccer.App.ViewModels
         public MatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             JoinMatchCommand = new DelegateCommand(JoinMatchCommandExecute);
+            InviteGuestCommand = new DelegateCommand(InviteGuestCommandExecute);
+            LeaveMatchCommand = new DelegateCommand(LeaveMatchCommandExecute);
             AddToBlueTeamCommand = new DelegateCommand<int?>(AddToBlueTeamCommandExecute);
             AddToRedTeamCommand = new DelegateCommand<int?>(AddToRedTeamCommandExecute);
             RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute);
@@ -70,7 +74,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 Match = await ClientApi.Matches.GetById(matchId);
 
-                var title = Match.Place;
+                var title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
 
                 MessagingCenter.Send(this, Strings.TitleChange, title);
                 Title = title;
@@ -114,16 +118,47 @@ namespace Trinca.Soccer.App.ViewModels
             });
         }
 
+        private async void InviteGuestCommandExecute()
+        {
+            await TryCatchAsync(async () =>
+            {
+                var playerInput = new PlayerInputDto
+                {
+                    Name = Match.Employee.Name,
+                    EmployeeId = Settings.UserId,
+                    IsGuest = true,
+                    MatchId = Match.Id
+                };
+
+                var playerOutput = await ClientApi.Players.Create(playerInput);
+
+                Players.Add(playerOutput);
+                JoinMatchIsVisibile = false;
+            });
+        }
+
+        private async void LeaveMatchCommandExecute()
+        {
+            await TryCatchAsync(async () =>
+            {
+                await ClientApi.Players.Delete(Settings.UserId);
+
+                Players.Remove(Players.First(w => w.Id == Settings.UserId));
+                JoinMatchIsVisibile = true;
+            });
+        }
+
         private async void AddToBlueTeamCommandExecute(int? playerId)
         {
             await TryCatchAsync(async () =>
             {
+                if (!playerId.HasValue) return;
                 var player = await ClientApi.Players.GetById(playerId.Value);
 
                 player.TeamId = ETeams.BlueTeam;
                 await ClientApi.Players.Update(player);
 
-                Players.Remove(Players.Where(w => w.Id == player.Id).First());
+                Players.Remove(Players.First(w => w.Id == player.Id));
                 BlueTeam.Add(player);
             });
         }
@@ -132,12 +167,13 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
+                if (!playerId.HasValue) return;
                 var player = await ClientApi.Players.GetById(playerId.Value);
 
                 player.TeamId = ETeams.RedTeam;
                 await ClientApi.Players.Update(player);
 
-                Players.Remove(Players.Where(w => w.Id == player.Id).First());
+                Players.Remove(Players.First(w => w.Id == player.Id));
                 RedTeam.Add(player);
             });
         }
@@ -146,13 +182,14 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
+                if (!playerId.HasValue) return;
                 var player = await ClientApi.Players.GetById(playerId.Value);
 
                 player.TeamId = ETeams.NoTeam;
                 await ClientApi.Players.Update(player);
 
-                BlueTeam.Remove(BlueTeam.Where(w => w.Id == player.Id).FirstOrDefault());
-                RedTeam.Remove(RedTeam.Where(w => w.Id == player.Id).FirstOrDefault());
+                BlueTeam.Remove(BlueTeam.FirstOrDefault(w => w.Id == player.Id));
+                RedTeam.Remove(RedTeam.FirstOrDefault(w => w.Id == player.Id));
 
                 Players.Add(player);
             });

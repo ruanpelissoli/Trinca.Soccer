@@ -11,12 +11,19 @@ namespace Trinca.Soccer.App.API
     {
         [Get("/players/bymatch/{matchId}")]
         Task<IEnumerable<PlayerOutputDto>> GetAllByMatch(int matchId);
+
         [Get("/players/bymatch/{matchId}/{teamId}")]
         Task<IEnumerable<PlayerOutputDto>> GetAllByTeam(int matchId, ETeams teamId);
+
         [Post("/players")]
         Task<PlayerOutputDto> Create(PlayerInputDto playerInput);
+
         [Put("/players")]
         Task Update(PlayerOutputDto playerInput);
+
+        [Delete("/players/{id}")]
+        Task Delete(int id);
+
         [Get("/players/{id}")]
         Task<PlayerOutputDto> GetById(int id);
     }

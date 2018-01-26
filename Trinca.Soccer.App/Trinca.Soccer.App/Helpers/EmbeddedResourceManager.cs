@@ -13,7 +13,6 @@ namespace Trinca.Soccer.App.Helpers
 
             var writer = new ResourceWriter(assembly);
 
-            // Only need to write the bundled files once.
             if (await rootFolder.CheckExistsAsync("arrow-left.png") == ExistenceCheckResult.NotFound)
             {
                 await writer.WriteFile("Images/arrow-left.png", rootFolder.Path);

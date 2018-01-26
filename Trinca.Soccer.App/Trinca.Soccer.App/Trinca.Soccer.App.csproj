@@ -43,6 +43,7 @@
     <Compile Include="Constants\Routes.cs" />
     <Compile Include="Constants\Strings.cs" />
     <Compile Include="CustomControls\FormattedNumberEntry.cs" />
+    <Compile Include="CustomControls\HideableToolbarItem.cs" />
     <Compile Include="CustomControls\ListView.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />
     <Compile Include="Helpers\Settings.cs" />

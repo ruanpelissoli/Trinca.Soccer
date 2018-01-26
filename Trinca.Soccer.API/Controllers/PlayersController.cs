@@ -68,6 +68,18 @@ namespace Trinca.Soccer.API.Controllers
         }
 
         [Route("{id}")]
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete(int id)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                await _playersServices.Delete(id);
+
+                return Ok();
+            });
+        }
+
+        [Route("{id}")]
         public async Task<IHttpActionResult> GetById(int id)
         {
             return await TryCatchAsync(async () =>

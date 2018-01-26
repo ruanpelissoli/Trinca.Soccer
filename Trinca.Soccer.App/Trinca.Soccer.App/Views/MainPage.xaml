@@ -10,7 +10,6 @@
     <TabbedPage.ToolbarItems>
         <ToolbarItem Order="Secondary" Text="Logout" Command="{Binding LogoutCommand}" />
     </TabbedPage.ToolbarItems>
-    
     <views:MatchesListPage />
     <views:NewMatchPage />
 </TabbedPage>
