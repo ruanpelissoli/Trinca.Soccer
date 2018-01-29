@@ -12,15 +12,15 @@
         <StackLayout Padding="5">
             <Button Text="Join Match"
                 HorizontalOptions="FillAndExpand"
-                Command="{Binding JoinMatchCommand}"
-                HeightRequest="30"
+                Command="{Binding JoinMatchCommand}"                
                 IsVisible="{Binding JoinMatchIsVisibile}" />
             <Button Text="Invite Guest"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding InviteGuestCommand}"
                 IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}" />
             <ListView  ItemsSource="{Binding Players}"
-                       HorizontalOptions="Start">
+                       HorizontalOptions="Start"
+                       HeightRequest="{Binding ListViewHeight}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

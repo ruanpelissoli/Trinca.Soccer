@@ -22,14 +22,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             Title = Strings.AppName;
             
-            MessagingCenter.Subscribe<MatchPageViewModel, string>(this, Strings.TitleChange, OnTitleChanged);
-
             LogoutCommand = new DelegateCommand(LogoutCommandExecute);
-        }
-
-        private void OnTitleChanged(MatchPageViewModel source, string title)
-        {
-            Title = title;
         }
 
         private async void LogoutCommandExecute()

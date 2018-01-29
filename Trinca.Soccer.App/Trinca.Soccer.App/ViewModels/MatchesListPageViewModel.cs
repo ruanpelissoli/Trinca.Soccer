@@ -55,7 +55,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             if (match == null || match.Id == 0) return;
 
-            await NavigationService.NavigateAsync(Routes.Match(match.Id));
+            await NavigationService.NavigateAsync(Routes.Match(match.Id), useModalNavigation: false);
         }
 
         public override async void OnNavigatedTo(NavigationParameters parameters)

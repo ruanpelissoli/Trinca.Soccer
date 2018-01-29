@@ -18,7 +18,7 @@ namespace Trinca.Soccer.App.Constants
 
         public static string Match(int matchId)
         {
-            return $"{Matches()}/{nameof(MatchPage)}?{Parameters.MatchId}={matchId}";
+            return $"{nameof(MatchPage)}?{Parameters.MatchId}={matchId}";
         }
 
         public static string AddGuest(int matchId)

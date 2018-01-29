@@ -52,7 +52,7 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _joinMatchIsVisibile, value);
         }
 
-        private int LineHeight = 30;
+        private int LineHeight = 50;
         private int _listViewHeight;
         public int ListViewHeight
         {
@@ -85,10 +85,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 Match = await ClientApi.Matches.GetById(matchId);
 
-                var title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
-
-                MessagingCenter.Send(this, Strings.TitleChange, title);
-                Title = title;
+                Title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
 
                 Players = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
                 BlueTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.BlueTeam));
@@ -99,6 +96,7 @@ namespace Trinca.Soccer.App.ViewModels
                                       !RedTeam.Select(s => s.EmployeeId).Contains(Settings.UserId);
 
                 Players.CollectionChanged += this.OnCollectionChanged;
+                CalculateHeight();
             });
         }
 
@@ -197,12 +195,12 @@ namespace Trinca.Soccer.App.ViewModels
             await LoadMatch(matchId);
         }
 
-        public override void OnNavigatedFrom(NavigationParameters parameters)
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            MessagingCenter.Send(this, Strings.TitleChange, Strings.AppName);
+            CalculateHeight();
         }
 
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void CalculateHeight()
         {
             var totalHeight = Players.Count * LineHeight;
             ListViewHeight = totalHeight;
