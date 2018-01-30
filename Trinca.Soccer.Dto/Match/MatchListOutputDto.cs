@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Trinca.Soccer.Dto.Player;
+﻿using System;
 
 namespace Trinca.Soccer.Dto.Match
 {
@@ -11,5 +10,6 @@ namespace Trinca.Soccer.Dto.Match
         public int MinimumPlayers { get; set; }
         public string Score { get; set; }
         public string TotalPlayers { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

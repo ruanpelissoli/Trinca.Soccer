@@ -8,7 +8,8 @@
     <StackLayout Padding="5">
         <Label Text="Guest Name:" />
         <Entry Text="{Binding Name}" />
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal"
+                     IsVisible="{Binding Match.WithBarbecue}">
             <Label Text="With Barbecue?" 
                        HorizontalOptions="StartAndExpand" />
             <Switch IsToggled="{Binding WithBarbecue}"

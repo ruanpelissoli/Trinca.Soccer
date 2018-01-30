@@ -52,9 +52,9 @@
     <Compile Include="Interfaces\IEmployeesRepository.cs" />
     <Compile Include="Interfaces\IMatchesRepository.cs" />
     <Compile Include="Interfaces\IPlayersRepository.cs" />
-    <Compile Include="Migrations\201801231855578_Initial.cs" />
-    <Compile Include="Migrations\201801231855578_Initial.Designer.cs">
-      <DependentUpon>201801231855578_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201801292100094_initial.cs" />
+    <Compile Include="Migrations\201801292100094_initial.Designer.cs">
+      <DependentUpon>201801292100094_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +74,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801231855578_Initial.resx">
-      <DependentUpon>201801231855578_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801292100094_initial.resx">
+      <DependentUpon>201801292100094_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

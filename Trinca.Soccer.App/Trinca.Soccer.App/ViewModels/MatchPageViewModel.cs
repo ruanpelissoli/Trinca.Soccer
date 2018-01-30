@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Prism.Commands;
@@ -52,12 +53,20 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _joinMatchIsVisibile, value);
         }
 
-        private int LineHeight = 50;
-        private int _listViewHeight;
-        public int ListViewHeight
+        private const int LineHeight = 50;
+
+        private int _playerListViewHeight;
+        public int PlayerListViewHeight
         {
-            get => _listViewHeight;
-            set => SetProperty(ref _listViewHeight, value);
+            get => _playerListViewHeight;
+            set => SetProperty(ref _playerListViewHeight, value);
+        }
+
+        private int _teamsListViewHeight;
+        public int TeamsListViewHeight
+        {
+            get => _teamsListViewHeight;
+            set => SetProperty(ref _teamsListViewHeight, value);
         }
 
         public DelegateCommand JoinMatchCommand { get; set; }
@@ -95,8 +104,12 @@ namespace Trinca.Soccer.App.ViewModels
                                       !BlueTeam.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
                                       !RedTeam.Select(s => s.EmployeeId).Contains(Settings.UserId);
 
-                Players.CollectionChanged += this.OnCollectionChanged;
-                CalculateHeight();
+                Players.CollectionChanged += OnPlayerCollectionChanged;
+                BlueTeam.CollectionChanged += OnTeamsCollectionChanged;
+                RedTeam.CollectionChanged += OnTeamsCollectionChanged;
+
+                PlayerListViewHeight = CalculateHeight(Players);
+                TeamsListViewHeight = CalculateHeight(BlueTeam.Count >= RedTeam.Count ? BlueTeam : RedTeam);
             });
         }
 
@@ -109,11 +122,16 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
+                var withBarbecue = false;
+                if (Match.WithBarbecue)
+                    withBarbecue = await DialogService.DisplayAlertAsync("Warning!", "With barbecue?", "Yes", "No");
+
                 var playerInput = new PlayerInputDto
                 {
                     Name = Match.Employee.Name,
                     EmployeeId = Settings.UserId,
-                    MatchId = Match.Id
+                    MatchId = Match.Id,
+                    WithBarbecue = withBarbecue
                 };
 
                 var playerOutput = await ClientApi.Players.Create(playerInput);
@@ -127,7 +145,12 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                await NavigationService.NavigateAsync(Routes.AddGuest(Match.Id), useModalNavigation: true);
+                var parameters = new NavigationParameters
+                {
+                    { Parameters.Match, Match }
+                };
+
+                await NavigationService.NavigateAsync(Routes.AddGuest(), parameters);
             });
         }
 
@@ -188,22 +211,28 @@ namespace Trinca.Soccer.App.ViewModels
                 Players.Add(player);
             });
         }
-        
+
         public override async void OnNavigatedTo(NavigationParameters parameters)
         {
             var matchId = parameters.GetValue<int>(Parameters.MatchId);
-            await LoadMatch(matchId);
+
+            if (matchId > 0)
+                await LoadMatch(matchId);
         }
 
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnPlayerCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            CalculateHeight();
+            PlayerListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
         }
 
-        private void CalculateHeight()
+        private void OnTeamsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            var totalHeight = Players.Count * LineHeight;
-            ListViewHeight = totalHeight;
+            TeamsListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
+        }
+
+        private int CalculateHeight(ICollection playersList)
+        {
+            return playersList.Count * LineHeight;
         }
     }
 }

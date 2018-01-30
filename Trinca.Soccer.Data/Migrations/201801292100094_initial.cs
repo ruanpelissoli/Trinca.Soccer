@@ -3,7 +3,7 @@ namespace Trinca.Soccer.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,6 @@ namespace Trinca.Soccer.Data.Migrations
                         Name = c.String(),
                         Username = c.String(),
                         Password = c.String(),
-                        Role = c.String(),
                         PictureUrl = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
@@ -49,8 +48,9 @@ namespace Trinca.Soccer.Data.Migrations
                         MatchId = c.Int(nullable: false),
                         TeamId = c.Int(nullable: false),
                         Name = c.String(),
-                        EmployeeId = c.Int(),
+                        EmployeeId = c.Int(nullable: false),
                         IsGuest = c.Boolean(nullable: false),
+                        WithBarbecue = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Employee", t => t.EmployeeId)

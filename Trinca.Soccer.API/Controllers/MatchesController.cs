@@ -36,7 +36,7 @@ namespace Trinca.Soccer.API.Controllers
                     matchListOutputDto.TotalPlayers = $"{totalPlayers.Count()}/{matchListOutputDto.MinimumPlayers} Players";
                 }
 
-                return Ok(matchesListOutputDto);
+                return Ok(matchesListOutputDto.OrderByDescending(o => o.CreateDate));
             });            
         }
 

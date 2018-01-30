@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
+using Trinca.Soccer.Dto.Match;
 using Trinca.Soccer.Dto.Player;
 using Xamarin.Forms;
 
@@ -16,12 +17,12 @@ namespace Trinca.Soccer.App.ViewModels
 {
 	public class AddGuestPageViewModel : BaseViewModel
 	{
-        private int _matchId;
-        public int MatchId
-        {
-            get => _matchId;
-            set => SetProperty(ref _matchId, value);
-        }
+	    private MatchOutputDto _match;
+	    public MatchOutputDto Match
+	    {
+	        get => _match;
+	        set => SetProperty(ref _match, value);
+	    }
 
         private string _name;
         public string Name
@@ -59,14 +60,15 @@ namespace Trinca.Soccer.App.ViewModels
                     Name = Name,
                     EmployeeId = Settings.UserId,
                     IsGuest = true,
-                    MatchId = MatchId
+                    WithBarbecue = WithBarbecue,
+                    MatchId = Match.Id
                 };
 
                 var playerOutput = await ClientApi.Players.Create(playerInput);
 
                 MessagingCenter.Send(this, Strings.UpdateMatchPage, playerOutput);
 
-                await NavigationService.GoBackAsync(useModalNavigation: true);
+                await NavigationService.GoBackAsync();
             });
         }
 
@@ -82,7 +84,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            MatchId = parameters.GetValue<int>(Parameters.MatchId);            
+            Match = parameters.GetValue<MatchOutputDto>(Parameters.Match);            
         }
     }
 }

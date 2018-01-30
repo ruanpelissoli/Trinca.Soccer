@@ -19,8 +19,9 @@
                 Command="{Binding InviteGuestCommand}"
                 IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}" />
             <ListView  ItemsSource="{Binding Players}"
-                       HorizontalOptions="Start"
-                       HeightRequest="{Binding ListViewHeight}">
+                       VerticalOptions="Start"
+                       HorizontalOptions="CenterAndExpand"
+                       HeightRequest="{Binding PlayerListViewHeight}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -64,7 +65,9 @@
                     <Label Text="Blue Team" TextColor="Blue" />
                     <ListView HasUnevenRows="True"
                        ItemsSource="{Binding BlueTeam}"
-                       HorizontalOptions="Start">
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Start"
+                       HeightRequest="{Binding TeamsListViewHeight}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -94,7 +97,9 @@
                     <Label Text="Red Team" TextColor="Red" HorizontalTextAlignment="End" />
                     <ListView HasUnevenRows="True"
                            ItemsSource="{Binding RedTeam}"
-                           HorizontalOptions="Start">
+                           HorizontalOptions="EndAndExpand"
+                           VerticalOptions="Start"
+                           HeightRequest="{Binding TeamsListViewHeight}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -123,6 +128,7 @@
                     </ListView>
                 </StackLayout>
             </StackLayout>
+            <Label Text="Teste"></Label>
         </StackLayout>
         </ScrollView>
 </ContentPage>
