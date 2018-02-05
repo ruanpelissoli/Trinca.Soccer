@@ -53,7 +53,9 @@ namespace Trinca.Soccer.App.ViewModels
                 };
 
                 var loginOutput = await ClientApi.Employees.Login(loginDto);
-                Settings.UserId = loginOutput.Id;
+
+                Settings.EmployeeId = loginOutput.Id;
+                Settings.EmployeeName = loginOutput.Name;
 
                 await NavigationService.NavigateAsync($"app:///{Routes.Matches()}");
             });

@@ -42,7 +42,6 @@
     <Compile Include="Constants\Parameters.cs" />
     <Compile Include="Constants\Routes.cs" />
     <Compile Include="Constants\Strings.cs" />
-    <Compile Include="CustomControls\FormattedNumberEntry.cs" />
     <Compile Include="CustomControls\ListView.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -52,6 +51,9 @@
     <Compile Include="Util\ETeams.cs" />
     <Compile Include="Util\ImageResourceExtension.cs" />
     <Compile Include="Util\NegateBooleanConverter.cs" />
+    <Compile Include="Util\PlayerNameConverter.cs" />
+    <Compile Include="Util\PlayerPictureUrlConverter.cs" />
+    <Compile Include="Util\ShowMatchManagerIconsConverter.cs" />
     <Compile Include="ViewModels\AddGuestPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />

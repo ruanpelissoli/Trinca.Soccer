@@ -16,8 +16,8 @@ namespace Trinca.Soccer.Dto.Match
         public bool WithBarbecue { get; set; }
         public decimal BarbecueValue { get; set; }
         public bool IsFinished { get; set; }
-        public int BlueTeamScore { get; set; }
-        public int RedTeamScore { get; set; }
+        public int YellowTeamScore { get; set; }
+        public int BlackTeamScore { get; set; }
         public DateTime CreateDate { get; set; }
 
         public EmployeeOutputDto Employee { get; set; }

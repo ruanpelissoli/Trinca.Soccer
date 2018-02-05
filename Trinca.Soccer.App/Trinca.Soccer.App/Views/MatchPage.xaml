@@ -8,6 +8,11 @@
              x:Class="Trinca.Soccer.App.Views.MatchPage"
              x:Name="MatchPage"
              Title="{Binding Title}">
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Order="Primary" 
+                     Icon="exit.png" 
+                     Command="{Binding LeaveMatchCommand}" />
+    </TabbedPage.ToolbarItems>
     <ScrollView>
         <StackLayout Padding="5">
             <Button Text="Join Match"
@@ -32,25 +37,39 @@
                                     Aspect="AspectFit" 
                                     HorizontalOptions="Start" 
                                     HeightRequest="24" 
-                                    WidthRequest="24">
+                                    WidthRequest="24"
+                                    IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer 
                                              NumberOfTapsRequired="1" 
-                                             Command="{Binding Path=BindingContext.AddToBlueTeamCommand, Source={x:Reference MatchPage}}" 
+                                             Command="{Binding Path=BindingContext.AddToYellowTeamCommand, Source={x:Reference MatchPage}}" 
                                              CommandParameter="{Binding Id}" />
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
+                                <Image 
+                                    Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                    Aspect="AspectFit" 
+                                    HorizontalOptions="Start" 
+                                    HeightRequest="24" 
+                                    WidthRequest="24">                                    
+                                </Image>
+                                <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="Center"
+                                       VerticalTextAlignment="Center" />
                                 <Image 
                                     Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-right.png}" 
                                     Aspect="AspectFit" 
                                     HorizontalOptions="Start" 
                                     HeightRequest="24" 
-                                    WidthRequest="24">
+                                    WidthRequest="24"
+                                    IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer 
                                              NumberOfTapsRequired="1" 
-                                             Command="{Binding Path=BindingContext.AddToRedTeamCommand, Source={x:Reference MatchPage}}" 
+                                             Command="{Binding Path=BindingContext.AddToBlackTeamCommand, Source={x:Reference MatchPage}}" 
                                              CommandParameter="{Binding Id}" />
                                     </Image.GestureRecognizers>
                                 </Image>
@@ -62,9 +81,9 @@
             <StackLayout Padding="5"
                      Orientation="Horizontal">
                 <StackLayout>
-                    <Label Text="Blue Team" TextColor="Blue" />
-                    <ListView HasUnevenRows="True"
-                       ItemsSource="{Binding BlueTeam}"
+                    <Label Text="Team Yellow" TextColor="Black" />
+                    <ListView 
+                       ItemsSource="{Binding YellowTeam}"
                        HorizontalOptions="StartAndExpand"
                        VerticalOptions="Start"
                        HeightRequest="{Binding TeamsListViewHeight}">
@@ -78,7 +97,9 @@
                                             Aspect="AspectFit" 
                                             HorizontalOptions="Start" 
                                             HeightRequest="16" 
-                                            WidthRequest="16">
+                                            WidthRequest="16"
+                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
@@ -86,7 +107,17 @@
                                                      CommandParameter="{Binding Id}" /> 
                                             </Image.GestureRecognizers>
                                         </Image>
-                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" />
+                                        <Image 
+                                            Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                            Aspect="AspectFit" 
+                                            HorizontalOptions="Start" 
+                                            HeightRequest="24" 
+                                            WidthRequest="24">  
+                                        </Image>
+                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center" />
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
@@ -94,9 +125,9 @@
                     </ListView>
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Red Team" TextColor="Red" HorizontalTextAlignment="End" />
-                    <ListView HasUnevenRows="True"
-                           ItemsSource="{Binding RedTeam}"
+                    <Label Text="Team Black" TextColor="Black" HorizontalTextAlignment="End" />
+                    <ListView 
+                           ItemsSource="{Binding BlackTeam}"
                            HorizontalOptions="EndAndExpand"
                            VerticalOptions="Start"
                            HeightRequest="{Binding TeamsListViewHeight}">
@@ -105,15 +136,26 @@
                                 <ViewCell>
                                     <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                        <Label Text="{Binding Name}" 
-                                           HorizontalOptions="EndAndExpand" 
-                                           HorizontalTextAlignment="End" />
+                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                           HorizontalOptions="EndAndExpand"
+                                           HorizontalTextAlignment="End"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center" />
+                                        <Image 
+                                            Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                            Aspect="AspectFit" 
+                                            HorizontalOptions="Start" 
+                                            HeightRequest="24" 
+                                            WidthRequest="24">
+                                        </Image>
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
                                             Aspect="AspectFit" 
                                             HorizontalOptions="Start" 
                                             HeightRequest="16" 
-                                            WidthRequest="16">
+                                            WidthRequest="16"
+                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 

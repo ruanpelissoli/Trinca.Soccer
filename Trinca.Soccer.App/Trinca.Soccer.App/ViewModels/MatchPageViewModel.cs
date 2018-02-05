@@ -32,18 +32,18 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _players, value);
         }
 
-        private ObservableCollection<PlayerOutputDto> _blueTeam;
-        public ObservableCollection<PlayerOutputDto> BlueTeam
+        private ObservableCollection<PlayerOutputDto> _yellowTeam;
+        public ObservableCollection<PlayerOutputDto> YellowTeam
         {
-            get => _blueTeam;
-            set => SetProperty(ref _blueTeam, value);
+            get => _yellowTeam;
+            set => SetProperty(ref _yellowTeam, value);
         }
 
-        private ObservableCollection<PlayerOutputDto> _redTeam;
-        public ObservableCollection<PlayerOutputDto> RedTeam
+        private ObservableCollection<PlayerOutputDto> _blackTeam;
+        public ObservableCollection<PlayerOutputDto> BlackTeam
         {
-            get => _redTeam;
-            set => SetProperty(ref _redTeam, value);
+            get => _blackTeam;
+            set => SetProperty(ref _blackTeam, value);
         }
 
         private bool _joinMatchIsVisibile;
@@ -72,8 +72,8 @@ namespace Trinca.Soccer.App.ViewModels
         public DelegateCommand JoinMatchCommand { get; set; }
         public DelegateCommand InviteGuestCommand { get; set; }
         public DelegateCommand LeaveMatchCommand { get; set; }
-        public DelegateCommand<int?> AddToBlueTeamCommand { get; set; }
-        public DelegateCommand<int?> AddToRedTeamCommand { get; set; }
+        public DelegateCommand<int?> AddToYellowTeamCommand { get; set; }
+        public DelegateCommand<int?> AddToBlackTeamCommand { get; set; }
         public DelegateCommand<int?> RemoveFromTeamCommand { get; set; }
 
         public MatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
@@ -81,8 +81,8 @@ namespace Trinca.Soccer.App.ViewModels
             JoinMatchCommand = new DelegateCommand(JoinMatchCommandExecute);
             InviteGuestCommand = new DelegateCommand(InviteGuestCommandExecute);
             LeaveMatchCommand = new DelegateCommand(LeaveMatchCommandExecute);
-            AddToBlueTeamCommand = new DelegateCommand<int?>(AddToBlueTeamCommandExecute);
-            AddToRedTeamCommand = new DelegateCommand<int?>(AddToRedTeamCommandExecute);
+            AddToYellowTeamCommand = new DelegateCommand<int?>(AddToYellowTeamCommandExecute);
+            AddToBlackTeamCommand = new DelegateCommand<int?>(AddToBlackTeamCommandExecute);
             RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute);
 
             MessagingCenter.Subscribe<AddGuestPageViewModel, PlayerOutputDto>(this, Strings.UpdateMatchPage, OnUpdateMatchPage);
@@ -96,21 +96,26 @@ namespace Trinca.Soccer.App.ViewModels
 
                 Title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
 
-                Players = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
-                BlueTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.BlueTeam));
-                RedTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.RedTeam));
-
-                JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
-                                      !BlueTeam.Select(s => s.EmployeeId).Contains(Settings.UserId) &&
-                                      !RedTeam.Select(s => s.EmployeeId).Contains(Settings.UserId);
-
-                Players.CollectionChanged += OnPlayerCollectionChanged;
-                BlueTeam.CollectionChanged += OnTeamsCollectionChanged;
-                RedTeam.CollectionChanged += OnTeamsCollectionChanged;
-
-                PlayerListViewHeight = CalculateHeight(Players);
-                TeamsListViewHeight = CalculateHeight(BlueTeam.Count >= RedTeam.Count ? BlueTeam : RedTeam);
+                InitializeLists();
             });
+        }
+
+        private void InitializeLists()
+        {
+            Players = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
+            YellowTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.YellowTeam));
+            BlackTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.BlackTeam));
+
+            JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
+                                  !YellowTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
+                                  !BlackTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId);
+
+            Players.CollectionChanged += OnPlayerCollectionChanged;
+            YellowTeam.CollectionChanged += OnTeamsCollectionChanged;
+            BlackTeam.CollectionChanged += OnTeamsCollectionChanged;
+
+            PlayerListViewHeight = CalculateHeight(Players);
+            TeamsListViewHeight = CalculateHeight(YellowTeam.Count >= BlackTeam.Count ? YellowTeam : BlackTeam);
         }
 
         private void OnUpdateMatchPage(AddGuestPageViewModel source, PlayerOutputDto player)
@@ -128,8 +133,8 @@ namespace Trinca.Soccer.App.ViewModels
 
                 var playerInput = new PlayerInputDto
                 {
-                    Name = Match.Employee.Name,
-                    EmployeeId = Settings.UserId,
+                    Name = Settings.EmployeeName,
+                    EmployeeId = Settings.EmployeeId,
                     MatchId = Match.Id,
                     WithBarbecue = withBarbecue
                 };
@@ -158,40 +163,50 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                await ClientApi.Players.Delete(Settings.UserId);
+                var player = await ClientApi.Players.GetByEmployeeId(Settings.EmployeeId);
 
-                Players.Remove(Players.First(w => w.Id == Settings.UserId));
+                await ClientApi.Players.Delete(player.Id);
+
+                if(Players.Any(w => w.Id == player.Id))
+                    Players.Remove(Players.First(w => w.Id == player.Id));
+
+                if (YellowTeam.Any(w => w.Id == player.Id))
+                    YellowTeam.Remove(Players.First(w => w.Id == player.Id));
+
+                if (BlackTeam.Any(w => w.Id == player.Id))
+                    BlackTeam.Remove(Players.First(w => w.Id == player.Id));
+
                 JoinMatchIsVisibile = true;
             });
         }
 
-        private async void AddToBlueTeamCommandExecute(int? playerId)
+        private async void AddToYellowTeamCommandExecute(int? playerId)
         {
             await TryCatchAsync(async () =>
             {
                 if (!playerId.HasValue) return;
                 var player = await ClientApi.Players.GetById(playerId.Value);
 
-                player.TeamId = ETeams.BlueTeam;
+                player.TeamId = ETeams.YellowTeam;
                 await ClientApi.Players.Update(player);
 
                 Players.Remove(Players.First(w => w.Id == player.Id));
-                BlueTeam.Add(player);
+                YellowTeam.Add(player);
             });
         }
 
-        private async void AddToRedTeamCommandExecute(int? playerId)
+        private async void AddToBlackTeamCommandExecute(int? playerId)
         {
             await TryCatchAsync(async () =>
             {
                 if (!playerId.HasValue) return;
                 var player = await ClientApi.Players.GetById(playerId.Value);
 
-                player.TeamId = ETeams.RedTeam;
+                player.TeamId = ETeams.BlackTeam;
                 await ClientApi.Players.Update(player);
 
                 Players.Remove(Players.First(w => w.Id == player.Id));
-                RedTeam.Add(player);
+                BlackTeam.Add(player);
             });
         }
 
@@ -205,8 +220,8 @@ namespace Trinca.Soccer.App.ViewModels
                 player.TeamId = ETeams.NoTeam;
                 await ClientApi.Players.Update(player);
 
-                BlueTeam.Remove(BlueTeam.FirstOrDefault(w => w.Id == player.Id));
-                RedTeam.Remove(RedTeam.FirstOrDefault(w => w.Id == player.Id));
+                YellowTeam.Remove(YellowTeam.FirstOrDefault(w => w.Id == player.Id));
+                BlackTeam.Remove(BlackTeam.FirstOrDefault(w => w.Id == player.Id));
 
                 Players.Add(player);
             });

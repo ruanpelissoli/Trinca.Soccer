@@ -3,7 +3,7 @@ namespace Trinca.Soccer.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -32,8 +32,8 @@ namespace Trinca.Soccer.Data.Migrations
                         WithBarbecue = c.Boolean(nullable: false),
                         BarbecueValue = c.Decimal(nullable: false, precision: 18, scale: 2),
                         IsFinished = c.Boolean(nullable: false),
-                        BlueTeamScore = c.Int(nullable: false),
-                        RedTeamScore = c.Int(nullable: false),
+                        YellowTeamScore = c.Int(nullable: false),
+                        BlackTeamScore = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

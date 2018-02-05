@@ -16,9 +16,9 @@ namespace Trinca.Soccer.Models
         public bool WithBarbecue { get; set; }
 
         [ForeignKey(nameof(MatchId))]
-        public Match Match { get; set; }
+        public virtual Match Match { get; set; }
     
         [ForeignKey(nameof(EmployeeId))]
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

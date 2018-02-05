@@ -3,7 +3,7 @@
     public enum ETeams
     {
         NoTeam = 0,
-        BlueTeam = 1,
-        RedTeam = 2
+        YellowTeam = 1,
+        BlackTeam = 2
     }
 }

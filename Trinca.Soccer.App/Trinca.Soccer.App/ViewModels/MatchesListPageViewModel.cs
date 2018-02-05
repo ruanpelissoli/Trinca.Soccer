@@ -30,7 +30,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         public MatchesListPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
-            Title = "Matches";
+            Title = Strings.MatchesListTitle;
 
             RefreshCommand = new DelegateCommand(RefreshCommandExecute);
             SelectedItemCommand = new DelegateCommand<MatchListOutputDto>(SelectedItemCommandExecute);
@@ -40,15 +40,15 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                IsRefreshing = true;
-                Matches = new ObservableCollection<MatchListOutputDto>(await ClientApi.Matches.GetAll());
-            });
-            IsRefreshing = false;
+                Matches = new ObservableCollection<MatchListOutputDto>(await ClientApi.Matches.GetAll());                
+            });            
         }
 
         private async void RefreshCommandExecute()
         {
+            IsRefreshing = true;
             await LoadMatches();
+            IsRefreshing = false;
         }
 
         private async void SelectedItemCommandExecute(MatchListOutputDto match)

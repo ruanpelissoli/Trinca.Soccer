@@ -58,7 +58,7 @@ namespace Trinca.Soccer.App.ViewModels
                 var playerInput = new PlayerInputDto
                 {
                     Name = Name,
-                    EmployeeId = Settings.UserId,
+                    EmployeeId = Settings.EmployeeId,
                     IsGuest = true,
                     WithBarbecue = WithBarbecue,
                     MatchId = Match.Id

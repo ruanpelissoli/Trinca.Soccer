@@ -14,7 +14,8 @@ namespace Trinca.Soccer.Dto.Player
         public bool IsGuest { get; set; }
         public bool WithBarbecue { get; set; }
 
-        //public MatchOutputDto Match { get; set; }
+        public string GuestName { get; set; }
+
         public EmployeeOutputDto Employee { get; set; }
     }
 }

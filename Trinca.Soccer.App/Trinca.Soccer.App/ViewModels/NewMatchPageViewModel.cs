@@ -103,7 +103,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 var match = new MatchInputDto
                 {
-                    CreatedBy = Settings.UserId,
+                    CreatedBy = Settings.EmployeeId,
                     Date = Date.Add(Hour),
                     Place = Place,
                     MinimumPlayers = MinimumPlayers,

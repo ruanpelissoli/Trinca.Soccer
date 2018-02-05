@@ -3,7 +3,6 @@ using Prism.Navigation;
 using Prism.Services;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
-using Xamarin.Forms;
 
 namespace Trinca.Soccer.App.ViewModels
 {

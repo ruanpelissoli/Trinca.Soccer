@@ -8,6 +8,9 @@
         <ResourceDictionary>
             <util:NegateBooleanConverter x:Key="NegateBooleanConverter" />
             <util:DecimalConverter x:Key="DecimalConverter" />
+            <util:PlayerNameConverter x:Key="PlayerNameConverter" />
+            <util:PlayerPictureUrlConverter x:Key="PlayerPictureUrlConverter" />
+            <util:ShowMatchManagerIconsConverter x:Key="ShowMatchManagerIconsConverter" />
           
             <x:String x:Key="AppDefaultColor">#000000</x:String>
           

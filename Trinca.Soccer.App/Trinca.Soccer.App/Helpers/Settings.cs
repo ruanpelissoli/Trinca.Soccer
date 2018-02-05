@@ -7,42 +7,42 @@ namespace Trinca.Soccer.App.Helpers
 	{
 	    private static ISettings AppSettings => CrossSettings.Current;
 
-	    const string UserIdKey = "userid";
-	    static readonly int UserIdDefault = 0;
+	    const string EmployeeIdKey = "employeeid";
+	    static readonly int EmployeeIdDefault = 0;
 
-	    const string AuthTokenKey = "authtoken";
-	    static readonly string AuthTokenDefault = string.Empty;
+	    const string EmployeeNameKey = "employeename";
+	    static readonly string EmployeeNameDefault = string.Empty;
 
-	    public static string AuthToken
+	    public static string EmployeeName
 	    {
 	        get
 	        {
-	            return AppSettings.GetValueOrDefault(AuthTokenKey, AuthTokenDefault);
+	            return AppSettings.GetValueOrDefault(EmployeeNameKey, EmployeeNameDefault);
 	        }
 	        set
 	        {
-	            AppSettings.AddOrUpdateValue(AuthTokenKey, value);
+	            AppSettings.AddOrUpdateValue(EmployeeNameKey, value);
 	        }
 	    }
 
-	    public static int UserId
+	    public static int EmployeeId
 	    {
 	        get
 	        {
-	            return AppSettings.GetValueOrDefault(UserIdKey, UserIdDefault);
+	            return AppSettings.GetValueOrDefault(EmployeeIdKey, EmployeeIdDefault);
 	        }
 	        set
 	        {
-	            AppSettings.AddOrUpdateValue(UserIdKey, value);
+	            AppSettings.AddOrUpdateValue(EmployeeIdKey, value);
 	        }
 	    }
 
-	    public static bool IsLoggedIn => UserId > 0;
+	    public static bool IsLoggedIn => EmployeeId > 0;
 
 	    public static void Clear()
 	    {
-	        AuthToken = null;
-	        UserId = 0;
+	        EmployeeName = null;
+	        EmployeeId = 0;
 	    }
     }
 }

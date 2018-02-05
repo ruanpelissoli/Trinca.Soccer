@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.NewMatchPage"
              Title="{Binding Title}">
@@ -12,16 +11,16 @@
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand">
             <Label Text="Place"></Label>
-            <Entry Text="{Binding Place}"></Entry>
+            <Entry Text="{Binding Place}" />
             <Label Text="Date"></Label>
-            <DatePicker Date="{Binding Date}"></DatePicker>
+            <DatePicker Date="{Binding Date}" />
             <Label Text="Hour"></Label>
-            <TimePicker Time="{Binding Hour}"></TimePicker>
-            <Label Text="Minimum players required"></Label>
+            <TimePicker Time="{Binding Hour}"/>
+            <Label Text="Minimum players required" />
             <Entry Keyboard="Numeric" 
-                   Text="{Binding MinimumPlayers}"></Entry>
-            <Label Text="Match value"></Label>
-            <custom:FormattedNumberEntry Keyboard="Numeric" 
+                   Text="{Binding MinimumPlayers}" />
+            <Label Text="Match value" />
+            <Entry Keyboard="Numeric" 
                    Text="{Binding Value}" />
             <StackLayout Orientation="Horizontal">
                 <Label Text="With Barbecue?" 
@@ -31,9 +30,9 @@
             </StackLayout>
             <Label Text="Barbecue value"
                    IsVisible="{Binding WithBarbecue}" />
-            <custom:FormattedNumberEntry Keyboard="Numeric" 
-                                         Text="{Binding BarbecueValue}"
-                                         IsVisible="{Binding WithBarbecue}"/>
+            <Entry Keyboard="Numeric" 
+                   Text="{Binding BarbecueValue}"
+                   IsVisible="{Binding WithBarbecue}"/>
             <Button Text="Create"
                     Command="{Binding CreateCommand}"
                     IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}" />

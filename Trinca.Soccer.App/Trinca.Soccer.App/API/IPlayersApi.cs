@@ -26,5 +26,8 @@ namespace Trinca.Soccer.App.API
 
         [Get("/players/{id}")]
         Task<PlayerOutputDto> GetById(int id);
+
+        [Get("/players/{id}/employee")]
+        Task<PlayerOutputDto> GetByEmployeeId(int id);
     }
 }

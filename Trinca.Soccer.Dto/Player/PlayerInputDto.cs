@@ -1,4 +1,5 @@
-﻿using Trinca.Soccer.Dto.Enums;
+﻿using Trinca.Soccer.Dto.Employee;
+using Trinca.Soccer.Dto.Enums;
 
 namespace Trinca.Soccer.Dto.Player
 {
@@ -11,5 +12,7 @@ namespace Trinca.Soccer.Dto.Player
         public int EmployeeId { get; set; }
         public bool IsGuest { get; set; }
         public bool WithBarbecue { get; set; }
+
+        public EmployeeOutputDto Employee { get; set; }
     }
 }

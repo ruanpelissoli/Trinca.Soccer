@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Trinca.Soccer.Data.Interfaces;
 using Trinca.Soccer.Models;
@@ -14,15 +15,18 @@ namespace Trinca.Soccer.Services
         Task Update(Player player);
         Task Delete(int id);
         Task<Player> GetById(int id);
+        Task<Player> GetByEmployeeId(int id);
     }
 
     public class PlayersService : IPlayersService
     {
         private readonly IPlayersRepository _playersRepository;
+        private readonly IEmployeesRepository _employeesRepository;
 
-        public PlayersService(IPlayersRepository playersRepository)
+        public PlayersService(IPlayersRepository playersRepository, IEmployeesRepository employeesRepository)
         {
             _playersRepository = playersRepository;
+            _employeesRepository = employeesRepository;
         }
 
         public async Task<IEnumerable<Player>> GetAllByMatch(int matchId)
@@ -37,7 +41,12 @@ namespace Trinca.Soccer.Services
 
         public async Task<Player> Create(Player player)
         {
-            return await _playersRepository.CreateAsync(player);
+            player = await _playersRepository.CreateAsync(player);
+
+            if (player.Employee == null)
+                player.Employee = await _employeesRepository.FindAsync(player.EmployeeId);
+
+            return player;
         }
 
         public async Task Update(Player player)
@@ -53,6 +62,12 @@ namespace Trinca.Soccer.Services
         public async Task<Player> GetById(int id)
         {
            return await _playersRepository.FindAsync(id);
+        }
+
+        public async Task<Player> GetByEmployeeId(int id)
+        {
+            var employees = await _playersRepository.GetAllAsync(w => w.EmployeeId == id && !w.IsGuest);
+            return employees.FirstOrDefault();
         }
     }
 }
