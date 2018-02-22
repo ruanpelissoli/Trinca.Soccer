@@ -3,7 +3,7 @@ using Trinca.Soccer.Dto.Employee;
 using Trinca.Soccer.Dto.Login;
 using Trinca.Soccer.Models;
 
-namespace Trinca.Soccer.API.Mapping
+namespace Trinca.Soccer.Services.Mapping
 {
     public static class EmployeeMapping
     {

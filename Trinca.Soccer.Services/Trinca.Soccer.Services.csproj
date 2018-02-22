@@ -30,11 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.6.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.6.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapping\EmployeeMapping.cs" />
+    <Compile Include="Mapping\MappingConfig.cs" />
+    <Compile Include="Mapping\MatchMapping.cs" />
+    <Compile Include="Mapping\PlayerMapping.cs" />
     <Compile Include="MatchesService.cs" />
     <Compile Include="PlayersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +65,10 @@
     <ProjectReference Include="..\Trinca.Soccer.Data\Trinca.Soccer.Data.csproj">
       <Project>{31a01ed3-4f25-40cf-b795-0028d5e9af47}</Project>
       <Name>Trinca.Soccer.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trinca.Soccer.Dto\Trinca.Soccer.Dto.csproj">
+      <Project>{921c253d-c12a-432f-a208-881bdf1e4359}</Project>
+      <Name>Trinca.Soccer.Dto</Name>
     </ProjectReference>
     <ProjectReference Include="..\Trinca.Soccer.Models\Trinca.Soccer.Models.csproj">
       <Project>{4cf46ce3-c4a9-47b0-89e0-e080e63c70e7}</Project>

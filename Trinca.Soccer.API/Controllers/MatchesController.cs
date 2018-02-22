@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Trinca.Soccer.API.Mapping;
 using Trinca.Soccer.Dto.Match;
-using Trinca.Soccer.Models;
 using Trinca.Soccer.Services;
 
 namespace Trinca.Soccer.API.Controllers
@@ -27,16 +23,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var matches = await _matchesServices.GetAll();
-
-                var matchesListOutputDto = MappingConfig.Mapper().Map<List<MatchListOutputDto>>(matches);
-
-                foreach (var matchListOutputDto in matchesListOutputDto)
-                {
-                    var totalPlayers = await _playersServices.GetAllByMatch(matchListOutputDto.Id);
-                    matchListOutputDto.TotalPlayers = $"{totalPlayers.Count()}/{matchListOutputDto.MinimumPlayers} Players";
-                }
-
-                return Ok(matchesListOutputDto.OrderByDescending(o => o.CreateDate));
+                return Ok(matches);
             });            
         }
 
@@ -50,7 +37,7 @@ namespace Trinca.Soccer.API.Controllers
                 if (match.Id == 0)
                     return NotFound();
 
-                return Ok(MappingConfig.Mapper().Map<MatchOutputDto>(match));
+                return Ok(match);
             });            
         }
 
@@ -60,10 +47,8 @@ namespace Trinca.Soccer.API.Controllers
         {
             return await TryCatchAsync(async () =>
             {
-                var match = MappingConfig.Mapper().Map<Match>(matchInput);
-                match = await _matchesServices.Create(match);
-
-                return Ok(MappingConfig.Mapper().Map<MatchOutputDto>(match));
+                var match = await _matchesServices.Create(matchInput);
+                return Ok(match);
             });            
         }
     }

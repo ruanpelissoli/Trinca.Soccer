@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Trinca.Soccer.API.Mapping
+namespace Trinca.Soccer.Services.Mapping
 {
     public class MappingConfig
     {

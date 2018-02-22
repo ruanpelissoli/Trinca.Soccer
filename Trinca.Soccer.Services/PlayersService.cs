@@ -2,20 +2,22 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Trinca.Soccer.Data.Interfaces;
+using Trinca.Soccer.Dto.Player;
 using Trinca.Soccer.Models;
 using Trinca.Soccer.Models.Enums;
+using Trinca.Soccer.Services.Mapping;
 
 namespace Trinca.Soccer.Services
 {
     public interface IPlayersService
     {
-        Task<IEnumerable<Player>> GetAllByMatch(int matchId);
-        Task<IEnumerable<Player>> GetAllByTeam(int matchId, ETeams teamId);
-        Task<Player> Create(Player player);
-        Task Update(Player player);
+        Task<IEnumerable<PlayerOutputDto>> GetAllByMatch(int matchId);
+        Task<IEnumerable<PlayerOutputDto>> GetAllByTeam(int matchId, ETeams teamId);
+        Task<PlayerOutputDto> Create(PlayerInputDto playerInput);
+        Task Update(PlayerInputDto playerInput);
         Task Delete(int id);
-        Task<Player> GetById(int id);
-        Task<Player> GetByEmployeeId(int id);
+        Task<PlayerOutputDto> GetById(int id);
+        Task<PlayerOutputDto> GetByEmployeeId(int id);
     }
 
     public class PlayersService : IPlayersService
@@ -29,28 +31,34 @@ namespace Trinca.Soccer.Services
             _employeesRepository = employeesRepository;
         }
 
-        public async Task<IEnumerable<Player>> GetAllByMatch(int matchId)
+        public async Task<IEnumerable<PlayerOutputDto>> GetAllByMatch(int matchId)
         {
-            return await _playersRepository.GetAllAsync(w => w.MatchId == matchId);
+            var players = await _playersRepository.GetAllAsync(w => w.MatchId == matchId);
+
+            return MappingConfig.Mapper().Map<List<PlayerOutputDto>>(players);
         }
 
-        public async Task<IEnumerable<Player>> GetAllByTeam(int matchId, ETeams teamId)
+        public async Task<IEnumerable<PlayerOutputDto>> GetAllByTeam(int matchId, ETeams teamId)
         {
-            return await _playersRepository.GetAllAsync(w => w.MatchId == matchId && w.TeamId == teamId);
+            var players = await _playersRepository.GetAllAsync(w => w.MatchId == matchId && w.TeamId == teamId);
+
+            return MappingConfig.Mapper().Map<List<PlayerOutputDto>>(players);
         }
 
-        public async Task<Player> Create(Player player)
+        public async Task<PlayerOutputDto> Create(PlayerInputDto playerInput)
         {
+            var player = MappingConfig.Mapper().Map<Player>(playerInput);
             player = await _playersRepository.CreateAsync(player);
 
             if (player.Employee == null)
                 player.Employee = await _employeesRepository.FindAsync(player.EmployeeId);
 
-            return player;
+            return MappingConfig.Mapper().Map<PlayerOutputDto>(player);
         }
 
-        public async Task Update(Player player)
+        public async Task Update(PlayerInputDto playerInput)
         {
+            var player = MappingConfig.Mapper().Map<Player>(playerInput);
             await _playersRepository.UpdateAsync(player);
         }
 
@@ -59,15 +67,18 @@ namespace Trinca.Soccer.Services
             await _playersRepository.DeleteAsync(w => w.Id == id);
         }
 
-        public async Task<Player> GetById(int id)
+        public async Task<PlayerOutputDto> GetById(int id)
         {
-           return await _playersRepository.FindAsync(id);
+            var player = await _playersRepository.FindAsync(id);
+            return MappingConfig.Mapper().Map<PlayerOutputDto>(player);
         }
 
-        public async Task<Player> GetByEmployeeId(int id)
+        public async Task<PlayerOutputDto> GetByEmployeeId(int id)
         {
             var employees = await _playersRepository.GetAllAsync(w => w.EmployeeId == id && !w.IsGuest);
-            return employees.FirstOrDefault();
+            var employee = employees.FirstOrDefault();
+
+            return MappingConfig.Mapper().Map<PlayerOutputDto>(employee);
         }
     }
 }

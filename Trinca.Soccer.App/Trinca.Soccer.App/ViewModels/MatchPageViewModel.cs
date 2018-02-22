@@ -13,6 +13,7 @@ using Trinca.Soccer.Dto.Player;
 using Xamarin.Forms;
 using Trinca.Soccer.Dto.Enums;
 using System.Collections.Specialized;
+using System;
 
 namespace Trinca.Soccer.App.ViewModels
 {
@@ -69,6 +70,28 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _teamsListViewHeight, value);
         }
 
+        private string _totalMatchValueEach;
+        public string TotalMatchValueEach
+        {
+            get => $"R$ {_totalMatchValueEach}";
+            set => SetProperty(ref _totalMatchValueEach, value);
+        }
+
+        private string _totalBarbecueValueEach;
+        public string TotalBarbecueValueEach
+        {
+            get => $"R$ {_totalBarbecueValueEach}";
+            set => SetProperty(ref _totalBarbecueValueEach, value);
+        }
+
+        private string _totalValue;
+        public string TotalValue
+        {
+            get => $"R$ {_totalValue}";
+            set => SetProperty(ref _totalValue, value);
+        }
+
+
         public DelegateCommand JoinMatchCommand { get; set; }
         public DelegateCommand InviteGuestCommand { get; set; }
         public DelegateCommand LeaveMatchCommand { get; set; }
@@ -97,6 +120,8 @@ namespace Trinca.Soccer.App.ViewModels
                 Title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
 
                 InitializeLists();
+
+                RefreshMatchValues(false);
             });
         }
 
@@ -121,6 +146,7 @@ namespace Trinca.Soccer.App.ViewModels
         private void OnUpdateMatchPage(AddGuestPageViewModel source, PlayerOutputDto player)
         {
             Players.Add(player);
+            RefreshMatchValues();
         }
 
         private async void JoinMatchCommandExecute()
@@ -143,6 +169,8 @@ namespace Trinca.Soccer.App.ViewModels
 
                 Players.Add(playerOutput);
                 JoinMatchIsVisibile = false;
+
+                RefreshMatchValues();
             });
         }
 
@@ -167,7 +195,7 @@ namespace Trinca.Soccer.App.ViewModels
 
                 await ClientApi.Players.Delete(player.Id);
 
-                if(Players.Any(w => w.Id == player.Id))
+                if (Players.Any(w => w.Id == player.Id))
                     Players.Remove(Players.First(w => w.Id == player.Id));
 
                 if (YellowTeam.Any(w => w.Id == player.Id))
@@ -248,6 +276,27 @@ namespace Trinca.Soccer.App.ViewModels
         private int CalculateHeight(ICollection playersList)
         {
             return playersList.Count * LineHeight;
+        }
+
+        private async void RefreshMatchValues(bool refreshMatch = true)
+        {
+            await TryCatchAsync(async () =>
+            {
+                if (refreshMatch)
+                    Match = await ClientApi.Matches.GetById(Match.Id);
+
+                var playersCount = Match.Players.Count == 0 ? 1 : Match.Players.Count;
+                var playersWithBarbecueCount = Match.Players.Count(w => w.WithBarbecue) == 0 ? 1 : Match.Players.Count(w => w.WithBarbecue);
+
+                var totalValueEach = Math.Round(Match.Value / playersCount, 2);
+                TotalMatchValueEach = totalValueEach.ToString("N");
+
+                var totalBarbecueValueEach = Math.Round(Match.BarbecueValue / playersWithBarbecueCount, 2);
+                TotalBarbecueValueEach = totalBarbecueValueEach.ToString("N");
+
+                var loggedPlayer = Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
+                TotalValue = (totalValueEach + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+            });
         }
     }
 }

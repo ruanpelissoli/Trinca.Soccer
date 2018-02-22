@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using Trinca.Soccer.API.App_Start;
-using Trinca.Soccer.API.Mapping;
+using Trinca.Soccer.Services.Mapping;
 
 [assembly: OwinStartup(typeof(Trinca.Soccer.API.Startup))]
 namespace Trinca.Soccer.API

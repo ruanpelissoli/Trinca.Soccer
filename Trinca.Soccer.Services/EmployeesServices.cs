@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Trinca.Soccer.Data.Interfaces;
 using Trinca.Soccer.Models;
 using System.Linq;
 using Trinca.Soccer.Services.Util;
+using Trinca.Soccer.Dto.Employee;
+using Trinca.Soccer.Services.Mapping;
+using Trinca.Soccer.Dto.Login;
 
 namespace Trinca.Soccer.Services
 {
     public interface IEmployeesService
     {
-        Task<IEnumerable<Employee>> GetAll();
+        Task<IEnumerable<EmployeeOutputDto>> GetAll();
         Task CreateAllFromSite();
         Task<IEnumerable<Employee>> GetAllFromSite();
-        Task<Employee> Login(string userName, string password);
-        Task<Employee> GetById(int id);
+        Task<LoginOutputDto> Login(string userName, string password);
+        Task<EmployeeOutputDto> GetById(int id);
     }
 
     public class EmployeesService : IEmployeesService
@@ -28,9 +30,10 @@ namespace Trinca.Soccer.Services
             _webScraper = webScraper;
         }
 
-        public async Task<IEnumerable<Employee>> GetAll()
+        public async Task<IEnumerable<EmployeeOutputDto>> GetAll()
         {
-            return await _employeesRepository.GetAllAsync();
+            var employees = await _employeesRepository.GetAllAsync();
+            return MappingConfig.Mapper().Map<List<EmployeeOutputDto>>(employees);
         }
 
         public async Task CreateAllFromSite()
@@ -53,7 +56,7 @@ namespace Trinca.Soccer.Services
             return await _webScraper.GetTrincaWorkers(@"http://trin.ca");
         }
 
-        public async Task<Employee> Login(string userName, string password)
+        public async Task<LoginOutputDto> Login(string userName, string password)
         {
             if (!_employeesRepository.GetAll().Any())
                 await CreateAllFromSite();
@@ -64,18 +67,19 @@ namespace Trinca.Soccer.Services
             var employee = await _employeesRepository.GetLoggedUser(userName, hashPassword);
 
             if (employee == null)
-                return new Employee();
+                return new LoginOutputDto();
 
             if (employessFromSite.Select(w => w.Username).Contains(employee.Username))
-                return employee;
+                return MappingConfig.Mapper().Map<LoginOutputDto>(employee);
 
             await _employeesRepository.DeleteAsync(employee);
-            return new Employee();
+            return new LoginOutputDto();
         }
 
-        public async Task<Employee> GetById(int id)
+        public async Task<EmployeeOutputDto> GetById(int id)
         {
-            return await _employeesRepository.FindAsync(id);
+            var employee = await _employeesRepository.FindAsync(id);
+            return MappingConfig.Mapper().Map<EmployeeOutputDto>(employee);
         }
     }
 }

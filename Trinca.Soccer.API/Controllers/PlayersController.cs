@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Trinca.Soccer.API.Mapping;
 using Trinca.Soccer.Dto.Player;
-using Trinca.Soccer.Models;
 using Trinca.Soccer.Models.Enums;
 using Trinca.Soccer.Services;
 
@@ -25,8 +22,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var players = await _playersServices.GetAllByMatch(matchId);
-
-                return Ok(MappingConfig.Mapper().Map<List<PlayerOutputDto>>(players));
+                return Ok(players);
             });
         }
 
@@ -36,8 +32,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var players = await _playersServices.GetAllByTeam(matchId, teamId);
-
-                return Ok(MappingConfig.Mapper().Map<List<PlayerOutputDto>>(players));
+                return Ok(players);
             });
         }
 
@@ -47,10 +42,8 @@ namespace Trinca.Soccer.API.Controllers
         {
             return await TryCatchAsync(async () =>
             {
-                var player = MappingConfig.Mapper().Map<Player>(playerDto);
-                player = await _playersServices.Create(player);
-
-                return Ok(MappingConfig.Mapper().Map<PlayerOutputDto>(player));
+                var player = await _playersServices.Create(playerDto);
+                return Ok(player);
             });
         }
 
@@ -60,9 +53,7 @@ namespace Trinca.Soccer.API.Controllers
         {
             return await TryCatchAsync(async () =>
             {
-                var player = MappingConfig.Mapper().Map<Player>(playerDto);
-                await _playersServices.Update(player);
-
+                await _playersServices.Update(playerDto);
                 return Ok();
             });
         }
@@ -85,8 +76,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var player = await _playersServices.GetById(id);
-
-                return Ok(MappingConfig.Mapper().Map<PlayerOutputDto>(player));
+                return Ok(player);
             });
         }
 
@@ -96,8 +86,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var player = await _playersServices.GetByEmployeeId(id);
-
-                return Ok(MappingConfig.Mapper().Map<PlayerOutputDto>(player));
+                return Ok(player);
             });
         }
     }

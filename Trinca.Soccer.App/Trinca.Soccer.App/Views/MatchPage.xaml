@@ -8,21 +8,21 @@
              x:Class="Trinca.Soccer.App.Views.MatchPage"
              x:Name="MatchPage"
              Title="{Binding Title}">
-    <TabbedPage.ToolbarItems>
-        <ToolbarItem Order="Primary" 
-                     Icon="exit.png" 
-                     Command="{Binding LeaveMatchCommand}" />
-    </TabbedPage.ToolbarItems>
     <ScrollView>
         <StackLayout Padding="5">
             <Button Text="Join Match"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding JoinMatchCommand}"                
                 IsVisible="{Binding JoinMatchIsVisibile}" />
-            <Button Text="Invite Guest"
-                HorizontalOptions="FillAndExpand"
-                Command="{Binding InviteGuestCommand}"
-                IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}" />
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}">
+                <Button Text="Invite Guest"
+                    HorizontalOptions="StartAndExpand"
+                    Command="{Binding InviteGuestCommand}" />
+                <Button Text="Quit Match"
+                    HorizontalOptions="EndAndExpand"
+                    Command="{Binding LeaveMatchCommand}" />
+            </StackLayout>
             <ListView  ItemsSource="{Binding Players}"
                        VerticalOptions="Start"
                        HorizontalOptions="CenterAndExpand"
@@ -52,7 +52,7 @@
                                     Aspect="AspectFit" 
                                     HorizontalOptions="Start" 
                                     HeightRequest="24" 
-                                    WidthRequest="24">                                    
+                                    WidthRequest="24">
                                 </Image>
                                 <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
                                        HorizontalOptions="StartAndExpand"
@@ -104,7 +104,7 @@
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
                                                      Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
-                                                     CommandParameter="{Binding Id}" /> 
+                                                     CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>
                                         <Image 
@@ -112,7 +112,7 @@
                                             Aspect="AspectFit" 
                                             HorizontalOptions="Start" 
                                             HeightRequest="24" 
-                                            WidthRequest="24">  
+                                            WidthRequest="24">
                                         </Image>
                                         <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
                                            HorizontalOptions="StartAndExpand"
@@ -170,7 +170,25 @@
                     </ListView>
                 </StackLayout>
             </StackLayout>
-            <Label Text="Teste"></Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Total match value:" 
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding TotalMatchValueEach}" 
+                       HorizontalOptions="End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         IsVisible="{Binding Match.WithBarbecue}">
+                <Label Text="Total match with barbecue value:" 
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding TotalBarbecueValueEach}" 
+                       HorizontalOptions="End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Total:" 
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding TotalValue}" 
+                       HorizontalOptions="End"/>
+            </StackLayout>
         </StackLayout>
-        </ScrollView>
+    </ScrollView>
 </ContentPage>

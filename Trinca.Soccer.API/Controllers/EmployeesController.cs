@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Trinca.Soccer.API.Mapping;
-using Trinca.Soccer.Dto.Employee;
 using Trinca.Soccer.Dto.Login;
 using Trinca.Soccer.Services;
 
@@ -28,7 +26,7 @@ namespace Trinca.Soccer.API.Controllers
                 if (employee.Id == 0)
                     return Unauthorized();
 
-                return Ok(MappingConfig.Mapper().Map<LoginOutputDto>(employee));
+                return Ok(employee);
             });
         }
         [Route("{id}")]
@@ -37,8 +35,7 @@ namespace Trinca.Soccer.API.Controllers
             return await TryCatchAsync(async () =>
             {
                 var employee = await _employeesService.GetById(id);
-
-                return Ok(MappingConfig.Mapper().Map<EmployeeOutputDto>(employee));
+                return Ok(employee);
             });
         }
     }
