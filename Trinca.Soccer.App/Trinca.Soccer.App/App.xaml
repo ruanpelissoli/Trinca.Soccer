@@ -11,6 +11,7 @@
             <util:PlayerNameConverter x:Key="PlayerNameConverter" />
             <util:PlayerPictureUrlConverter x:Key="PlayerPictureUrlConverter" />
             <util:ShowMatchManagerIconsConverter x:Key="ShowMatchManagerIconsConverter" />
+            <util:CurrencyConverter x:Key="CurrencyConverter" />
           
             <x:String x:Key="AppDefaultColor">#000000</x:String>
           

@@ -92,6 +92,13 @@ namespace Trinca.Soccer.App.ViewModels
         }
 
 
+        private bool _showBarbecueValue;
+        public bool ShowBarbecueValue
+        {
+            get => _showBarbecueValue;
+            set => SetProperty(ref _showBarbecueValue, value);
+        }
+
         public DelegateCommand JoinMatchCommand { get; set; }
         public DelegateCommand InviteGuestCommand { get; set; }
         public DelegateCommand LeaveMatchCommand { get; set; }
@@ -295,7 +302,14 @@ namespace Trinca.Soccer.App.ViewModels
                 TotalBarbecueValueEach = totalBarbecueValueEach.ToString("N");
 
                 var loggedPlayer = Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
-                TotalValue = (totalValueEach + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+
+                if (loggedPlayer == null)
+                    TotalValue = (totalValueEach + (Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                else
+                {
+                    TotalValue = (totalValueEach + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                    ShowBarbecueValue = Match.WithBarbecue && loggedPlayer.WithBarbecue;
+                }                
             });
         }
     }

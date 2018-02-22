@@ -20,8 +20,7 @@
             <Entry Keyboard="Numeric" 
                    Text="{Binding MinimumPlayers}" />
             <Label Text="Match value" />
-            <Entry Keyboard="Numeric" 
-                   Text="{Binding Value}" />
+            <Entry Text="{Binding Value, Converter={StaticResource CurrencyConverter}}" Keyboard="Numeric" />
             <StackLayout Orientation="Horizontal">
                 <Label Text="With Barbecue?" 
                        HorizontalOptions="StartAndExpand" />
@@ -30,8 +29,7 @@
             </StackLayout>
             <Label Text="Barbecue value"
                    IsVisible="{Binding WithBarbecue}" />
-            <Entry Keyboard="Numeric" 
-                   Text="{Binding BarbecueValue}"
+            <Entry Text="{Binding BarbecueValue, Converter={StaticResource CurrencyConverter}}" Keyboard="Numeric"
                    IsVisible="{Binding WithBarbecue}"/>
             <Button Text="Create"
                     Command="{Binding CreateCommand}"

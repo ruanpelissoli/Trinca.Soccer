@@ -177,7 +177,7 @@
                        HorizontalOptions="End"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding Match.WithBarbecue}">
+                         IsVisible="{Binding ShowBarbecueValue}">
                 <Label Text="Total match with barbecue value:" 
                        HorizontalOptions="StartAndExpand"/>
                 <Label Text="{Binding TotalBarbecueValueEach}" 
