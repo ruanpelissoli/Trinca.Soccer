@@ -1,5 +1,7 @@
 ﻿using PCLStorage;
 using Plugin.EmbeddedResource;
+using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -9,17 +11,24 @@ namespace Trinca.Soccer.App.Helpers
     {
         public static async Task Initialize(Assembly assembly)
         {
-            var rootFolder = FileSystem.Current.LocalStorage;
-
-            var writer = new ResourceWriter(assembly);
-
-            if (await rootFolder.CheckExistsAsync("arrow-left.png") == ExistenceCheckResult.NotFound)
+            try
             {
-                await writer.WriteFile("Images/arrow-left.png", rootFolder.Path);
-                await writer.WriteFile("Images/arrow-right.png", rootFolder.Path);
-                await writer.WriteFile("Images/remove.png", rootFolder.Path);
-                await writer.WriteFolder("Images", rootFolder.Path);
+                var rootFolder = FileSystem.Current.LocalStorage;
+
+                var writer = new ResourceWriter(assembly);
+
+                if (await rootFolder.CheckExistsAsync("arrow-left.png") == ExistenceCheckResult.NotFound)
+                {
+                    await writer.WriteFile("Images/arrow-left.png", rootFolder.Path);
+                    await writer.WriteFile("Images/arrow-right.png", rootFolder.Path);
+                    await writer.WriteFile("Images/remove.png", rootFolder.Path);
+                    await writer.WriteFolder("Images", rootFolder.Path);
+                }
+            } catch(Exception ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
             }
+            
         }
     }
 }
