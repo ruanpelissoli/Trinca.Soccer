@@ -89,7 +89,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderers\FormattedNumberEntryRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -106,6 +105,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Trinca.Soccer.App\Trinca.Soccer.App.csproj">
       <Name>Trinca.Soccer.App</Name>
+      <Project>{700BC319-66CE-455E-9680-20E4489062AE}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +212,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomRenderers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
