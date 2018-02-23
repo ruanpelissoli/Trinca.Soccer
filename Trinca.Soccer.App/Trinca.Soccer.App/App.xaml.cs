@@ -18,6 +18,7 @@ namespace Trinca.Soccer.App
         protected async override void OnInitialized()
         {
             InitializeComponent();
+            MainPage = new MainPage();
 
             ClientApi.Initialize();
             await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
