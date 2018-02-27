@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Trinca.Soccer.App.Util
+namespace Trinca.Soccer.App.Converters
 {
     public class NegateBooleanConverter : IValueConverter
     {

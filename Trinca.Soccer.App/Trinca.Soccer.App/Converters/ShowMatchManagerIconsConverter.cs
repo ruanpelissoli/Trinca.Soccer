@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Globalization;
-using Trinca.Soccer.Dto.Player;
+using Trinca.Soccer.App.Helpers;
+using Trinca.Soccer.Dto.Match;
 using Xamarin.Forms;
 
-namespace Trinca.Soccer.App.Util
+namespace Trinca.Soccer.App.Converters
 {
-    public class PlayerNameConverter : IValueConverter
+    public class ShowMatchManagerIconsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return string.Empty;
 
-            var player = (PlayerOutputDto)value;
+            var match = (MatchOutputDto)value;
 
-            if (player.IsGuest)
-                return player.GuestName;
+            if (match.CreatedBy == Settings.EmployeeId)
+                return true;
 
-            return player.Name;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

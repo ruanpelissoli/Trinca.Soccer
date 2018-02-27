@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace Trinca.Soccer.App.Util
+namespace Trinca.Soccer.App.Converters
 {
     public class DecimalConverter : IValueConverter
     {

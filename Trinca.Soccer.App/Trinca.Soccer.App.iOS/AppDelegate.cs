@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using PCLAppConfig;
+using SVG.Forms.Plugin.iOS;
 
 namespace Trinca.Soccer.App.iOS
 {
@@ -26,6 +23,7 @@ namespace Trinca.Soccer.App.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            SvgImageRenderer.Init();
 
             try
             {

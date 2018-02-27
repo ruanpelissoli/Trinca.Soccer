@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
-namespace Trinca.Soccer.App.Util
+namespace Trinca.Soccer.App.Converters
 {
     public class CurrencyConverter : IValueConverter
     {

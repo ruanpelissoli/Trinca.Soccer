@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -34,6 +35,8 @@ namespace Trinca.Soccer.App.ViewModels
         }
 
         public DelegateCommand LoginCommand { get; set; }
+
+        public Assembly SvgAssembly => typeof(App).GetTypeInfo().Assembly;
 
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {

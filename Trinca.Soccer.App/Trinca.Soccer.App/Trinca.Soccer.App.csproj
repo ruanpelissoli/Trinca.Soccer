@@ -47,14 +47,14 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ApplicationParameters.cs" />
-    <Compile Include="Util\CurrencyConverter.cs" />
-    <Compile Include="Util\DecimalConverter.cs" />
+    <Compile Include="Converters\CurrencyConverter.cs" />
+    <Compile Include="Converters\DecimalConverter.cs" />
     <Compile Include="Util\ETeams.cs" />
     <Compile Include="Util\ImageResourceExtension.cs" />
-    <Compile Include="Util\NegateBooleanConverter.cs" />
-    <Compile Include="Util\PlayerNameConverter.cs" />
-    <Compile Include="Util\PlayerPictureUrlConverter.cs" />
-    <Compile Include="Util\ShowMatchManagerIconsConverter.cs" />
+    <Compile Include="Converters\NegateBooleanConverter.cs" />
+    <Compile Include="Converters\PlayerNameConverter.cs" />
+    <Compile Include="Converters\PlayerPictureUrlConverter.cs" />
+    <Compile Include="Converters\ShowMatchManagerIconsConverter.cs" />
     <Compile Include="ViewModels\AddGuestPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
@@ -211,6 +211,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

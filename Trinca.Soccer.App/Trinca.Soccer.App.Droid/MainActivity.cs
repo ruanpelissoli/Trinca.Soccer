@@ -2,17 +2,16 @@
 using System.Globalization;
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using PCLAppConfig;
+using SVG.Forms.Plugin.Droid;
 
 namespace Trinca.Soccer.App.Droid
 {
-    [Activity(Label = "Trinca.Soccer.App", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Trinca Soccer", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -30,6 +29,7 @@ namespace Trinca.Soccer.App.Droid
             };
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            SvgImageRenderer.Init();
 
             try
             {

@@ -2,22 +2,42 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+             xmlns:abstractions="clr-namespace:SVG;assembly=SVG.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.LoginPage"
-             Title="{Binding Title}">
-  <StackLayout Padding="20, 0"
-               VerticalOptions="CenterAndExpand"
+             BackgroundColor="#151533">
+    <StackLayout Padding="35, 0"
+               VerticalOptions="StartAndExpand"
                HorizontalOptions="FillAndExpand">
+        <Image 
+              Source="{util:ImageResource Trinca.Soccer.App.Images.logo.png}" 
+              WidthRequest="300"
+              HeightRequest="300"
+              HorizontalOptions="Center"
+              VerticalOptions="StartAndExpand">
+        </Image>
         <Entry Text="{Binding Username}"
              HorizontalOptions="FillAndExpand"
-             Placeholder="Username" />
+             Placeholder="Username" 
+             TextColor="#8484a3" 
+               PlaceholderColor="#8484a3"
+             Opacity="0.4"
+             Margin="0, 5"/>
         <Entry Text="{Binding Password}"
              IsPassword="True"
              HorizontalOptions="FillAndExpand"
-             Placeholder="Password" />
-      <Button Text="Login"
+             Placeholder="Password"
+             TextColor="#8484a3"
+             PlaceholderColor="#8484a3"
+             Opacity="0.4"
+             Margin="0, 5"/>
+        <Button Text="Login"
               Command="{Binding LoginCommand}"
+              Style="{StaticResource PrimaryButton}" 
+              TextColor="#FFFFFF"
+              Margin="0, 5"
               IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
-      <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />
+        <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#FFFFFF" />
     </StackLayout>
 </ContentPage>
