@@ -14,6 +14,10 @@ namespace Trinca.Soccer.App
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
         }
+        public App()
+        {
+            this.InitializeComponent();
+        }
 
         protected async override void OnInitialized()
         {

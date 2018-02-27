@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
@@ -20,22 +20,25 @@
              HorizontalOptions="FillAndExpand"
              Placeholder="Username" 
              TextColor="#8484a3" 
-               PlaceholderColor="#8484a3"
-             Opacity="0.4"
-             Margin="0, 5"/>
+             PlaceholderColor="#8484a3"
+             Opacity="0.8"
+             Margin="0, 5"
+             HeightRequest="40"/>
         <Entry Text="{Binding Password}"
              IsPassword="True"
              HorizontalOptions="FillAndExpand"
              Placeholder="Password"
              TextColor="#8484a3"
              PlaceholderColor="#8484a3"
-             Opacity="0.4"
-             Margin="0, 5"/>
+             Opacity="0.8"
+             Margin="0, 5"
+             HeightRequest="40"/>
         <Button Text="Login"
               Command="{Binding LoginCommand}"
               Style="{StaticResource PrimaryButton}" 
               TextColor="#FFFFFF"
               Margin="0, 5"
+              BorderRadius="20"
               IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
         <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#FFFFFF" />
     </StackLayout>
