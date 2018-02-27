@@ -26,7 +26,6 @@ namespace Trinca.Soccer.App.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::NGraphics.Android.Custom.Resource.String.library_name = global::Trinca.Soccer.App.Droid.Resource.String.library_name;
 			global::PCLAppConfig.FileSystemStream.Android.Resource.Animation.abc_fade_in = global::Trinca.Soccer.App.Droid.Resource.Animation.abc_fade_in;
 			global::PCLAppConfig.FileSystemStream.Android.Resource.Animation.abc_fade_out = global::Trinca.Soccer.App.Droid.Resource.Animation.abc_fade_out;
 			global::PCLAppConfig.FileSystemStream.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::Trinca.Soccer.App.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -5387,9 +5386,6 @@ namespace Trinca.Soccer.App.Droid
 			
 			// aapt resource value: 0x7f090038
 			public const int character_counter_pattern = 2131296312;
-			
-			// aapt resource value: 0x7f090040
-			public const int library_name = 2131296320;
 			
 			// aapt resource value: 0x7f090000
 			public const int mr_button_content_description = 2131296256;

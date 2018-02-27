@@ -50,7 +50,6 @@ namespace Trinca.Soccer.App.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
-                //SvgImageRenderer.Init();
 
                 ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
 
