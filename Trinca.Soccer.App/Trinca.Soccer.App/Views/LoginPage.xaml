@@ -1,44 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"             
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.LoginPage"
              BackgroundColor="#151533">
     <StackLayout Padding="35, 0"
                VerticalOptions="StartAndExpand"
                HorizontalOptions="FillAndExpand">
-        <Image 
-              Source="{util:ImageResource Trinca.Soccer.App.Images.logo.png}" 
-              WidthRequest="300"
-              HeightRequest="300"
-              HorizontalOptions="Center"
-              VerticalOptions="StartAndExpand">
-        </Image>
+        <Image Style="{StaticResource LoginImageIcon}" />
         <Entry Text="{Binding Username}"
-             HorizontalOptions="FillAndExpand"
-             Placeholder="Username" 
-             TextColor="#8484a3" 
-             PlaceholderColor="#8484a3"
-             Opacity="0.8"
-             Margin="0, 5"
-             HeightRequest="40"/>
+             Style="{StaticResource LoginPageEntry}"
+             Placeholder="Username" />
         <Entry Text="{Binding Password}"
+             Style="{StaticResource LoginPageEntry}"
              IsPassword="True"
-             HorizontalOptions="FillAndExpand"
-             Placeholder="Password"
-             TextColor="#8484a3"
-             PlaceholderColor="#8484a3"
-             Opacity="0.8"
-             Margin="0, 5"
-             HeightRequest="40"/>
+             Placeholder="Password" />
         <Button Text="Login"
               Command="{Binding LoginCommand}"
               Style="{StaticResource PrimaryButton}" 
-              TextColor="#FFFFFF"
-              Margin="0, 5"
-              BorderRadius="20"
+              Margin="0, 5"              
               IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
         <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#FFFFFF" />
     </StackLayout>

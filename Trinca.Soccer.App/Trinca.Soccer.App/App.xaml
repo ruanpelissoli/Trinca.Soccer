@@ -3,58 +3,21 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
                         xmlns:converters="clr-namespace:Trinca.Soccer.App.Converters;assembly=Trinca.Soccer.App"
+                        xmlns:themes="clr-namespace:Trinca.Soccer.App.Themes;assembly=Trinca.Soccer.App"
                         x:Class="Trinca.Soccer.App.App">
-    <prism:PrismApplication.Resources>
-        <ResourceDictionary>
-            <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />
-            <converters:DecimalConverter x:Key="DecimalConverter" />
-            <converters:PlayerNameConverter x:Key="PlayerNameConverter" />
-            <converters:PlayerPictureUrlConverter x:Key="PlayerPictureUrlConverter" />
-            <converters:ShowMatchManagerIconsConverter x:Key="ShowMatchManagerIconsConverter" />
-            <converters:CurrencyConverter x:Key="CurrencyConverter" />
-          
-            <x:String x:Key="AppMainColor">#151533</x:String>
-            <x:String x:Key="MainButtonColor">#21FD88</x:String>
-            <x:String x:Key="DestructiveButtonColor">#FF4747</x:String>
-          
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource AppMainColor}"/>
-                <Setter Property="BarTextColor" Value="#8484A3"/>
-            </Style>
-        
-            <Style TargetType="Button" x:Key="PrimaryButton">
-                <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
-                <Setter Property="BorderRadius" Value="50" />
-                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="TextColor" Value="#FFFFFF" />
-                <Style.Triggers>
-                    <Trigger TargetType="Button"  Property="IsEnabled" Value="False">
-                        <Setter Property="TextColor" Value="#FFFFFF"></Setter>
-                        <Setter Property="Opacity" Value="0.5"></Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style> 
-        
-            <Style TargetType="Button" x:Key="SecondaryButton">
-                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BorderColor" Value="{StaticResource MainButtonColor}" />
-                <Setter Property="BorderRadius" Value="50" />
-                <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="TextColor" Value="{StaticResource MainButtonColor}" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-            </Style>
-        
-            <Style TargetType="Button" x:Key="SecondaryButtonDestructive">
-                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BorderColor" Value="{StaticResource DestructiveButtonColor}" />
-                <Setter Property="BorderRadius" Value="50" />
-                <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="TextColor" Value="{StaticResource DestructiveButtonColor}" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-            </Style>
-        </ResourceDictionary>
-    </prism:PrismApplication.Resources>
+  <prism:PrismApplication.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <themes:MainTheme />
+        <themes:LoginPageTheme />
+      </ResourceDictionary.MergedDictionaries>
+      
+      <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+      <converters:DecimalConverter x:Key="DecimalConverter" />
+      <converters:PlayerNameConverter x:Key="PlayerNameConverter" />
+      <converters:PlayerPictureUrlConverter x:Key="PlayerPictureUrlConverter" />
+      <converters:ShowMatchManagerIconsConverter x:Key="ShowMatchManagerIconsConverter" />
+      <converters:CurrencyConverter x:Key="CurrencyConverter" />
+    </ResourceDictionary>
+  </prism:PrismApplication.Resources>
 </prism:PrismApplication>

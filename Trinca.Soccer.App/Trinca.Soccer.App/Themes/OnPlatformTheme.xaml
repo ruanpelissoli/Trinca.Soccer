@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+         xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+         x:Class="Trinca.Soccer.App.Themes.OnPlatformTheme">
+
+    <OnPlatform x:Key="OnPlatformBorderRadius" x:TypeArguments="x:Int32" Android="50" iOS="20" WinPhone="50" />
+</ResourceDictionary>
