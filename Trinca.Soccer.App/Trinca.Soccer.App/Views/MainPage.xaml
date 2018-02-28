@@ -3,12 +3,11 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
             xmlns:views="clr-namespace:Trinca.Soccer.App.Views;assembly=Trinca.Soccer.App"
-            xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="Trinca.Soccer.App.Views.MainPage"
             Title="{Binding Title}">
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Order="Secondary" Text="Logout" Command="{Binding LogoutCommand}" />        
+        <ToolbarItem Order="Secondary" Text="Logout" Command="{Binding LogoutCommand}" />
     </TabbedPage.ToolbarItems>
     <views:MatchesListPage />
     <views:NewMatchPage />
