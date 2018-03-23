@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using PCLAppConfig;
+using ImageCircle.Forms.Plugin.UWP;
 
 namespace Trinca.Soccer.App.UWP
 {
@@ -51,6 +52,7 @@ namespace Trinca.Soccer.App.UWP
 
                 Xamarin.Forms.Forms.Init(e);
 
+                ImageCircleRenderer.Init();
                 ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

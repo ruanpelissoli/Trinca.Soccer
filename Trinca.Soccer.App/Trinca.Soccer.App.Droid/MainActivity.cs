@@ -6,6 +6,7 @@ using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using PCLAppConfig;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace Trinca.Soccer.App.Droid
 {
@@ -29,6 +30,7 @@ namespace Trinca.Soccer.App.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+            ImageCircleRenderer.Init();
             try
             {
                 ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);

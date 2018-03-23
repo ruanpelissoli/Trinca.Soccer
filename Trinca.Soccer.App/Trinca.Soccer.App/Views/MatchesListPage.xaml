@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
+             xmlns:roundimage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.MatchesListPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="LightGray"
+             Padding="10">
     <custom:ListView HasUnevenRows="True"
               ItemsSource="{Binding Matches}"
               IsPullToRefreshEnabled="True"
@@ -15,12 +18,26 @@
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <StackLayout Padding="5">
-                        <Label Text="{Binding Place}" FontSize="Medium" FontAttributes="Bold" />
+                    <StackLayout Padding="10" 
+                                 Margin="10" 
+                                 BackgroundColor="White">
+                        <Label Text="{Binding Place}" FontSize="Medium" FontAttributes="Bold" TextColor="Black" />
+                        <Label Text="{Binding Date}" FontSize="Small" TextColor="Gray" />
+
+                        <Label Text="" />
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding CreatedBy}" HorizontalOptions="StartAndExpand" />
-                            <Label Text="{Binding Score}" HorizontalOptions="End" />
-                            <Label Text="{Binding TotalPlayers}" HorizontalOptions="End" />
+                            <Label Text="{Binding TotalPlayers}" 
+                                   HorizontalOptions="Start"
+                                   TextColor="{Binding TotalPlayers, Converter={StaticResource TotalPlayerColorConverter}}"/>
+                            <Label Text="Players" HorizontalOptions="StartAndExpand" />
+
+                            <Label Text="Created by:" HorizontalOptions="End" />
+                            <roundimage:CircleImage 
+                                Source="{Binding CreatedByPictureUrl}" 
+                                Aspect="AspectFit" 
+                                HorizontalOptions="End" 
+                                HeightRequest="20" 
+                                WidthRequest="20" />
                         </StackLayout>                        
                     </StackLayout>
                 </ViewCell>

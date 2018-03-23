@@ -6,7 +6,8 @@ namespace Trinca.Soccer.Dto.Match
     {
         public int Id { get; set; }
         public string Place { get; set; }
-        public string CreatedBy { get; set; }
+        public string Date { get; set; }
+        public string CreatedByPictureUrl { get; set; }
         public int MinimumPlayers { get; set; }
         public string Score { get; set; }
         public string TotalPlayers { get; set; }

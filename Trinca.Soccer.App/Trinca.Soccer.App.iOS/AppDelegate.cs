@@ -3,6 +3,7 @@ using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using PCLAppConfig;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace Trinca.Soccer.App.iOS
 {
@@ -23,6 +24,7 @@ namespace Trinca.Soccer.App.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            ImageCircleRenderer.Init();
             try
             {
                 ConfigurationManager.Initialise(PCLAppConfig.FileSystemStream.PortableStream.Current);

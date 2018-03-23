@@ -42,6 +42,7 @@
     <Compile Include="Constants\Parameters.cs" />
     <Compile Include="Constants\Routes.cs" />
     <Compile Include="Constants\Strings.cs" />
+    <Compile Include="Converters\TotalPlayerColorConverter.cs" />
     <Compile Include="CustomControls\ListView.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -102,6 +103,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ImageCircle.Forms.Plugin.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugins.Forms.ImageCircle.2.0.2\lib\netstandard1.0\ImageCircle.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>

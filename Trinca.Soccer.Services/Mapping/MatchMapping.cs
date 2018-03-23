@@ -22,8 +22,8 @@ namespace Trinca.Soccer.Services.Mapping
             IMapperConfigurationExpression config)
         {
             return config.CreateMap<Match, MatchListOutputDto>()
-                .ForMember(dest => dest.Place, src => src.MapFrom(item => $"{item.Place} - {item.Date:dd/MM/yyyy hh:mm:ss}"))
-                .ForMember(dest => dest.CreatedBy, src => src.MapFrom(item => item.Employee != null ? $"Created by: {item.Employee.Name}" : string.Empty))
+                .ForMember(dest => dest.Date, src => src.MapFrom(item => $"{item.Date:dd/MM/yyyy - hh:mm}"))
+                .ForMember(dest => dest.CreatedByPictureUrl, src => src.MapFrom(item => item.Employee != null ? $"{item.Employee.PictureUrl}" : string.Empty))
                 .ForMember(dest => dest.Score, src => src.MapFrom(item => item.IsFinished ? $"{item.YellowTeamScore}x{item.BlackTeamScore}" : string.Empty));
         }
     }

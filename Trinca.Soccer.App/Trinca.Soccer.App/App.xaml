@@ -18,6 +18,7 @@
       <converters:PlayerPictureUrlConverter x:Key="PlayerPictureUrlConverter" />
       <converters:ShowMatchManagerIconsConverter x:Key="ShowMatchManagerIconsConverter" />
       <converters:CurrencyConverter x:Key="CurrencyConverter" />
+      <converters:TotalPlayerColorConverter x:Key="TotalPlayerColorConverter" />
     </ResourceDictionary>
   </prism:PrismApplication.Resources>
 </prism:PrismApplication>

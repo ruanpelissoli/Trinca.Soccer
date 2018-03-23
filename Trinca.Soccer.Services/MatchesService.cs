@@ -37,7 +37,7 @@ namespace Trinca.Soccer.Services
             foreach (var matchListOutputDto in matchesListOutputDto)
             {
                 var totalPlayers = await _playersServices.GetAllByMatch(matchListOutputDto.Id);
-                matchListOutputDto.TotalPlayers = $"{totalPlayers.Count()}/{matchListOutputDto.MinimumPlayers} Players";
+                matchListOutputDto.TotalPlayers = $"{totalPlayers.Count()}/{matchListOutputDto.MinimumPlayers}";
             }
 
             return matchesListOutputDto.OrderByDescending(o => o.CreateDate);
