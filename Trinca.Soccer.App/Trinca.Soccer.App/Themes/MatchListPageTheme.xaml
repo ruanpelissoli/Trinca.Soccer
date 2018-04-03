@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+         xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+         xmlns:themes="clr-namespace:Trinca.Soccer.App.Themes;assembly=Trinca.Soccer.App"
+         x:Class="Trinca.Soccer.App.Themes.MatchListPageTheme">
+    <ResourceDictionary.MergedDictionaries>
+        <themes:OnPlatformTheme />
+    </ResourceDictionary.MergedDictionaries>
+
+    <x:String x:Key="MatchListBackgroundColor">#E5E5E5</x:String>
+
+    <x:String x:Key="TitleLabelColor">#12122E</x:String>
+    <x:String x:Key="SubtitleLabelColor">#4E4E6B</x:String>
+
+    <Style TargetType="Frame" x:Key="MatchListFrame">
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="BackgroundColor" Value="#FFFFFF" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Margin" Value="7" />
+        <Setter Property="HeightRequest" Value="100" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="MatchTitle">
+        <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource TitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="21" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="MatchSubtitle">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="17" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="PlayerNumberLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="PlayerLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="CreatedByLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+</ResourceDictionary>

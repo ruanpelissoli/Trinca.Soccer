@@ -5,4 +5,22 @@
          x:Class="Trinca.Soccer.App.Themes.OnPlatformTheme">
 
     <OnPlatform x:Key="OnPlatformBorderRadius" x:TypeArguments="x:Int32" Android="50" iOS="20" WinPhone="50" />
+
+    <OnPlatform x:Key="RubikRegular" 
+                x:TypeArguments="x:String" 
+                Android="Rubik-Regular.ttf#Rubik-Regular" 
+                iOS="Rubik-Regular.ttf" 
+                WinPhone="Assets/Fonts/Rubik-Regular.ttf#Rubik" />
+    
+    <OnPlatform x:Key="RubikMedium" 
+                x:TypeArguments="x:String" 
+                Android="Rubik-Medium.ttf#Rubik-Medium" 
+                iOS="Rubik-Medium.ttf" 
+                WinPhone="Assets/Fonts/Rubik-Regular.ttf#Rubik" />
+    
+    <OnPlatform x:Key="RubikBold" 
+                x:TypeArguments="x:String" 
+                Android="Rubik-Bold.ttf#Rubik-Bold" 
+                iOS="Rubik-Bold.ttf" 
+                WinPhone="Assets/Fonts/Rubik-Regular.ttf#Rubik" />
 </ResourceDictionary>

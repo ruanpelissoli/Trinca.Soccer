@@ -10,6 +10,7 @@
       <ResourceDictionary.MergedDictionaries>
         <themes:MainTheme />
         <themes:LoginPageTheme />
+        <themes:MatchListPageTheme />
       </ResourceDictionary.MergedDictionaries>
       
       <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />

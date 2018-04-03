@@ -179,6 +179,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\EntryRenderer.cs" />
     <Compile Include="Renderers\RoundedButtonRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,9 +188,18 @@
     <AndroidAsset Include="..\Trinca.Soccer.App\App.config">
       <Link>App.config</Link>
     </AndroidAsset>
+    <AndroidAsset Include="Assets\Rubik-Black.ttf" />
+    <AndroidAsset Include="Assets\Rubik-BlackItalic.ttf" />
+    <AndroidAsset Include="Assets\Rubik-Bold.ttf" />
+    <AndroidAsset Include="Assets\Rubik-BoldItalic.ttf" />
+    <AndroidAsset Include="Assets\Rubik-Italic.ttf" />
+    <AndroidAsset Include="Assets\Rubik-Light.ttf" />
+    <AndroidAsset Include="Assets\Rubik-LightItalic.ttf" />
+    <AndroidAsset Include="Assets\Rubik-Medium.ttf" />
+    <AndroidAsset Include="Assets\Rubik-MediumItalic.ttf" />
+    <AndroidAsset Include="Assets\Rubik-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\tabs.xml" />

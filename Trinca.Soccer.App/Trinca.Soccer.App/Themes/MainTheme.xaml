@@ -23,6 +23,7 @@
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
         <Setter Property="TextColor" Value="#FFFFFF" />
+        <Setter Property="FontFamily" Value="{StaticResource RubikBold}" />
         <Style.Triggers>
             <Trigger TargetType="Button"  Property="IsEnabled" Value="False">
                 <Setter Property="TextColor" Value="#FFFFFF"></Setter>
@@ -38,6 +39,7 @@
         <Setter Property="BorderRadius" Value="{StaticResource OnPlatformBorderRadius}" />
         <Setter Property="BorderWidth" Value="2" />
         <Setter Property="TextColor" Value="{StaticResource MainButtonColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
     </Style>
 
@@ -48,6 +50,7 @@
         <Setter Property="BorderRadius" Value="{StaticResource OnPlatformBorderRadius}" />
         <Setter Property="BorderWidth" Value="2" />
         <Setter Property="TextColor" Value="{StaticResource DestructiveButtonColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
     </Style>
 </ResourceDictionary>

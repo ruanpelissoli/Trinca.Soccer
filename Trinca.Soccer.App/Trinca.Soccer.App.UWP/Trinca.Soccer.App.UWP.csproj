@@ -93,6 +93,16 @@
     <Content Include="..\Trinca.Soccer.App\App.config">
       <Link>App.config</Link>
     </Content>
+    <Content Include="Assets\Fonts\Rubik-Black.ttf" />
+    <Content Include="Assets\Fonts\Rubik-BlackItalic.ttf" />
+    <Content Include="Assets\Fonts\Rubik-Bold.ttf" />
+    <Content Include="Assets\Fonts\Rubik-BoldItalic.ttf" />
+    <Content Include="Assets\Fonts\Rubik-Italic.ttf" />
+    <Content Include="Assets\Fonts\Rubik-Light.ttf" />
+    <Content Include="Assets\Fonts\Rubik-LightItalic.ttf" />
+    <Content Include="Assets\Fonts\Rubik-Medium.ttf" />
+    <Content Include="Assets\Fonts\Rubik-MediumItalic.ttf" />
+    <Content Include="Assets\Fonts\Rubik-Regular.ttf" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

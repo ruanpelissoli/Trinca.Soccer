@@ -2,7 +2,11 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
          xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+         xmlns:themes="clr-namespace:Trinca.Soccer.App.Themes;assembly=Trinca.Soccer.App"
          x:Class="Trinca.Soccer.App.Themes.LoginPageTheme">
+    <ResourceDictionary.MergedDictionaries>
+        <themes:OnPlatformTheme />
+    </ResourceDictionary.MergedDictionaries>
 
     <x:String x:Key="LoginEntryMainColor">#8484a3</x:String>
 
@@ -10,6 +14,9 @@
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="TextColor" Value="{StaticResource LoginEntryMainColor}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource LoginEntryMainColor}" />
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="HeightRequest" Value="21" />
         <Setter Property="Opacity" Value="0.8" />
         <Setter Property="Margin" Value="0, 5" />
         <Setter Property="HeightRequest" Value="40" />

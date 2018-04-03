@@ -16,9 +16,9 @@ namespace Trinca.Soccer.App.Converters
             var totalPlayers = int.Parse(players[1]);
 
             if (numberOfPlayer >= totalPlayers)
-                return "Green";
+                return "#21FD88";
 
-            return "Red";
+            return "#FF4747";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
