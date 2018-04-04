@@ -19,7 +19,7 @@
               SeparatorVisibility="None">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell>s
+                <ViewCell>
                     <Frame Style="{StaticResource MatchListFrame}">
                         <StackLayout>
                             <Label Text="{Binding Place}" 

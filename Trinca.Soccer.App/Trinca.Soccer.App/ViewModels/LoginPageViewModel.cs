@@ -36,8 +36,6 @@ namespace Trinca.Soccer.App.ViewModels
 
         public DelegateCommand LoginCommand { get; set; }
 
-        public Assembly SvgAssembly => typeof(App).GetTypeInfo().Assembly;
-
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = Strings.AppName;
