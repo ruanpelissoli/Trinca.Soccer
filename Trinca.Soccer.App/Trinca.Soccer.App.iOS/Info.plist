@@ -54,5 +54,18 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Rubik-Black.TTF</string>
+		<string>Rubik-BlackItalic.TTF</string>
+		<string>Rubik-Bold.TTF</string>
+		<string>Rubik-BoldItalic.TTF</string>
+		<string>Rubik-Italic.TTF</string>
+		<string>Rubik-Light.TTF</string>
+		<string>Rubik-LightItalic.TTF</string>
+		<string>Rubik-Medium.TTF</string>
+		<string>Rubik-MediumItalic.TTF</string>
+		<string>Rubik-Regular.TTF</string>
+	</array> 
 </dict>
 </plist>
