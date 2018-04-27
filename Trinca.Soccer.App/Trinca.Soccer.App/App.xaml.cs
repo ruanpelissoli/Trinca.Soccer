@@ -24,21 +24,24 @@ namespace Trinca.Soccer.App
             InitializeComponent();
             MainPage = new MainPage();
 
+            StatusBarColor.Set(App.Current.Resources["AppMainColor"].ToString());
+
             ClientApi.Initialize();
             await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
 
-            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : Routes.Matches());
+            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : $"app:///{Routes.Matches()}");
         }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
+            Container.RegisterTypeForNavigation<CustomNavigationPage>();
             Container.RegisterTypeForNavigation<LoginPage, LoginPageViewModel>();
             Container.RegisterTypeForNavigation<MainPage, MainPageViewModel>();
             Container.RegisterTypeForNavigation<MatchesListPage, MatchesListPageViewModel>();
             Container.RegisterTypeForNavigation<NewMatchPage, NewMatchPageViewModel>();
             Container.RegisterTypeForNavigation<MatchPage, MatchPageViewModel>();
-            Container.RegisterTypeForNavigation<AddGuestPage, AddGuestPageViewModel>();
+            Container.RegisterTypeForNavigation<AddGuestPage, AddGuestPageViewModel>();            
         }
 
         

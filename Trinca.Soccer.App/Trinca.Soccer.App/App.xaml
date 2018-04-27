@@ -11,6 +11,7 @@
         <themes:MainTheme />
         <themes:LoginPageTheme />
         <themes:MatchListPageTheme />
+        <themes:MatchPageTheme />
       </ResourceDictionary.MergedDictionaries>
       
       <converters:NegateBooleanConverter x:Key="NegateBooleanConverter" />

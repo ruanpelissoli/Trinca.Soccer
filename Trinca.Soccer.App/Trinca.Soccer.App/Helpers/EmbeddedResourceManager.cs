@@ -17,10 +17,10 @@ namespace Trinca.Soccer.App.Helpers
 
                 var writer = new ResourceWriter(assembly);
 
-                if (await rootFolder.CheckExistsAsync("logo.png") == ExistenceCheckResult.NotFound)
+                if (await rootFolder.CheckExistsAsync("Images/remove.png") == ExistenceCheckResult.NotFound)
                 {
-                    await writer.WriteFile("Images/arrow-left.png", rootFolder.Path);
-                    await writer.WriteFile("Images/arrow-right.png", rootFolder.Path);
+                    await writer.WriteFile("Images/team-a.png", rootFolder.Path);
+                    await writer.WriteFile("Images/team-b.png", rootFolder.Path);
                     await writer.WriteFile("Images/remove.png", rootFolder.Path);
                     await writer.WriteFile("Images/logo.png", rootFolder.Path);
                     await writer.WriteFolder("Images", rootFolder.Path);

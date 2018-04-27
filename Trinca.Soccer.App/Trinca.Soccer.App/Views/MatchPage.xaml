@@ -4,156 +4,152 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:customControls="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              xmlns:local="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
+             xmlns:roundimage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.MatchPage"
              x:Name="MatchPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="#E5E5E5">
     <ScrollView>
-        <StackLayout Padding="5">
-            <Button Text="Join Match"
-                HorizontalOptions="FillAndExpand"
-                Command="{Binding JoinMatchCommand}"                
-                IsVisible="{Binding JoinMatchIsVisibile}" />
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}">
-                <Button Text="Invite Guest"
-                    HorizontalOptions="StartAndExpand"
-                    Command="{Binding InviteGuestCommand}" />
-                <Button Text="Quit Match"
-                    HorizontalOptions="EndAndExpand"
-                    Command="{Binding LeaveMatchCommand}" />
+        <StackLayout>
+            <StackLayout>
+                <Frame Style="{StaticResource MatchDetailsContainer}">
+                    <StackLayout>
+                        <Label Text="{Binding Match.Place}" 
+                               Style="{StaticResource MatchTitle}" />
+
+                        <Label Text="{Binding Match.Date, StringFormat='{0:dd/MM/yyyy - HH:mm}'}"
+                               Style="{StaticResource MatchSubtitle}" />
+
+                        <StackLayout Style="{StaticResource PlayersCreatorContainer}">
+                            <Label Text="{Binding TotalPlayers}" 
+                                   Style="{StaticResource PlayerNumberLabel}"
+                                   TextColor="{Binding TotalPlayers, Converter={StaticResource TotalPlayerColorConverter}}"
+                                   VerticalOptions="End"/>
+                            <Label Text="Players" 
+                                   Style="{StaticResource PlayerLabel}"
+                                   VerticalOptions="End"/>
+
+                            <Label Text="Created by:" 
+                                   Style="{StaticResource CreatedByLabel}"
+                                   VerticalOptions="End"/>
+                            <roundimage:CircleImage 
+                                   Source="{Binding Match, Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                   Style="{StaticResource CreatedByPicture}" />
+                        </StackLayout>
+                        <BoxView Style="{StaticResource Separator}" />
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Match cost:" 
+                                   HorizontalOptions="Start"
+                                   Style="{StaticResource MatchSubtitle}"/>
+                            <Label Text="{Binding TotalMatchValueEach}" 
+                                   Style="{StaticResource MatchSubtitle}"
+                                   HorizontalOptions="StartAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                                     IsVisible="{Binding ShowBarbecueValue}">
+                            <Label Text="Match with barbecue cost:" 
+                                   Style="{StaticResource MatchSubtitle}"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding TotalBarbecueValueEach}" 
+                                   Style="{StaticResource MatchSubtitle}"
+                                   HorizontalOptions="StartAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                                     Margin="0, 0, 0, 16">
+                            <Label Text="Cost per player:" 
+                                   Style="{StaticResource MatchTitle}"
+                                   HorizontalOptions="Start"/>
+                            <Label Text="{Binding TotalValue}" 
+                                   Style="{StaticResource MatchTitle}"
+                                   HorizontalOptions="StartAndExpand"/>
+                        </StackLayout>
+                        <Button Text="Join Match"
+                                VerticalOptions="Start"
+                                Style="{StaticResource PrimaryButton}" 
+                                Command="{Binding JoinMatchCommand}"                
+                                IsVisible="{Binding JoinMatchIsVisibile}" />
+                        <StackLayout Orientation="Horizontal"
+                                     VerticalOptions="Start"
+                                     IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}">
+                            <Button Text="Invite Guest"
+                                    Style="{StaticResource SecondaryButton}" 
+                                    Command="{Binding InviteGuestCommand}" />
+                            <Button Text="Quit Match"
+                                    Style="{StaticResource SecondaryButtonDestructive}" 
+                                    Command="{Binding LeaveMatchCommand}" />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
-            <ListView  ItemsSource="{Binding Players}"
-                       VerticalOptions="Start"
-                       HorizontalOptions="CenterAndExpand"
-                       HeightRequest="{Binding PlayerListViewHeight}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal"
-                                     Padding="5">
-                                <Image 
-                                    Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-left.png}" 
-                                    Aspect="AspectFit" 
-                                    HorizontalOptions="Start" 
-                                    HeightRequest="24" 
-                                    WidthRequest="24"
-                                    IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
-                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                             NumberOfTapsRequired="1" 
-                                             Command="{Binding Path=BindingContext.AddToYellowTeamCommand, Source={x:Reference MatchPage}}" 
-                                             CommandParameter="{Binding Id}" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                                <Image 
-                                    Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
-                                    Aspect="AspectFit" 
-                                    HorizontalOptions="Start" 
-                                    HeightRequest="24" 
-                                    WidthRequest="24">
-                                </Image>
-                                <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
-                                       HorizontalOptions="StartAndExpand"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center" />
-                                <Image 
-                                    Source="{local:ImageResource Trinca.Soccer.App.Images.arrow-right.png}" 
-                                    Aspect="AspectFit" 
-                                    HorizontalOptions="Start" 
-                                    HeightRequest="24" 
-                                    WidthRequest="24"
-                                    IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
-                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                             NumberOfTapsRequired="1" 
-                                             Command="{Binding Path=BindingContext.AddToBlackTeamCommand, Source={x:Reference MatchPage}}" 
-                                             CommandParameter="{Binding Id}" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <StackLayout Padding="5"
-                     Orientation="Horizontal">
-                <StackLayout>
-                    <Label Text="Team Yellow" TextColor="Black" />
-                    <ListView 
-                       ItemsSource="{Binding YellowTeam}"
-                       HorizontalOptions="StartAndExpand"
-                       VerticalOptions="Start"
-                       HeightRequest="{Binding TeamsListViewHeight}">
+            <StackLayout Style="{StaticResource PlayerListContainer}">
+                <Label Text="No Team"
+                       Style="{StaticResource MatchTitle}"/>
+                <Frame HeightRequest="{Binding PlayerListViewHeight}">
+                    <ListView ItemsSource="{Binding Players}"
+                          Style="{StaticResource PlayersList}"
+                          HeightRequest="{Binding PlayerListViewHeight}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout Orientation="Horizontal"
-                                             Padding="5">
+                                    <StackLayout Orientation="Horizontal">
+                                        <roundimage:CircleImage  
+                                                Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                                Style="{StaticResource PlayerPicture}">
+                                        </roundimage:CircleImage>
+                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                               Style="{StaticResource PlayersListItem}" />
                                         <Image 
-                                            Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
-                                            Aspect="AspectFit" 
-                                            HorizontalOptions="Start" 
-                                            HeightRequest="16" 
-                                            WidthRequest="16"
+                                            Source="{local:ImageResource Trinca.Soccer.App.Images.team-a.png}" 
+                                            Style="{StaticResource TeamsIdentification}"
                                             IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
-                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
+                                                        Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
-                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     Command="{Binding Path=BindingContext.AddToYellowTeamCommand, Source={x:Reference MatchPage}}" 
                                                      CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>
                                         <Image 
-                                            Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
-                                            Aspect="AspectFit" 
-                                            HorizontalOptions="Start" 
-                                            HeightRequest="24" 
-                                            WidthRequest="24">
+                                            Source="{local:ImageResource Trinca.Soccer.App.Images.team-b.png}" 
+                                            Style="{StaticResource TeamsIdentification}"
+                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                        Converter={StaticResource ShowMatchManagerIconsConverter}}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                 NumberOfTapsRequired="1" 
+                                                 Command="{Binding Path=BindingContext.AddToBlackTeamCommand, Source={x:Reference MatchPage}}" 
+                                                 CommandParameter="{Binding Id}" />
+                                            </Image.GestureRecognizers>
                                         </Image>
-                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
-                                           HorizontalOptions="StartAndExpand"
-                                           VerticalOptions="Center"
-                                           VerticalTextAlignment="Center" />
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </StackLayout>
-                <StackLayout>
-                    <Label Text="Team Black" TextColor="Black" HorizontalTextAlignment="End" />
-                    <ListView 
-                           ItemsSource="{Binding BlackTeam}"
-                           HorizontalOptions="EndAndExpand"
-                           VerticalOptions="Start"
-                           HeightRequest="{Binding TeamsListViewHeight}">
+                </Frame>
+            </StackLayout>
+            <StackLayout Style="{StaticResource PlayerListContainer}">
+                <Label Text="Team A"
+                       Style="{StaticResource MatchTitle}"/>
+                <Frame HeightRequest="{Binding TeamAListViewHeight}">
+                    <ListView ItemsSource="{Binding YellowTeam}"
+                          Style="{StaticResource PlayersList}"
+                          HeightRequest="{Binding TeamAListViewHeight}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout Orientation="Horizontal"
-                                                 Padding="5">
-                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
-                                           HorizontalOptions="EndAndExpand"
-                                           HorizontalTextAlignment="End"
-                                           VerticalOptions="Center"
-                                           VerticalTextAlignment="Center" />
-                                        <Image 
+                                    <StackLayout Orientation="Horizontal">
+                                        <roundimage:CircleImage  
                                             Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
-                                            Aspect="AspectFit" 
-                                            HorizontalOptions="Start" 
-                                            HeightRequest="24" 
-                                            WidthRequest="24">
-                                        </Image>
+                                            Style="{StaticResource PlayerPicture}">
+                                        </roundimage:CircleImage>
+                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                               Style="{StaticResource PlayersListItem}" />
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
-                                            Aspect="AspectFit" 
-                                            HorizontalOptions="Start" 
-                                            HeightRequest="16" 
-                                            WidthRequest="16"
+                                            Style="{StaticResource Remove}"
                                             IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
                                                 Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
@@ -168,27 +164,44 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                </StackLayout>
+                </Frame>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Total match value:" 
-                       HorizontalOptions="StartAndExpand"/>
-                <Label Text="{Binding TotalMatchValueEach}" 
-                       HorizontalOptions="End"/>
+            <StackLayout Style="{StaticResource PlayerListContainer}">
+                <Label Text="Team A"
+                       Style="{StaticResource MatchTitle}"/>
+                <Frame HeightRequest="{Binding TeamBListViewHeight}">
+                    <ListView ItemsSource="{Binding BlackTeam}"
+                          Style="{StaticResource PlayersList}"
+                          HeightRequest="{Binding TeamBListViewHeight}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+                                        <roundimage:CircleImage  
+                                            Source="{Binding ., Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                            Style="{StaticResource PlayerPicture}">
+                                        </roundimage:CircleImage>
+                                        <Label Text="{Binding ., Converter={StaticResource PlayerNameConverter}}" 
+                                               Style="{StaticResource PlayersListItem}" />
+                                        <Image 
+                                            Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
+                                            Style="{StaticResource Remove}"
+                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                                Converter={StaticResource ShowMatchManagerIconsConverter}}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                     NumberOfTapsRequired="1" 
+                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     CommandParameter="{Binding Id}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Frame>
             </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         IsVisible="{Binding ShowBarbecueValue}">
-                <Label Text="Total match with barbecue value:" 
-                       HorizontalOptions="StartAndExpand"/>
-                <Label Text="{Binding TotalBarbecueValueEach}" 
-                       HorizontalOptions="End"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Total:" 
-                       HorizontalOptions="StartAndExpand"/>
-                <Label Text="{Binding TotalValue}" 
-                       HorizontalOptions="End"/>
-            </StackLayout>
-        </StackLayout>
+        </StackLayout>        
     </ScrollView>
 </ContentPage>

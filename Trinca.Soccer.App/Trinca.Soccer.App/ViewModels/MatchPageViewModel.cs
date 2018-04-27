@@ -63,11 +63,18 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _playerListViewHeight, value);
         }
 
-        private int _teamsListViewHeight;
-        public int TeamsListViewHeight
+        private int _teamAListViewHeight;
+        public int TeamAListViewHeight
         {
-            get => _teamsListViewHeight;
-            set => SetProperty(ref _teamsListViewHeight, value);
+            get => _teamAListViewHeight;
+            set => SetProperty(ref _teamAListViewHeight, value);
+        }
+
+        private int _teamBListViewHeight;
+        public int TeamBListViewHeight
+        {
+            get => _teamBListViewHeight;
+            set => SetProperty(ref _teamBListViewHeight, value);
         }
 
         private string _totalMatchValueEach;
@@ -99,6 +106,13 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _showBarbecueValue, value);
         }
 
+        private string _totalPlayers;
+        public string TotalPlayers
+        {
+            get => _totalPlayers;
+            set => SetProperty(ref _totalPlayers, value);            
+        }
+
         public DelegateCommand JoinMatchCommand { get; set; }
         public DelegateCommand InviteGuestCommand { get; set; }
         public DelegateCommand LeaveMatchCommand { get; set; }
@@ -124,7 +138,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 Match = await ClientApi.Matches.GetById(matchId);
 
-                Title = $"{Match.Place} - {Match.Date:dd/MM/yyyy hh:mm:ss}";
+                Title = "Match Details";
 
                 InitializeLists();
 
@@ -143,11 +157,14 @@ namespace Trinca.Soccer.App.ViewModels
                                   !BlackTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId);
 
             Players.CollectionChanged += OnPlayerCollectionChanged;
-            YellowTeam.CollectionChanged += OnTeamsCollectionChanged;
-            BlackTeam.CollectionChanged += OnTeamsCollectionChanged;
+            YellowTeam.CollectionChanged += OnTeamACollectionChanged;
+            BlackTeam.CollectionChanged += OnTeamBCollectionChanged;
 
             PlayerListViewHeight = CalculateHeight(Players);
-            TeamsListViewHeight = CalculateHeight(YellowTeam.Count >= BlackTeam.Count ? YellowTeam : BlackTeam);
+            TeamAListViewHeight = CalculateHeight(YellowTeam);
+            TeamBListViewHeight = CalculateHeight(BlackTeam);
+
+            TotalPlayers = $"{Match.Players.Count}/{Match.MinimumPlayers}";
         }
 
         private void OnUpdateMatchPage(AddGuestPageViewModel source, PlayerOutputDto player)
@@ -275,9 +292,14 @@ namespace Trinca.Soccer.App.ViewModels
             PlayerListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
         }
 
-        private void OnTeamsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnTeamACollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            TeamsListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
+            TeamAListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
+        }
+
+        private void OnTeamBCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            TeamBListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
         }
 
         private int CalculateHeight(ICollection playersList)

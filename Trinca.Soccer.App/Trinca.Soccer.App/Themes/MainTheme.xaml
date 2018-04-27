@@ -3,6 +3,8 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
          xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
          xmlns:themes="clr-namespace:Trinca.Soccer.App.Themes;assembly=Trinca.Soccer.App"
+         xmlns:views="clr-namespace:Trinca.Soccer.App.Views;assembly=Trinca.Soccer.App"
+         xmlns:roundimage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
          x:Class="Trinca.Soccer.App.Themes.MainTheme">
     <ResourceDictionary.MergedDictionaries>
         <themes:OnPlatformTheme />        
@@ -12,9 +14,9 @@
     <x:String x:Key="MainButtonColor">#21FD88</x:String>
     <x:String x:Key="DestructiveButtonColor">#FF4747</x:String>
 
-    <Style TargetType="NavigationPage">
+    <Style TargetType="views:CustomNavigationPage">
         <Setter Property="BarBackgroundColor" Value="{StaticResource AppMainColor}" />
-        <Setter Property="BarTextColor" Value="#8484A3" />
+        <Setter Property="BarTextColor" Value="#FFFFFF" />
     </Style>
 
     <Style TargetType="Button" x:Key="PrimaryButton">
@@ -37,7 +39,7 @@
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
         <Setter Property="BorderColor" Value="{StaticResource MainButtonColor}" />
         <Setter Property="BorderRadius" Value="{StaticResource OnPlatformBorderRadius}" />
-        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="BorderWidth" Value="7" />
         <Setter Property="TextColor" Value="{StaticResource MainButtonColor}" />
         <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -48,9 +50,64 @@
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
         <Setter Property="BorderColor" Value="{StaticResource DestructiveButtonColor}" />
         <Setter Property="BorderRadius" Value="{StaticResource OnPlatformBorderRadius}" />
-        <Setter Property="BorderWidth" Value="2" />
+        <Setter Property="BorderWidth" Value="7" />
         <Setter Property="TextColor" Value="{StaticResource DestructiveButtonColor}" />
         <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+    
+    <Style TargetType="Label" x:Key="MatchTitle">
+        <Setter Property="FontFamily" Value="{StaticResource RubikMedium}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource TitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="21" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="MatchSubtitle">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="17" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="PlayerNumberLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="PlayerLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="CreatedByLabel">
+        <Setter Property="FontFamily" Value="{StaticResource RubikRegular}" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource SubtitleLabelColor}" />
+        <Setter Property="HeightRequest" Value="19" />
+    </Style>
+
+    <Style TargetType="roundimage:CircleImage" x:Key="CreatedByPicture">
+        <Setter Property="Aspect" Value="AspectFit" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="VerticalOptions" Value="End" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="30" />
+    </Style>
+
+    <Style TargetType="BoxView" x:Key="Separator">
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        <Setter Property="HeightRequest" Value="2" />
+        <Setter Property="WidthRequest" Value="300" />
+        <Setter Property="Color" Value="#E9EAF0" />
+        <Setter Property="Margin" Value="0, 0, 0, 16" />
     </Style>
 </ResourceDictionary>

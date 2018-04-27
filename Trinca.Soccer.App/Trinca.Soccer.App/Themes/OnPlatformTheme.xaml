@@ -4,7 +4,10 @@
          xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
          x:Class="Trinca.Soccer.App.Themes.OnPlatformTheme">
 
-    <OnPlatform x:Key="OnPlatformBorderRadius" x:TypeArguments="x:Int32" Android="50" iOS="20" WinPhone="50" />
+    <x:String x:Key="TitleLabelColor">#12122E</x:String>
+    <x:String x:Key="SubtitleLabelColor">#4E4E6B</x:String>
+    
+    <OnPlatform x:Key="OnPlatformBorderRadius" x:TypeArguments="x:Int32" Android="100" iOS="20" WinPhone="50" />
 
     <OnPlatform x:Key="RubikRegular" 
                 x:TypeArguments="x:String" 

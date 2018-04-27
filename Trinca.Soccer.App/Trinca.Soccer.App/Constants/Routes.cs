@@ -4,7 +4,7 @@ namespace Trinca.Soccer.App.Constants
 {
     public static class Routes
     {
-        private const string NavigationPage = "NavigationPage";
+        private const string NavigationPage = nameof(CustomNavigationPage);
 
         public static string Login()
         {

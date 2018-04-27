@@ -18,7 +18,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
@@ -178,7 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Helpers\StatusBarColor.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\EntryRenderer.cs" />
     <Compile Include="Renderers\RoundedButtonRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

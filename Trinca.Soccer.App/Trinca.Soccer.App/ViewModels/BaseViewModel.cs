@@ -5,6 +5,7 @@ using Refit;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Trinca.Soccer.App.Views;
 
 namespace Trinca.Soccer.App.ViewModels
 {

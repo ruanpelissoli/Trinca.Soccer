@@ -69,11 +69,13 @@ namespace Trinca.Soccer.Services
             if (employee == null)
                 return new LoginOutputDto();
 
-            if (employessFromSite.Select(w => w.Username).Contains(employee.Username))
-                return MappingConfig.Mapper().Map<LoginOutputDto>(employee);
+            //if (employessFromSite.Select(w => w.Username).Contains(employee.Username))
+            //    return MappingConfig.Mapper().Map<LoginOutputDto>(employee);
 
-            await _employeesRepository.DeleteAsync(employee);
-            return new LoginOutputDto();
+            //await _employeesRepository.DeleteAsync(employee);
+            //return new LoginOutputDto();
+
+            return MappingConfig.Mapper().Map<LoginOutputDto>(employee);
         }
 
         public async Task<EmployeeOutputDto> GetById(int id)

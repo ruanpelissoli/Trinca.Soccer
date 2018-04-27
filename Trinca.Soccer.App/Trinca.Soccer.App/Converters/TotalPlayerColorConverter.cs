@@ -8,7 +8,7 @@ namespace Trinca.Soccer.App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null) return string.Empty;
+            if (value == null) return Application.Current.Resources["DestructiveButtonColor"].ToString();
 
             var players = value.ToString().Split('/');
 
@@ -16,9 +16,9 @@ namespace Trinca.Soccer.App.Converters
             var totalPlayers = int.Parse(players[1]);
 
             if (numberOfPlayer >= totalPlayers)
-                return "#21FD88";
+                return Application.Current.Resources["MainButtonColor"].ToString();
 
-            return "#FF4747";
+            return Application.Current.Resources["DestructiveButtonColor"].ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
