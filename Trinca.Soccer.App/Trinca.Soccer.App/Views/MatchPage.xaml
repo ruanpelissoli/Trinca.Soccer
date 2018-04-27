@@ -42,7 +42,7 @@
                             <Label Text="Match cost:" 
                                    HorizontalOptions="Start"
                                    Style="{StaticResource MatchSubtitle}"/>
-                            <Label Text="{Binding TotalMatchValueEach}" 
+                            <Label Text="{Binding MatchTitle}" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
@@ -60,8 +60,8 @@
                             <Label Text="Cost per player:" 
                                    Style="{StaticResource MatchTitle}"
                                    HorizontalOptions="Start"/>
-                            <Label Text="{Binding TotalValue}" 
-                                   Style="{StaticResource MatchTitle}"
+                            <Label Text="{Binding TotalMatchValueEach}" 
+                                   Style="{StaticResource }"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
                         <Button Text="Join Match"
