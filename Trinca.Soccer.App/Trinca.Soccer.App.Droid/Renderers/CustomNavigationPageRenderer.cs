@@ -43,10 +43,10 @@ namespace Trinca.Soccer.App.Droid.Renderers
         {
             var view = e.Child.GetType();
 
-            if (e.Child.GetType() == typeof(AppCompatTextView))
+            if (view == typeof(AppCompatTextView))
             {
                 var textView = (AppCompatTextView)e.Child;
-                var spaceFont = Typeface.CreateFromAsset(Context.ApplicationContext.Assets, "Rubik-Medium.ttf#Rubik-Medium");
+                var spaceFont = Typeface.CreateFromAsset(Context.ApplicationContext.Assets, "Rubik-Medium.ttf");
                 textView.Typeface = spaceFont;
                 _toolbar.ChildViewAdded -= Toolbar_ChildViewAdded;
             }

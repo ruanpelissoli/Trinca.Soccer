@@ -89,6 +89,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\StatusBarColor.cs" />
     <Compile Include="Main.cs" />
@@ -250,9 +251,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\exit.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CustomRenderers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
