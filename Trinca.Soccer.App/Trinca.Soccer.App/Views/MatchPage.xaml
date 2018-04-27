@@ -42,7 +42,7 @@
                             <Label Text="Match cost:" 
                                    HorizontalOptions="Start"
                                    Style="{StaticResource MatchSubtitle}"/>
-                            <Label Text="{Binding MatchTitle}" 
+                            <Label Text="{Binding TotalValue}" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
@@ -61,7 +61,7 @@
                                    Style="{StaticResource MatchTitle}"
                                    HorizontalOptions="Start"/>
                             <Label Text="{Binding TotalMatchValueEach}" 
-                                   Style="{StaticResource }"
+                                   Style="{StaticResource MatchTitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
                         <Button Text="Join Match"
