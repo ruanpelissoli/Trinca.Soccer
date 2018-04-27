@@ -20,6 +20,11 @@
         <Setter Property="BarTextColor" Value="#FFFFFF" />
     </Style>
 
+    <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource AppMainColor}" />
+        <Setter Property="BarTextColor" Value="#FFFFFF" />
+    </Style>
+
     <Style TargetType="Button" x:Key="PrimaryButton">
         <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
         <Setter Property="BorderRadius" Value="{StaticResource OnPlatformBorderRadius}" />

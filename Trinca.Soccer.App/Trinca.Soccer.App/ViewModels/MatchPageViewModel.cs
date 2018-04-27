@@ -98,6 +98,12 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _totalValue, value);
         }
 
+        private bool _showPlayersList;
+        public bool ShowPlayersList
+        {
+            get => _showPlayersList;
+            set => SetProperty(ref _showPlayersList, value);
+        }
 
         private bool _showBarbecueValue;
         public bool ShowBarbecueValue
@@ -163,6 +169,8 @@ namespace Trinca.Soccer.App.ViewModels
             PlayerListViewHeight = CalculateHeight(Players);
             TeamAListViewHeight = CalculateHeight(YellowTeam);
             TeamBListViewHeight = CalculateHeight(BlackTeam);
+
+            ShowPlayersList = Players.Any();
 
             TotalPlayers = $"{Match.Players.Count}/{Match.MinimumPlayers}";
         }
@@ -290,6 +298,7 @@ namespace Trinca.Soccer.App.ViewModels
         private void OnPlayerCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PlayerListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
+            ShowPlayersList = Players.Any();
         }
 
         private void OnTeamACollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -331,7 +340,9 @@ namespace Trinca.Soccer.App.ViewModels
                 {
                     TotalValue = (totalValueEach + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
                     ShowBarbecueValue = Match.WithBarbecue && loggedPlayer.WithBarbecue;
-                }                
+                }
+
+                ShowPlayersList = Players.Any();
             });
         }
     }

@@ -8,7 +8,7 @@ namespace Trinca.Soccer.App.Constants
 
         public static string Login()
         {
-            return $"{NavigationPage}/{nameof(LoginPage)}";
+            return $"NavigationPage/{nameof(LoginPage)}";
         }
 
         public static string Matches()

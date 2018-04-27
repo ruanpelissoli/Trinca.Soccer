@@ -82,7 +82,8 @@
                     </StackLayout>
                 </Frame>
             </StackLayout>
-            <StackLayout Style="{StaticResource PlayerListContainer}">
+            <StackLayout Style="{StaticResource PlayerListContainer}"
+                         IsVisible="{Binding ShowPlayersList}">
                 <Label Text="No Team"
                        Style="{StaticResource MatchTitle}"/>
                 <Frame HeightRequest="{Binding PlayerListViewHeight}">
@@ -167,7 +168,7 @@
                 </Frame>
             </StackLayout>
             <StackLayout Style="{StaticResource PlayerListContainer}">
-                <Label Text="Team A"
+                <Label Text="Team B"
                        Style="{StaticResource MatchTitle}"/>
                 <Frame HeightRequest="{Binding TeamBListViewHeight}">
                     <ListView ItemsSource="{Binding BlackTeam}"
