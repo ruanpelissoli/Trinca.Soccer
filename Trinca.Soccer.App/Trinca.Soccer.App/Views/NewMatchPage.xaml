@@ -2,36 +2,73 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.NewMatchPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="White">
     <ScrollView>
         <StackLayout Orientation="Vertical"
-                     Padding="10, 10"
+                     Padding="16, 25"
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand">
-            <Label Text="Place"></Label>
-            <Entry Text="{Binding Place}" />
-            <Label Text="Date"></Label>
-            <DatePicker Date="{Binding Date}" />
-            <Label Text="Hour"></Label>
-            <TimePicker Time="{Binding Hour}"/>
-            <Label Text="Minimum players required" />
-            <Entry Keyboard="Numeric" 
-                   Text="{Binding MinimumPlayers}" />
-            <Label Text="Match value" />
-            <Entry Text="{Binding Value, Converter={StaticResource CurrencyConverter}}" Keyboard="Numeric" />
+            <Label Text="Place"
+                   Style="{StaticResource MatchSubtitle}"></Label>
+            <custom:CustomEntry Text="{Binding Place}"
+                                Style="{StaticResource Entry}"
+                                Placeholder="Match's location"/>
             <StackLayout Orientation="Horizontal">
-                <Label Text="With Barbecue?" 
-                       HorizontalOptions="StartAndExpand" />
-                <Switch IsToggled="{Binding WithBarbecue}"
-                        HorizontalOptions="End"/>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Text="Date"
+                           Style="{StaticResource MatchSubtitle}"></Label>
+                    <DatePicker Date="{Binding Date}" />
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Text="Hour"
+                           Style="{StaticResource MatchSubtitle}"></Label>
+                    <TimePicker Time="{Binding Hour}"/>
+                </StackLayout>
             </StackLayout>
-            <Label Text="Barbecue value"
-                   IsVisible="{Binding WithBarbecue}" />
-            <Entry Text="{Binding BarbecueValue, Converter={StaticResource CurrencyConverter}}" Keyboard="Numeric"
-                   IsVisible="{Binding WithBarbecue}"/>
-            <Button Text="Create"
+            <StackLayout Orientation="Horizontal">
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Text="Players required"
+                           Style="{StaticResource MatchSubtitle}"/>
+                    <custom:CustomEntry Keyboard="Numeric" 
+                           Text="{Binding MinimumPlayers}"
+                           Style="{StaticResource Entry}"
+                           Placeholder="N° of players"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Text="Match cost"
+                           Style="{StaticResource MatchSubtitle}"/>
+                    <custom:CustomEntry Text="{Binding Value, Converter={StaticResource CurrencyConverter}}" 
+                           Keyboard="Numeric"
+                           Style="{StaticResource Entry}"
+                           Placeholder="R$ 00,00"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" 
+                         Margin="0, 0, 0, 16">
+                <Switch IsToggled="{Binding WithBarbecue}" 
+                        HorizontalOptions="Start"/>
+                <Label Text="Aftermatch" 
+                       Style="{StaticResource MatchSubtitle}"
+                       HorizontalOptions="Start" />
+                <Label Text="Barbecue" 
+                       Style="{StaticResource MatchSubtitle}"
+                       HorizontalOptions="StartAndExpand"                       
+                       FontAttributes="Bold" />
+            </StackLayout>
+            <Label Text="Barbecue cost"
+                   IsVisible="{Binding WithBarbecue}"
+                   Style="{StaticResource MatchSubtitle}"/>
+            <custom:CustomEntry Text="{Binding BarbecueValue, Converter={StaticResource CurrencyConverter}}" 
+                                Keyboard="Numeric"
+                                IsVisible="{Binding WithBarbecue}"
+                                Style="{StaticResource Entry}"/> 
+            <Button Text="Create Match"
+                    Style="{StaticResource PrimaryButton}"
+                    VerticalOptions="Start"
                     Command="{Binding CreateCommand}"
                     IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}" />
             <ActivityIndicator IsVisible="{Binding ShowLoading}" 

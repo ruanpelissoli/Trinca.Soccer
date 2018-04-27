@@ -13,12 +13,17 @@
         <custom:CustomEntry Text="{Binding Name}"
                Style="{StaticResource Entry}"
                Placeholder="name"/>
-        <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Match.WithBarbecue}"
-                     Margin="0, 0, 0, 16">
-            <Switch IsToggled="{Binding WithBarbecue}" HorizontalOptions="End"/>
-            <Label Text="Atermatch" HorizontalOptions="Start" />
-            <Label Text="Barbecue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />            
+        <StackLayout Orientation="Horizontal" 
+                         Margin="0, 0, 0, 16">
+            <Switch IsToggled="{Binding WithBarbecue}" 
+                    HorizontalOptions="Start"/>
+            <Label Text="Aftermatch" 
+                   Style="{StaticResource MatchSubtitle}"
+                   HorizontalOptions="Start" />
+            <Label Text="Barbecue" 
+                   Style="{StaticResource MatchSubtitle}"
+                   HorizontalOptions="StartAndExpand"                   
+                   FontAttributes="Bold" />
         </StackLayout>
         <Button Text="Invite" 
                 Style="{StaticResource PrimaryButton}"
