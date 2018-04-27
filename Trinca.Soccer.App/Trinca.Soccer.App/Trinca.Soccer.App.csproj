@@ -43,7 +43,7 @@
     <Compile Include="Constants\Routes.cs" />
     <Compile Include="Constants\Strings.cs" />
     <Compile Include="Converters\TotalPlayerColorConverter.cs" />
-    <Compile Include="CustomControls\Entry.cs" />
+    <Compile Include="CustomControls\CustomEntry.cs" />
     <Compile Include="CustomControls\ListView.cs" />
     <Compile Include="Dependencies\IStatusBarColor.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />

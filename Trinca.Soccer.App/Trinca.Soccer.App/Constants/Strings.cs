@@ -4,7 +4,7 @@
     {
         public static readonly string AppName = "Trinca Soccer";
         public static readonly string MatchesListTitle = "Matches";
-        public static readonly string AddGuestTitle = "Add Guest";
+        public static readonly string AddGuestTitle = "Invite Guest";
 
         //Events
         public static readonly string UpdateMatchPage = "UpdateMatchPage";

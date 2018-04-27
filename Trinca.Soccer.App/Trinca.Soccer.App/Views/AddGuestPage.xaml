@@ -2,20 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Trinca.Soccer.App.Views.AddGuestPage"
-             Title="{Binding Title}">
-    <StackLayout Padding="5">
-        <Label Text="Guest Name:" />
-        <Entry Text="{Binding Name}" />
+             Title="{Binding Title}"
+             BackgroundColor="White">
+    <StackLayout Padding="16, 24">
+        <Label Text="Guest Name"
+               Style="{StaticResource MatchSubtitle}"/>
+        <custom:CustomEntry Text="{Binding Name}"
+               Style="{StaticResource Entry}"
+               Placeholder="name"/>
         <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Match.WithBarbecue}">
-            <Label Text="With Barbecue?" 
-                       HorizontalOptions="StartAndExpand" />
-            <Switch IsToggled="{Binding WithBarbecue}"
-                       HorizontalOptions="End"/>
+                     IsVisible="{Binding Match.WithBarbecue}"
+                     Margin="0, 0, 0, 16">
+            <Switch IsToggled="{Binding WithBarbecue}" HorizontalOptions="End"/>
+            <Label Text="Atermatch" HorizontalOptions="Start" />
+            <Label Text="Barbecue" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />            
         </StackLayout>
-        <Button Text="Add Guest" 
+        <Button Text="Invite" 
+                Style="{StaticResource PrimaryButton}"
+                VerticalOptions="Start"
                 Command="{Binding AddGuestCommand}" 
                 IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
         <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />

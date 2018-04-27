@@ -4,6 +4,7 @@
          xmlns:util="clr-namespace:Trinca.Soccer.App.Util;assembly=Trinca.Soccer.App"
          xmlns:themes="clr-namespace:Trinca.Soccer.App.Themes;assembly=Trinca.Soccer.App"
          xmlns:views="clr-namespace:Trinca.Soccer.App.Views;assembly=Trinca.Soccer.App"
+         xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
          xmlns:roundimage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
          x:Class="Trinca.Soccer.App.Themes.MainTheme">
     <ResourceDictionary.MergedDictionaries>
@@ -109,5 +110,18 @@
         <Setter Property="WidthRequest" Value="300" />
         <Setter Property="Color" Value="#E9EAF0" />
         <Setter Property="Margin" Value="0, 0, 0, 16" />
+    </Style>
+
+    <Style TargetType="custom:CustomEntry" x:Key="Entry">
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="IsCurvedCornersEnabled" Value="True" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="PlaceholderColor" Value="Gray" />
+        <Setter Property="FontAttributes" Value="Italic" />
+        <Setter Property="BackgroundColor" Value="#E9EAF0" />
+        <Setter Property="TextColor" Value="#12122e" />
+        <Setter Property="Margin" Value="0, 0, 0, 16" />        
     </Style>
 </ResourceDictionary>
