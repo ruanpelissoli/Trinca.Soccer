@@ -24,8 +24,6 @@ namespace Trinca.Soccer.App
             InitializeComponent();
             MainPage = new MainPage();
 
-            StatusBarColor.Set(App.Current.Resources["AppMainColor"].ToString());
-
             ClientApi.Initialize();
             await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
 

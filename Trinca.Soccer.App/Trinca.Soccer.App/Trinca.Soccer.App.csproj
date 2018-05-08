@@ -45,10 +45,8 @@
     <Compile Include="Converters\TotalPlayerColorConverter.cs" />
     <Compile Include="CustomControls\CustomEntry.cs" />
     <Compile Include="CustomControls\ListView.cs" />
-    <Compile Include="Dependencies\IStatusBarColor.cs" />
     <Compile Include="Helpers\EmbeddedResourceManager.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Helpers\StatusBarColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Themes\MatchPageTheme.xaml.cs">
       <DependentUpon>MatchPageTheme.xaml</DependentUpon>

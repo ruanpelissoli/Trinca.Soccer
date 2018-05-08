@@ -92,7 +92,6 @@
     <Compile Include="CustomRenderers\CustomEntryRenderer.cs" />
     <Compile Include="CustomRenderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Helpers\StatusBarColor.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="..\Trinca.Soccer.App\App.config">

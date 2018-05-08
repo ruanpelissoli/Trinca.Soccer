@@ -26,6 +26,11 @@
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\ruan\AppData\Local\Xamarin\Mono for Android\Keystore\Trinca Soccer\Trinca Soccer.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>trinca137</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>Trinca Soccer</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>trinca137</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +52,8 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <DebugSymbols>true</DebugSymbols>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -178,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Helpers\StatusBarColor.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
