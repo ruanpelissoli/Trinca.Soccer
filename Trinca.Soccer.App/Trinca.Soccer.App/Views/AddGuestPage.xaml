@@ -14,7 +14,8 @@
                Style="{StaticResource Entry}"
                Placeholder="name"/>
         <StackLayout Orientation="Horizontal" 
-                         Margin="0, 0, 0, 16">
+                     Margin="0, 0, 0, 16"
+                     IsVisible="{Binding Match.WithBarbecue}">
             <Switch IsToggled="{Binding WithBarbecue}" 
                     HorizontalOptions="Start"/>
             <Label Text="Aftermatch" 

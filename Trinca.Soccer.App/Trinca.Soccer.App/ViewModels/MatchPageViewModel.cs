@@ -335,10 +335,10 @@ namespace Trinca.Soccer.App.ViewModels
                 var loggedPlayer = Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
 
                 if (loggedPlayer == null)
-                    TotalValue = (totalValueEach + (Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                    TotalValue = (Match.Value + (Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
                 else
                 {
-                    TotalValue = (totalValueEach + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                    TotalValue = (Match.Value + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
                     ShowBarbecueValue = Match.WithBarbecue && loggedPlayer.WithBarbecue;
                 }
 
