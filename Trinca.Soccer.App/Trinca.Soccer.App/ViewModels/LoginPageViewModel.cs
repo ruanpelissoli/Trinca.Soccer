@@ -39,7 +39,7 @@ namespace Trinca.Soccer.App.ViewModels
                 Settings.EmployeeId = loginOutput.Id;
                 Settings.EmployeeName = loginOutput.Name;
 
-                await NavigationService.NavigateAsync($"app:///{Routes.Matches()}");
+                await NavigateTo($"{Routes.Matches(true)}");
             });
         }
 

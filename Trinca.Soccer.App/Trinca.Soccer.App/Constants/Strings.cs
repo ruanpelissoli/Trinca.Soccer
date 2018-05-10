@@ -7,6 +7,7 @@
         public static readonly string NewMatchTitle = "New Match";
         public static readonly string MatchTitle = "Match Details";
         public static readonly string AddGuestTitle = "Invite Guest";
+        public static readonly string SettingsTitle = "Settings";
 
         //Events
         public static readonly string UpdateMatchPage = "UpdateMatchPage";

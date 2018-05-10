@@ -24,7 +24,7 @@ namespace Trinca.Soccer.App.ViewModels
         public MatchesListPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = Strings.MatchesListTitle;
-
+            
             Model = new MatchesListModel
             {
                 RefreshCommand = new DelegateCommand(RefreshCommandExecute),
@@ -51,7 +51,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             if (match == null || match.Id == 0) return;
 
-            await NavigationService.NavigateAsync(Routes.Match(match.Id), useModalNavigation: false);
+            await NavigateTo(Routes.Match(match.Id));
         }
 
         public override async void OnNavigatedTo(NavigationParameters parameters)

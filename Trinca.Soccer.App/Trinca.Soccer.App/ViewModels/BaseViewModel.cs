@@ -28,12 +28,22 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _showLoading, value);
         }
 
+        public BaseViewModel()
+        {
+
+        }
+
         public BaseViewModel(INavigationService navigationService, IPageDialogService dialogService)
         {
             NavigationService = navigationService;
             DialogService = dialogService;
 
             Title = string.Empty;
+        }
+
+        public async Task NavigateTo(string route, NavigationParameters parameters = null, bool modal = false, bool animated = true)
+        {
+            await NavigationService.NavigateAsync(route, parameters, modal, animated);
         }
 
         public virtual void OnNavigatedFrom(NavigationParameters parameters)

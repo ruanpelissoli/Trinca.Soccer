@@ -5,6 +5,6 @@
                 prism:ViewModelLocator.AutowireViewModel="True"
                 x:Class="Trinca.Soccer.App.Views.CustomNavigationPage">
     <NavigationPage.ToolbarItems>
-        <ToolbarItem Order="Secondary" Text="Logout" Command="{Binding LogoutCommand}" />
+        <ToolbarItem Order="Secondary" Text="Configuration" Command="{Binding GoToConfigurationPageCommand}" />
     </NavigationPage.ToolbarItems>
 </NavigationPage>

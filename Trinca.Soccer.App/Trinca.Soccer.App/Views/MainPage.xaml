@@ -6,6 +6,9 @@
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="Trinca.Soccer.App.Views.MainPage"
             Title="{Binding Title}">
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Order="Secondary" Text="Settings" Command="{Binding GoToConfigurationPageCommand}" />
+    </TabbedPage.ToolbarItems>
     <views:MatchesListPage />
     <views:NewMatchPage />
 </TabbedPage>

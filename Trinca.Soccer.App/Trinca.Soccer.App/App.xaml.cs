@@ -16,7 +16,7 @@ namespace Trinca.Soccer.App
         }
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected async override void OnInitialized()
@@ -27,7 +27,7 @@ namespace Trinca.Soccer.App
             ClientApi.Initialize();
             await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
 
-            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : $"app:///{Routes.Matches()}");
+            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : $"{Routes.Matches(true)}", useModalNavigation: false);
         }
 
         protected override void RegisterTypes()
@@ -39,7 +39,8 @@ namespace Trinca.Soccer.App
             Container.RegisterTypeForNavigation<MatchesListPage, MatchesListPageViewModel>();
             Container.RegisterTypeForNavigation<NewMatchPage, NewMatchPageViewModel>();
             Container.RegisterTypeForNavigation<MatchPage, MatchPageViewModel>();
-            Container.RegisterTypeForNavigation<AddGuestPage, AddGuestPageViewModel>();            
+            Container.RegisterTypeForNavigation<AddGuestPage, AddGuestPageViewModel>();
+            Container.RegisterTypeForNavigation<SettingsPage, SettingsPageViewModel>();
         }
 
         

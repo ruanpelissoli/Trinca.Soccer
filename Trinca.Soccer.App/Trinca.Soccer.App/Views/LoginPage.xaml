@@ -21,6 +21,6 @@
               Style="{StaticResource PrimaryButton}" 
               Margin="0, 5"              
               IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
-        <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#FFFFFF" />
+        <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="White" />
     </StackLayout>
 </ContentPage>

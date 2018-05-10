@@ -157,7 +157,7 @@ namespace Trinca.Soccer.App.ViewModels
                     { Parameters.Match, Model.Match }
                 };
 
-                await NavigationService.NavigateAsync(Routes.AddGuest(), parameters);
+                await NavigateTo(Routes.AddGuest(), parameters);
             });
         }
 

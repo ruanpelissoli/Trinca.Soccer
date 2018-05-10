@@ -29,6 +29,7 @@ namespace Trinca.Soccer.API.Controllers
                 return Ok(employee);
             });
         }
+
         [Route("{id}")]
         public async Task<IHttpActionResult> GetEmployee(int id)
         {
@@ -36,6 +37,28 @@ namespace Trinca.Soccer.API.Controllers
             {
                 var employee = await _employeesService.GetById(id);
                 return Ok(employee);
+            });
+        }
+
+        [HttpGet]
+        [Route("password/check/{id}/{currentPassword}")]
+        public async Task<IHttpActionResult> CheckPassword(int id, string currentPassword)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                var passworkOk = await _employeesService.CheckPassword(id, currentPassword);
+                return Ok(passworkOk);
+            });
+        }
+
+        [HttpPut]
+        [Route("password/change/{id}/{newPassword}")]
+        public async Task<IHttpActionResult> ChangePassword(int id, string newPassword)
+        {
+            return await TryCatchAsync(async () =>
+            {
+                await _employeesService.ChangePassword(id, newPassword);
+                return Ok();
             });
         }
     }

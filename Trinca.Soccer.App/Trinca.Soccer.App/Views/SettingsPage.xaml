@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:custom="clr-namespace:Trinca.Soccer.App.CustomControls;assembly=Trinca.Soccer.App"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Trinca.Soccer.App.Views.SettingsPage"
+             Title="{Binding Title}"
+             BackgroundColor="White">
+    <StackLayout HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand"
+                 Padding="16">
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Label Text="Change Password"
+                   Style="{StaticResource MatchTitle}" />
+            <custom:CustomEntry Text="{Binding Model.OldPassword}"
+                                Style="{StaticResource Entry}"
+                                Placeholder="Old password"
+                                IsPassword="True"/>
+            <custom:CustomEntry Text="{Binding Model.NewPassword}"
+                                Style="{StaticResource Entry}"
+                                Placeholder="New password"
+                                IsPassword="True"/>
+            <custom:CustomEntry Text="{Binding Model.NewPasswordConfirmation}"
+                                Style="{StaticResource Entry}"
+                                Placeholder="New password confirmation"
+                                IsPassword="True"/>
+            <Button Text="Change Password"
+                    Style="{StaticResource PrimaryButton}" 
+                    Command="{Binding Model.ChangePasswordCommand}" 
+                    IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
+            <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#151533" />
+        </StackLayout>
+
+        <BoxView Style="{StaticResource Separator}" />
+
+        <Button Text="Logout"
+                VerticalOptions="End"
+                Style="{StaticResource SecondaryButtonDestructive}" 
+                Command="{Binding Model.LogoutCommand}"
+                Margin="0, 0, 0, 16"/>
+        <Label Text="Developed by Ruan Pelissoli and Thales Rocha"
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               Style="{StaticResource MatchSubtitle}" />
+    </StackLayout>
+</ContentPage>

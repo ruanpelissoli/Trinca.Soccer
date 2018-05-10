@@ -17,6 +17,8 @@ namespace Trinca.Soccer.Services
         Task<IEnumerable<Employee>> GetAllFromSite();
         Task<LoginOutputDto> Login(string userName, string password);
         Task<EmployeeOutputDto> GetById(int id);
+        Task<bool> CheckPassword(int id, string currentPassword);
+        Task ChangePassword(int id, string newPassword);
     }
 
     public class EmployeesService : IEmployeesService
@@ -83,5 +85,24 @@ namespace Trinca.Soccer.Services
             var employee = await _employeesRepository.FindAsync(id);
             return MappingConfig.Mapper().Map<EmployeeOutputDto>(employee);
         }
+
+        public async Task<bool> CheckPassword(int id, string currentPassword)
+        {
+            var employee = await _employeesRepository.FindAsync(id);
+
+            var hashPassword = Cryptography.GetMd5Hash(currentPassword);
+
+            return employee.Password == hashPassword;
+        }
+
+        public async Task ChangePassword(int id, string newPassword)
+        {
+            var employee = await _employeesRepository.FindAsync(id);
+
+            var hashPassword = Cryptography.GetMd5Hash(newPassword);
+            employee.Password = hashPassword;
+
+            await _employeesRepository.UpdateAsync(employee);
+        }        
     }
 }

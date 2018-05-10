@@ -4,16 +4,24 @@ namespace Trinca.Soccer.App.Constants
 {
     public static class Routes
     {
-        private const string NavigationPage = nameof(CustomNavigationPage);
+        private const string NavigationPage = nameof(NavigationPage);
+        private const string CustomNavigationPage = nameof(Views.CustomNavigationPage);
 
-        public static string Login()
+        private const string Reset = "app:///";
+
+        private static string IsReset(bool isReset)
         {
-            return $"NavigationPage/{nameof(LoginPage)}";
+            return isReset ? Reset : string.Empty;
         }
 
-        public static string Matches()
+        public static string Login(bool resetStack = false)
         {
-            return $"{NavigationPage}/{nameof(MainPage)}/{nameof(MatchesListPage)}";
+            return $"{IsReset(resetStack)}{NavigationPage}/{nameof(LoginPage)}";
+        }
+
+        public static string Matches(bool resetStack = false)
+        {
+            return $"{IsReset(resetStack)}{NavigationPage}/{nameof(MainPage)}/{nameof(MatchesListPage)}";
         }
 
         public static string Match(int matchId)
@@ -24,6 +32,11 @@ namespace Trinca.Soccer.App.Constants
         public static string AddGuest()
         {
             return $"{nameof(AddGuestPage)}";
+        }
+
+        public static string Configuration()
+        {
+            return $"{NavigationPage}/{nameof(SettingsPage)}";
         }
     }
 }

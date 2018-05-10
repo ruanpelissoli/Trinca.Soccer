@@ -13,5 +13,11 @@ namespace Trinca.Soccer.App.API
 
         [Get("/employees/{id}")]
         Task<EmployeeOutputDto> GetEmployee(int id);
+
+        [Get("/employees/password/check/{id}/{currentPassword}")]
+        Task<bool> CheckPassword(int id, string currentPassword);
+
+        [Put("/employees/password/change/{id}/{newPassword}")]
+        Task ChangePassword(int id, string newPassword);
     }
 }
