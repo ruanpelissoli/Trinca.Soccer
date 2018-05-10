@@ -14,19 +14,19 @@
                      VerticalOptions="FillAndExpand">
             <Label Text="Place"
                    Style="{StaticResource MatchSubtitle}"></Label>
-            <custom:CustomEntry Text="{Binding Place}"
+            <custom:CustomEntry Text="{Binding Model.Place}"
                                 Style="{StaticResource Entry}"
                                 Placeholder="Match's location"/>
             <StackLayout Orientation="Horizontal">
                 <StackLayout HorizontalOptions="FillAndExpand">
                     <Label Text="Date"
                            Style="{StaticResource MatchSubtitle}"></Label>
-                    <DatePicker Date="{Binding Date}" />
+                    <DatePicker Date="{Binding Model.Date}" />
                 </StackLayout>
                 <StackLayout HorizontalOptions="FillAndExpand">
                     <Label Text="Hour"
                            Style="{StaticResource MatchSubtitle}"></Label>
-                    <TimePicker Time="{Binding Hour}"/>
+                    <TimePicker Time="{Binding Model.Hour}"/>
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
@@ -34,14 +34,14 @@
                     <Label Text="Players required"
                            Style="{StaticResource MatchSubtitle}"/>
                     <custom:CustomEntry Keyboard="Numeric" 
-                           Text="{Binding MinimumPlayers}"
+                           Text="{Binding Model.MinimumPlayers}"
                            Style="{StaticResource Entry}"
                            Placeholder="N° of players"/>
                 </StackLayout>
                 <StackLayout HorizontalOptions="FillAndExpand">
                     <Label Text="Match cost"
                            Style="{StaticResource MatchSubtitle}"/>
-                    <custom:CustomEntry Text="{Binding Value, Converter={StaticResource CurrencyConverter}}" 
+                    <custom:CustomEntry Text="{Binding Model.Value, Converter={StaticResource CurrencyConverter}}" 
                            Keyboard="Numeric"
                            Style="{StaticResource Entry}"
                            Placeholder="R$ 00,00"/>
@@ -49,7 +49,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" 
                          Margin="0, 0, 0, 16">
-                <Switch IsToggled="{Binding WithBarbecue}" 
+                <Switch IsToggled="{Binding Model.WithBarbecue}" 
                         HorizontalOptions="Start"/>
                 <Label Text="Aftermatch" 
                        Style="{StaticResource MatchSubtitle}"
@@ -60,16 +60,16 @@
                        FontAttributes="Bold" />
             </StackLayout>
             <Label Text="Barbecue cost"
-                   IsVisible="{Binding WithBarbecue}"
+                   IsVisible="{Binding Model.WithBarbecue}"
                    Style="{StaticResource MatchSubtitle}"/>
-            <custom:CustomEntry Text="{Binding BarbecueValue, Converter={StaticResource CurrencyConverter}}" 
+            <custom:CustomEntry Text="{Binding Model.BarbecueValue, Converter={StaticResource CurrencyConverter}}" 
                                 Keyboard="Numeric"
-                                IsVisible="{Binding WithBarbecue}"
+                                IsVisible="{Binding Model.WithBarbecue}"
                                 Style="{StaticResource Entry}"/> 
             <Button Text="Create Match"
                     Style="{StaticResource PrimaryButton}"
                     VerticalOptions="Start"
-                    Command="{Binding CreateCommand}"
+                    Command="{Binding Model.CreateCommand}"
                     IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}" />
             <ActivityIndicator IsVisible="{Binding ShowLoading}" 
                                IsRunning="{Binding ShowLoading}" 

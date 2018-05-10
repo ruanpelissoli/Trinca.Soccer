@@ -14,38 +14,13 @@ using Xamarin.Forms;
 using Trinca.Soccer.Dto.Enums;
 using System.Collections.Specialized;
 using System;
+using Trinca.Soccer.App.Models;
 
 namespace Trinca.Soccer.App.ViewModels
 {
     public class MatchPageViewModel : BaseViewModel
     {
-        private MatchOutputDto _match;
-        public MatchOutputDto Match
-        {
-            get => _match;
-            set => SetProperty(ref _match, value);
-        }
-
-        private ObservableCollection<PlayerOutputDto> _players;
-        public ObservableCollection<PlayerOutputDto> Players
-        {
-            get => _players;
-            set => SetProperty(ref _players, value);
-        }
-
-        private ObservableCollection<PlayerOutputDto> _yellowTeam;
-        public ObservableCollection<PlayerOutputDto> YellowTeam
-        {
-            get => _yellowTeam;
-            set => SetProperty(ref _yellowTeam, value);
-        }
-
-        private ObservableCollection<PlayerOutputDto> _blackTeam;
-        public ObservableCollection<PlayerOutputDto> BlackTeam
-        {
-            get => _blackTeam;
-            set => SetProperty(ref _blackTeam, value);
-        }
+        public MatchModel Model { get; set; }
 
         private bool _joinMatchIsVisibile;
         public bool JoinMatchIsVisibile
@@ -77,27 +52,6 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _teamBListViewHeight, value);
         }
 
-        private string _totalMatchValueEach;
-        public string TotalMatchValueEach
-        {
-            get => $"R$ {_totalMatchValueEach}";
-            set => SetProperty(ref _totalMatchValueEach, value);
-        }
-
-        private string _totalBarbecueValueEach;
-        public string TotalBarbecueValueEach
-        {
-            get => $"R$ {_totalBarbecueValueEach}";
-            set => SetProperty(ref _totalBarbecueValueEach, value);
-        }
-
-        private string _totalValue;
-        public string TotalValue
-        {
-            get => $"R$ {_totalValue}";
-            set => SetProperty(ref _totalValue, value);
-        }
-
         private bool _showPlayersList;
         public bool ShowPlayersList
         {
@@ -112,28 +66,16 @@ namespace Trinca.Soccer.App.ViewModels
             set => SetProperty(ref _showBarbecueValue, value);
         }
 
-        private string _totalPlayers;
-        public string TotalPlayers
-        {
-            get => _totalPlayers;
-            set => SetProperty(ref _totalPlayers, value);            
-        }
-
-        public DelegateCommand JoinMatchCommand { get; set; }
-        public DelegateCommand InviteGuestCommand { get; set; }
-        public DelegateCommand LeaveMatchCommand { get; set; }
-        public DelegateCommand<int?> AddToYellowTeamCommand { get; set; }
-        public DelegateCommand<int?> AddToBlackTeamCommand { get; set; }
-        public DelegateCommand<int?> RemoveFromTeamCommand { get; set; }
-
         public MatchPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
-            JoinMatchCommand = new DelegateCommand(JoinMatchCommandExecute);
-            InviteGuestCommand = new DelegateCommand(InviteGuestCommandExecute);
-            LeaveMatchCommand = new DelegateCommand(LeaveMatchCommandExecute);
-            AddToYellowTeamCommand = new DelegateCommand<int?>(AddToYellowTeamCommandExecute);
-            AddToBlackTeamCommand = new DelegateCommand<int?>(AddToBlackTeamCommandExecute);
-            RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute);
+            Model = new MatchModel {
+                JoinMatchCommand = new DelegateCommand(JoinMatchCommandExecute),
+                InviteGuestCommand = new DelegateCommand(InviteGuestCommandExecute),
+                LeaveMatchCommand = new DelegateCommand(LeaveMatchCommandExecute),
+                AddToYellowTeamCommand = new DelegateCommand<int?>(AddToYellowTeamCommandExecute),
+                AddToBlackTeamCommand = new DelegateCommand<int?>(AddToBlackTeamCommandExecute),
+                RemoveFromTeamCommand = new DelegateCommand<int?>(RemoveFromTeamCommandExecute)
+            };
 
             MessagingCenter.Subscribe<AddGuestPageViewModel, PlayerOutputDto>(this, Strings.UpdateMatchPage, OnUpdateMatchPage);
         }
@@ -142,9 +84,9 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                Match = await ClientApi.Matches.GetById(matchId);
+                Model.Match = await ClientApi.Matches.GetById(matchId);
 
-                Title = "Match Details";
+                Title = Strings.MatchTitle;
 
                 InitializeLists();
 
@@ -154,30 +96,30 @@ namespace Trinca.Soccer.App.ViewModels
 
         private void InitializeLists()
         {
-            Players = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
-            YellowTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.YellowTeam));
-            BlackTeam = new ObservableCollection<PlayerOutputDto>(Match.Players.Where(w => w.TeamId == ETeams.BlackTeam));
+            Model.Players = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
+            Model.YellowTeam = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.YellowTeam));
+            Model.BlackTeam = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.BlackTeam));
 
-            JoinMatchIsVisibile = !Players.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
-                                  !YellowTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
-                                  !BlackTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId);
+            JoinMatchIsVisibile = !Model.Players.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
+                                  !Model.YellowTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
+                                  !Model.BlackTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId);
 
-            Players.CollectionChanged += OnPlayerCollectionChanged;
-            YellowTeam.CollectionChanged += OnTeamACollectionChanged;
-            BlackTeam.CollectionChanged += OnTeamBCollectionChanged;
+            Model.Players.CollectionChanged += OnPlayerCollectionChanged;
+            Model.YellowTeam.CollectionChanged += OnTeamACollectionChanged;
+            Model.BlackTeam.CollectionChanged += OnTeamBCollectionChanged;
 
-            PlayerListViewHeight = CalculateHeight(Players);
-            TeamAListViewHeight = CalculateHeight(YellowTeam);
-            TeamBListViewHeight = CalculateHeight(BlackTeam);
+            PlayerListViewHeight = CalculateHeight(Model.Players);
+            TeamAListViewHeight = CalculateHeight(Model.YellowTeam);
+            TeamBListViewHeight = CalculateHeight(Model.BlackTeam);
 
-            ShowPlayersList = Players.Any();
+            ShowPlayersList = Model.Players.Any();
 
-            TotalPlayers = $"{Match.Players.Count}/{Match.MinimumPlayers}";
+            Model.TotalPlayers = $"{Model.Match.Players.Count}/{Model.Match.MinimumPlayers}";
         }
 
         private void OnUpdateMatchPage(AddGuestPageViewModel source, PlayerOutputDto player)
         {
-            Players.Add(player);
+            Model.Players.Add(player);
             RefreshMatchValues();
         }
 
@@ -186,20 +128,20 @@ namespace Trinca.Soccer.App.ViewModels
             await TryCatchAsync(async () =>
             {
                 var withBarbecue = false;
-                if (Match.WithBarbecue)
+                if (Model.Match.WithBarbecue)
                     withBarbecue = await DialogService.DisplayAlertAsync("Warning!", "With barbecue?", "Yes", "No");
 
                 var playerInput = new PlayerInputDto
                 {
                     Name = Settings.EmployeeName,
                     EmployeeId = Settings.EmployeeId,
-                    MatchId = Match.Id,
+                    MatchId = Model.Match.Id,
                     WithBarbecue = withBarbecue
                 };
 
                 var playerOutput = await ClientApi.Players.Create(playerInput);
 
-                Players.Add(playerOutput);
+                Model.Players.Add(playerOutput);
                 JoinMatchIsVisibile = false;
 
                 RefreshMatchValues();
@@ -212,7 +154,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 var parameters = new NavigationParameters
                 {
-                    { Parameters.Match, Match }
+                    { Parameters.Match, Model.Match }
                 };
 
                 await NavigationService.NavigateAsync(Routes.AddGuest(), parameters);
@@ -227,14 +169,14 @@ namespace Trinca.Soccer.App.ViewModels
 
                 await ClientApi.Players.Delete(player.Id);
 
-                if (Players.Any(w => w.Id == player.Id))
-                    Players.Remove(Players.First(w => w.Id == player.Id));
+                if (Model.Players.Any(w => w.Id == player.Id))
+                    Model.Players.Remove(Model.Players.First(w => w.Id == player.Id));
 
-                if (YellowTeam.Any(w => w.Id == player.Id))
-                    YellowTeam.Remove(Players.First(w => w.Id == player.Id));
+                if (Model.YellowTeam.Any(w => w.Id == player.Id))
+                    Model.YellowTeam.Remove(Model.Players.First(w => w.Id == player.Id));
 
-                if (BlackTeam.Any(w => w.Id == player.Id))
-                    BlackTeam.Remove(Players.First(w => w.Id == player.Id));
+                if (Model.BlackTeam.Any(w => w.Id == player.Id))
+                    Model.BlackTeam.Remove(Model.Players.First(w => w.Id == player.Id));
 
                 JoinMatchIsVisibile = true;
             });
@@ -242,6 +184,7 @@ namespace Trinca.Soccer.App.ViewModels
 
         private async void AddToYellowTeamCommandExecute(int? playerId)
         {
+            ShowLoading = true;
             await TryCatchAsync(async () =>
             {
                 if (!playerId.HasValue) return;
@@ -250,8 +193,10 @@ namespace Trinca.Soccer.App.ViewModels
                 player.TeamId = ETeams.YellowTeam;
                 await ClientApi.Players.Update(player);
 
-                Players.Remove(Players.First(w => w.Id == player.Id));
-                YellowTeam.Add(player);
+                Model.Players.Remove(Model.Players.First(w => w.Id == player.Id));
+                Model.YellowTeam.Add(player);
+
+                ShowLoading = false;
             });
         }
 
@@ -265,8 +210,8 @@ namespace Trinca.Soccer.App.ViewModels
                 player.TeamId = ETeams.BlackTeam;
                 await ClientApi.Players.Update(player);
 
-                Players.Remove(Players.First(w => w.Id == player.Id));
-                BlackTeam.Add(player);
+                Model.Players.Remove(Model.Players.First(w => w.Id == player.Id));
+                Model.BlackTeam.Add(player);
             });
         }
 
@@ -280,10 +225,10 @@ namespace Trinca.Soccer.App.ViewModels
                 player.TeamId = ETeams.NoTeam;
                 await ClientApi.Players.Update(player);
 
-                YellowTeam.Remove(YellowTeam.FirstOrDefault(w => w.Id == player.Id));
-                BlackTeam.Remove(BlackTeam.FirstOrDefault(w => w.Id == player.Id));
+                Model.YellowTeam.Remove(Model.YellowTeam.FirstOrDefault(w => w.Id == player.Id));
+                Model.BlackTeam.Remove(Model.BlackTeam.FirstOrDefault(w => w.Id == player.Id));
 
-                Players.Add(player);
+                Model.Players.Add(player);
             });
         }
 
@@ -298,7 +243,7 @@ namespace Trinca.Soccer.App.ViewModels
         private void OnPlayerCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PlayerListViewHeight = CalculateHeight((ObservableCollection<PlayerOutputDto>)sender);
-            ShowPlayersList = Players.Any();
+            ShowPlayersList = Model.Players.Any();
         }
 
         private void OnTeamACollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -321,28 +266,28 @@ namespace Trinca.Soccer.App.ViewModels
             await TryCatchAsync(async () =>
             {
                 if (refreshMatch)
-                    Match = await ClientApi.Matches.GetById(Match.Id);
+                    Model.Match = await ClientApi.Matches.GetById(Model.Match.Id);
 
-                var playersCount = Match.Players.Count == 0 ? 1 : Match.Players.Count;
-                var playersWithBarbecueCount = Match.Players.Count(w => w.WithBarbecue) == 0 ? 1 : Match.Players.Count(w => w.WithBarbecue);
+                var playersCount = Model.Match.Players.Count == 0 ? 1 : Model.Match.Players.Count;
+                var playersWithBarbecueCount = Model.Match.Players.Count(w => w.WithBarbecue) == 0 ? 1 : Model.Match.Players.Count(w => w.WithBarbecue);
 
-                var totalValueEach = Math.Round(Match.Value / playersCount, 2);
-                TotalMatchValueEach = totalValueEach.ToString("N");
+                var totalValueEach = Math.Round(Model.Match.Value / playersCount, 2);
+                Model.TotalMatchValueEach = totalValueEach.ToString("N");
 
-                var totalBarbecueValueEach = Math.Round(Match.BarbecueValue / playersWithBarbecueCount, 2);
-                TotalBarbecueValueEach = totalBarbecueValueEach.ToString("N");
+                var totalBarbecueValueEach = Math.Round(Model.Match.BarbecueValue / playersWithBarbecueCount, 2);
+                Model.TotalBarbecueValueEach = totalBarbecueValueEach.ToString("N");
 
-                var loggedPlayer = Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
+                var loggedPlayer = Model.Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
 
                 if (loggedPlayer == null)
-                    TotalValue = (Match.Value + (Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                    Model.TotalValue = (Model.Match.Value + (Model.Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
                 else
                 {
-                    TotalValue = (Match.Value + (Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
-                    ShowBarbecueValue = Match.WithBarbecue && loggedPlayer.WithBarbecue;
+                    Model.TotalValue = (Model.Match.Value + (Model.Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
+                    ShowBarbecueValue = Model.Match.WithBarbecue && loggedPlayer.WithBarbecue;
                 }
 
-                ShowPlayersList = Players.Any();
+                ShowPlayersList = Model.Players.Any();
             });
         }
     }

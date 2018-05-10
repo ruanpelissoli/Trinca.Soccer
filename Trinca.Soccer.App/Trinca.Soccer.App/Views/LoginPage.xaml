@@ -9,15 +9,15 @@
                VerticalOptions="StartAndExpand"
                HorizontalOptions="FillAndExpand">
         <Image Style="{StaticResource LoginImageIcon}" />
-        <Entry Text="{Binding Username}"
+        <Entry Text="{Binding Model.Username}"
              Style="{StaticResource LoginPageEntry}"
              Placeholder="Username" />
-        <Entry Text="{Binding Password}"
+        <Entry Text="{Binding Model.Password}"
              Style="{StaticResource LoginPageEntry}"
              IsPassword="True"
              Placeholder="Password" />
         <Button Text="Login"
-              Command="{Binding LoginCommand}"
+              Command="{Binding Model.LoginCommand}"
               Style="{StaticResource PrimaryButton}" 
               Margin="0, 5"              
               IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>

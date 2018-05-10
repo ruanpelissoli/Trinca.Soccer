@@ -15,16 +15,16 @@
             <StackLayout>
                 <Frame Style="{StaticResource MatchDetailsContainer}">
                     <StackLayout>
-                        <Label Text="{Binding Match.Place}" 
+                        <Label Text="{Binding Path=Model.Match.Place}" 
                                Style="{StaticResource MatchTitle}" />
 
-                        <Label Text="{Binding Match.Date, StringFormat='{0:dd/MM/yyyy - HH:mm}'}"
+                        <Label Text="{Binding Path=Model.Match.Date, StringFormat='{0:dd/MM/yyyy - HH:mm}'}"
                                Style="{StaticResource MatchSubtitle}" />
 
                         <StackLayout Style="{StaticResource PlayersCreatorContainer}">
-                            <Label Text="{Binding TotalPlayers}" 
+                            <Label Text="{Binding Model.TotalPlayers}" 
                                    Style="{StaticResource PlayerNumberLabel}"
-                                   TextColor="{Binding TotalPlayers, Converter={StaticResource TotalPlayerColorConverter}}"
+                                   TextColor="{Binding Model.TotalPlayers, Converter={StaticResource TotalPlayerColorConverter}}"
                                    VerticalOptions="End"/>
                             <Label Text="Players" 
                                    Style="{StaticResource PlayerLabel}"
@@ -34,7 +34,7 @@
                                    Style="{StaticResource CreatedByLabel}"
                                    VerticalOptions="End"/>
                             <roundimage:CircleImage 
-                                   Source="{Binding Match, Converter={StaticResource PlayerPictureUrlConverter}}" 
+                                   Source="{Binding Model.Match, Converter={StaticResource PlayerPictureUrlConverter}}" 
                                    Style="{StaticResource CreatedByPicture}" />
                         </StackLayout>
                         <BoxView Style="{StaticResource Separator}" />
@@ -42,7 +42,7 @@
                             <Label Text="Match cost:" 
                                    HorizontalOptions="Start"
                                    Style="{StaticResource MatchSubtitle}"/>
-                            <Label Text="{Binding TotalValue}" 
+                            <Label Text="{Binding Model.TotalValue}" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
@@ -51,7 +51,7 @@
                             <Label Text="Match with barbecue cost:" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="Start"/>
-                            <Label Text="{Binding TotalBarbecueValueEach}" 
+                            <Label Text="{Binding Model.TotalBarbecueValueEach}" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
@@ -60,24 +60,24 @@
                             <Label Text="Cost per player:" 
                                    Style="{StaticResource MatchTitle}"
                                    HorizontalOptions="Start"/>
-                            <Label Text="{Binding TotalMatchValueEach}" 
+                            <Label Text="{Binding Model.TotalMatchValueEach}" 
                                    Style="{StaticResource MatchTitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
                         <Button Text="Join Match"
                                 VerticalOptions="Start"
                                 Style="{StaticResource PrimaryButton}" 
-                                Command="{Binding JoinMatchCommand}"                
+                                Command="{Binding Model.JoinMatchCommand}"                
                                 IsVisible="{Binding JoinMatchIsVisibile}" />
                         <StackLayout Orientation="Horizontal"
                                      VerticalOptions="Start"
                                      IsVisible="{Binding JoinMatchIsVisibile, Converter={StaticResource NegateBooleanConverter}}">
                             <Button Text="Invite Guest"
                                     Style="{StaticResource SecondaryButton}" 
-                                    Command="{Binding InviteGuestCommand}" />
+                                    Command="{Binding Model.InviteGuestCommand}" />
                             <Button Text="Quit Match"
                                     Style="{StaticResource SecondaryButtonDestructive}" 
-                                    Command="{Binding LeaveMatchCommand}" />
+                                    Command="{Binding Model.LeaveMatchCommand}" />
                         </StackLayout>
                     </StackLayout>
                 </Frame>
@@ -87,7 +87,7 @@
                 <Label Text="No Team"
                        Style="{StaticResource MatchTitle}"/>
                 <Frame HeightRequest="{Binding PlayerListViewHeight}">
-                    <ListView ItemsSource="{Binding Players}"
+                    <ListView ItemsSource="{Binding Model.Players}"
                           Style="{StaticResource PlayersList}"
                           HeightRequest="{Binding PlayerListViewHeight}">
                         <ListView.ItemTemplate>
@@ -135,7 +135,7 @@
                 <Label Text="Team A"
                        Style="{StaticResource MatchTitle}"/>
                 <Frame HeightRequest="{Binding TeamAListViewHeight}">
-                    <ListView ItemsSource="{Binding YellowTeam}"
+                    <ListView ItemsSource="{Binding Model.YellowTeam}"
                           Style="{StaticResource PlayersList}"
                           HeightRequest="{Binding TeamAListViewHeight}">
                         <ListView.ItemTemplate>
@@ -171,7 +171,7 @@
                 <Label Text="Team B"
                        Style="{StaticResource MatchTitle}"/>
                 <Frame HeightRequest="{Binding TeamBListViewHeight}">
-                    <ListView ItemsSource="{Binding BlackTeam}"
+                    <ListView ItemsSource="{Binding Model.BlackTeam}"
                           Style="{StaticResource PlayersList}"
                           HeightRequest="{Binding TeamBListViewHeight}">
                         <ListView.ItemTemplate>

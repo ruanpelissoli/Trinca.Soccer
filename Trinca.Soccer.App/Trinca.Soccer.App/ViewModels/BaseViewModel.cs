@@ -75,7 +75,7 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 if (refiEx.ReasonPhrase.Equals("Unauthorized"))
                 {
-                    await DialogService.DisplayAlertAsync("Erro!", "Usuário ou senha inválidos.", "Ok");
+                    await DialogService.DisplayAlertAsync("Erro!", "Invalid username or password.", "Ok");
                 }
             }
             Debug.WriteLine(exception.StackTrace);

@@ -10,12 +10,12 @@
     <StackLayout Padding="16, 24">
         <Label Text="Guest Name"
                Style="{StaticResource MatchSubtitle}"/>
-        <custom:CustomEntry Text="{Binding Name}"
+        <custom:CustomEntry Text="{Binding Model.Name}"
                Style="{StaticResource Entry}"
                Placeholder="name"/>
         <StackLayout Orientation="Horizontal" 
                      Margin="0, 0, 0, 16"
-                     IsVisible="{Binding Match.WithBarbecue}">
+                     IsVisible="{Binding Path=Model.Match.WithBarbecue}">
             <Switch IsToggled="{Binding WithBarbecue}" 
                     HorizontalOptions="Start"/>
             <Label Text="Aftermatch" 
@@ -29,8 +29,8 @@
         <Button Text="Invite" 
                 Style="{StaticResource PrimaryButton}"
                 VerticalOptions="Start"
-                Command="{Binding AddGuestCommand}" 
+                Command="{Binding Model.AddGuestCommand}" 
                 IsVisible="{Binding ShowLoading, Converter={StaticResource NegateBooleanConverter}}"/>
-        <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="#000000" />
+        <ActivityIndicator IsVisible="{Binding ShowLoading}" IsRunning="{Binding ShowLoading}" Color="White" />
     </StackLayout>
 </ContentPage>

@@ -11,11 +11,11 @@
              Padding="10">
 
     <custom:ListView HasUnevenRows="True"
-              ItemsSource="{Binding Matches}"
+              ItemsSource="{Binding Model.Matches}"
               IsPullToRefreshEnabled="True"
-              RefreshCommand="{Binding RefreshCommand}"
+              RefreshCommand="{Binding Model.RefreshCommand}"
               IsRefreshing="{Binding IsRefreshing}"
-              ItemTappedCommand="{Binding SelectedItemCommand}"
+              ItemTappedCommand="{Binding Model.SelectedItemCommand}"
               SeparatorVisibility="None">
         <ListView.ItemTemplate>
             <DataTemplate>

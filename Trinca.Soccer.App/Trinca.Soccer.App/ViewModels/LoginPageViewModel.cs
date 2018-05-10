@@ -1,46 +1,27 @@
-﻿using System;
-using System.Reflection;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Trinca.Soccer.App.Helpers;
+using Trinca.Soccer.App.Models;
 using Trinca.Soccer.Dto.Login;
 
 namespace Trinca.Soccer.App.ViewModels
 {
     public class LoginPageViewModel : BaseViewModel
     {
-        private string _username;
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                SetProperty(ref _username, value);
-                LoginCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string _password;
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                SetProperty(ref _password, value);
-                LoginCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        public DelegateCommand LoginCommand { get; set; }
+        
+        public LoginModel Model { get; set; }       
 
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
             Title = Strings.AppName;
 
-            LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCanExecuteCommand);
+            Model = new LoginModel
+            {
+                LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCanExecuteCommand)
+            };
         }
 
         private async void LoginCommandExecute()
@@ -49,8 +30,8 @@ namespace Trinca.Soccer.App.ViewModels
             {
                 var loginDto = new LoginInputDto
                 {
-                    Username = Username,
-                    Password = Password
+                    Username = Model.Username,
+                    Password = Model.Password
                 };
 
                 var loginOutput = await ClientApi.Employees.Login(loginDto);
@@ -64,8 +45,8 @@ namespace Trinca.Soccer.App.ViewModels
 
         private bool LoginCanExecuteCommand()
         {
-            return !string.IsNullOrEmpty(Username) &&
-                   !string.IsNullOrEmpty(Password);
+            return !string.IsNullOrEmpty(Model.Username) &&
+                   !string.IsNullOrEmpty(Model.Password);
         }
     }
 }

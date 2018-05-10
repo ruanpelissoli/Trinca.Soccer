@@ -6,20 +6,13 @@ using Trinca.Soccer.App.API;
 using Trinca.Soccer.App.Constants;
 using Prism.Services;
 using Trinca.Soccer.Dto.Match;
+using Trinca.Soccer.App.Models;
 
 namespace Trinca.Soccer.App.ViewModels
 {
     public class MatchesListPageViewModel : BaseViewModel
     {
-        private ObservableCollection<MatchListOutputDto> _matches;
-        public ObservableCollection<MatchListOutputDto> Matches
-        {
-            get => _matches;
-            set => SetProperty(ref _matches, value);
-        }
-
-        public DelegateCommand RefreshCommand { get; set; }
-        public DelegateCommand<MatchListOutputDto> SelectedItemCommand { get; set; }
+        public MatchesListModel Model { get; set; }
 
         private bool _isRefreshing;
         public bool IsRefreshing
@@ -32,15 +25,18 @@ namespace Trinca.Soccer.App.ViewModels
         {
             Title = Strings.MatchesListTitle;
 
-            RefreshCommand = new DelegateCommand(RefreshCommandExecute);
-            SelectedItemCommand = new DelegateCommand<MatchListOutputDto>(SelectedItemCommandExecute);
+            Model = new MatchesListModel
+            {
+                RefreshCommand = new DelegateCommand(RefreshCommandExecute),
+                SelectedItemCommand = new DelegateCommand<MatchListOutputDto>(SelectedItemCommandExecute)
+            };
         }
 
         private async Task LoadMatches()
         {
             await TryCatchAsync(async () =>
             {
-                Matches = new ObservableCollection<MatchListOutputDto>(await ClientApi.Matches.GetAll());                
+                Model.Matches = new ObservableCollection<MatchListOutputDto>(await ClientApi.Matches.GetAll());                
             });            
         }
 
