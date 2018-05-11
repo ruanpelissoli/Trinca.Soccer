@@ -27,7 +27,7 @@ namespace Trinca.Soccer.App
             ClientApi.Initialize();
             await EmbeddedResourceManager.Initialize(typeof(App).GetTypeInfo().Assembly);
 
-            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : $"{Routes.Matches(true)}", useModalNavigation: false);
+            await NavigationService.NavigateAsync(!Settings.IsLoggedIn ? Routes.Login() : $"{Routes.Matches(true)}");
         }
 
         protected override void RegisterTypes()
