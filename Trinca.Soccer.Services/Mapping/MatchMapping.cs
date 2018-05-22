@@ -9,7 +9,8 @@ namespace Trinca.Soccer.Services.Mapping
         public static IMappingExpression<Match, MatchOutputDto> MatchOutputMapping(
             IMapperConfigurationExpression config)
         {
-            return config.CreateMap<Match, MatchOutputDto>();
+            return config.CreateMap<Match, MatchOutputDto>()
+                .ForMember(dest => dest.Date, src => src.MapFrom(item => $"{item.Date:dd/MM/yyyy - HH:mm}"));
         }
 
         public static IMappingExpression<MatchInputDto, Match> MatchInputMapping(

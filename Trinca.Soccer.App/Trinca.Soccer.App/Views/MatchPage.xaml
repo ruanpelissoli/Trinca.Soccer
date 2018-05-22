@@ -42,16 +42,16 @@
                             <Label Text="Match cost:" 
                                    HorizontalOptions="Start"
                                    Style="{StaticResource MatchSubtitle}"/>
-                            <Label Text="{Binding Model.TotalValue}" 
+                            <Label Text="{Binding Path=Model.Match.Value, StringFormat='{0:C}'}"
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal"
                                      IsVisible="{Binding ShowBarbecueValue}">
-                            <Label Text="Match with barbecue cost:" 
+                            <Label Text="Barbecue cost:" 
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="Start"/>
-                            <Label Text="{Binding Model.TotalBarbecueValueEach}" 
+                            <Label Text="{Binding Path=Model.Match.BarbecueValue, StringFormat='{0:C}'}"
                                    Style="{StaticResource MatchSubtitle}"
                                    HorizontalOptions="StartAndExpand"/>
                         </StackLayout>
@@ -103,24 +103,24 @@
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.team-a.png}" 
                                             Style="{StaticResource TeamsIdentification}"
-                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                            IsVisible="{Binding Path=BindingContext.Model.Match, Source={x:Reference MatchPage}, 
                                                         Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
-                                                     Command="{Binding Path=BindingContext.AddToYellowTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     Command="{Binding Path=BindingContext.Model.AddToYellowTeamCommand, Source={x:Reference MatchPage}}" 
                                                      CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.team-b.png}" 
                                             Style="{StaticResource TeamsIdentification}"
-                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                            IsVisible="{Binding Path=BindingContext.Model.Match, Source={x:Reference MatchPage}, 
                                                         Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                  NumberOfTapsRequired="1" 
-                                                 Command="{Binding Path=BindingContext.AddToBlackTeamCommand, Source={x:Reference MatchPage}}" 
+                                                 Command="{Binding Path=BindingContext.Model.AddToBlackTeamCommand, Source={x:Reference MatchPage}}" 
                                                  CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>
@@ -151,12 +151,12 @@
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
                                             Style="{StaticResource Remove}"
-                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                            IsVisible="{Binding Path=BindingContext.Model.Match, Source={x:Reference MatchPage}, 
                                                 Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
-                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     Command="{Binding Path=BindingContext.Model.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
                                                      CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>
@@ -187,12 +187,12 @@
                                         <Image 
                                             Source="{local:ImageResource Trinca.Soccer.App.Images.remove.png}" 
                                             Style="{StaticResource Remove}"
-                                            IsVisible="{Binding Path=BindingContext.Match, Source={x:Reference MatchPage}, 
+                                            IsVisible="{Binding Path=BindingContext.Model.Match, Source={x:Reference MatchPage}, 
                                                 Converter={StaticResource ShowMatchManagerIconsConverter}}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                      NumberOfTapsRequired="1" 
-                                                     Command="{Binding Path=BindingContext.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
+                                                     Command="{Binding Path=BindingContext.Model.RemoveFromTeamCommand, Source={x:Reference MatchPage}}" 
                                                      CommandParameter="{Binding Id}" />
                                             </Image.GestureRecognizers>
                                         </Image>

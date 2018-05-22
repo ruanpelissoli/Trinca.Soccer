@@ -10,7 +10,7 @@ namespace Trinca.Soccer.Dto.Match
         public int Id { get; set; }
         public int CreatedBy { get; set; }
         public string Place { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int MinimumPlayers { get; set; }
         public decimal Value { get; set; }
         public bool WithBarbecue { get; set; }

@@ -44,7 +44,7 @@ namespace Trinca.Soccer.App.Models
         }
 
         private string _totalBarbecueValueEach;
-        public string TotalBarbecueValueEach
+        public string TotalBarbecueValue
         {
             get => $"R$ {_totalBarbecueValueEach}";
             set => SetProperty(ref _totalBarbecueValueEach, value);

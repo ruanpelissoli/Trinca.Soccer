@@ -80,12 +80,12 @@ namespace Trinca.Soccer.API.Controllers
             });
         }
 
-        [Route("{id}/employee")]
-        public async Task<IHttpActionResult> GetByEmployeeId(int id)
+        [Route("{matchId}/{id}")]
+        public async Task<IHttpActionResult> GetByEmployeeId(int id, int matchId)
         {
             return await TryCatchAsync(async () =>
             {
-                var player = await _playersServices.GetByEmployeeId(id);
+                var player = await _playersServices.GetByEmployeeId(id, matchId);
                 return Ok(player);
             });
         }

@@ -17,7 +17,7 @@ namespace Trinca.Soccer.Services
         Task Update(PlayerInputDto playerInput);
         Task Delete(int id);
         Task<PlayerOutputDto> GetById(int id);
-        Task<PlayerOutputDto> GetByEmployeeId(int id);
+        Task<PlayerOutputDto> GetByEmployeeId(int id, int matchId);
     }
 
     public class PlayersService : IPlayersService
@@ -73,9 +73,9 @@ namespace Trinca.Soccer.Services
             return MappingConfig.Mapper().Map<PlayerOutputDto>(player);
         }
 
-        public async Task<PlayerOutputDto> GetByEmployeeId(int id)
+        public async Task<PlayerOutputDto> GetByEmployeeId(int id, int matchId)
         {
-            var employees = await _playersRepository.GetAllAsync(w => w.EmployeeId == id && !w.IsGuest);
+            var employees = await _playersRepository.GetAllAsync(w => w.EmployeeId == id && w.MatchId == matchId && !w.IsGuest);
             var employee = employees.FirstOrDefault();
 
             return MappingConfig.Mapper().Map<PlayerOutputDto>(employee);

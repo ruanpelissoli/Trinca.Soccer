@@ -96,13 +96,11 @@ namespace Trinca.Soccer.App.ViewModels
 
         private void InitializeLists()
         {
+            JoinMatchIsVisibile = !Model.Match.Players.Any(w => w.EmployeeId == Settings.EmployeeId && !w.IsGuest);
+
             Model.Players = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.NoTeam));
             Model.YellowTeam = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.YellowTeam));
             Model.BlackTeam = new ObservableCollection<PlayerOutputDto>(Model.Match.Players.Where(w => w.TeamId == ETeams.BlackTeam));
-
-            JoinMatchIsVisibile = !Model.Players.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
-                                  !Model.YellowTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId) &&
-                                  !Model.BlackTeam.Select(s => s.EmployeeId).Contains(Settings.EmployeeId);
 
             Model.Players.CollectionChanged += OnPlayerCollectionChanged;
             Model.YellowTeam.CollectionChanged += OnTeamACollectionChanged;
@@ -165,7 +163,7 @@ namespace Trinca.Soccer.App.ViewModels
         {
             await TryCatchAsync(async () =>
             {
-                var player = await ClientApi.Players.GetByEmployeeId(Settings.EmployeeId);
+                var player = await ClientApi.Players.GetByEmployeeId(Settings.EmployeeId, Model.Match.Id);
 
                 await ClientApi.Players.Delete(player.Id);
 
@@ -179,12 +177,13 @@ namespace Trinca.Soccer.App.ViewModels
                     Model.BlackTeam.Remove(Model.Players.First(w => w.Id == player.Id));
 
                 JoinMatchIsVisibile = true;
+
+                RefreshMatchValues();
             });
         }
 
         private async void AddToYellowTeamCommandExecute(int? playerId)
         {
-            ShowLoading = true;
             await TryCatchAsync(async () =>
             {
                 if (!playerId.HasValue) return;
@@ -195,8 +194,6 @@ namespace Trinca.Soccer.App.ViewModels
 
                 Model.Players.Remove(Model.Players.First(w => w.Id == player.Id));
                 Model.YellowTeam.Add(player);
-
-                ShowLoading = false;
             });
         }
 
@@ -266,25 +263,42 @@ namespace Trinca.Soccer.App.ViewModels
             await TryCatchAsync(async () =>
             {
                 if (refreshMatch)
-                    Model.Match = await ClientApi.Matches.GetById(Model.Match.Id);
-
-                var playersCount = Model.Match.Players.Count == 0 ? 1 : Model.Match.Players.Count;
-                var playersWithBarbecueCount = Model.Match.Players.Count(w => w.WithBarbecue) == 0 ? 1 : Model.Match.Players.Count(w => w.WithBarbecue);
-
-                var totalValueEach = Math.Round(Model.Match.Value / playersCount, 2);
-                Model.TotalMatchValueEach = totalValueEach.ToString("N");
-
-                var totalBarbecueValueEach = Math.Round(Model.Match.BarbecueValue / playersWithBarbecueCount, 2);
-                Model.TotalBarbecueValueEach = totalBarbecueValueEach.ToString("N");
-
-                var loggedPlayer = Model.Players.FirstOrDefault(w => w.EmployeeId == Settings.EmployeeId);
-
-                if (loggedPlayer == null)
-                    Model.TotalValue = (Model.Match.Value + (Model.Match.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
-                else
                 {
-                    Model.TotalValue = (Model.Match.Value + (Model.Match.WithBarbecue && loggedPlayer.WithBarbecue ? totalBarbecueValueEach : 0M)).ToString("N");
-                    ShowBarbecueValue = Model.Match.WithBarbecue && loggedPlayer.WithBarbecue;
+                    Model.Match = await ClientApi.Matches.GetById(Model.Match.Id);
+                    InitializeLists();
+                }
+
+                //            let loggedPlayer = this.state.match.players.filter(
+                //  item =>
+                //    item.employeeId ===
+                //      LocalStorageService.get(LocalStorageService.LoggedUserKey, true).id &&
+                //    item.withBarbecue &&
+                //    !item.isGuest
+                //);
+
+                if(!Model.Match.WithBarbecue)
+                {
+                    Model.TotalMatchValueEach = (Model.Match.Value / Model.Match.Players.Count()).ToString("N");
+                    return;
+                }
+
+                var loggedPlayer = Model.Match.Players.Where(w => w.EmployeeId == Settings.EmployeeId && w.WithBarbecue && !w.IsGuest).FirstOrDefault();
+
+                if(loggedPlayer != null)
+                {
+                    //              let bbqPlayers = this.state.match.players.filter(item => item.withBarbecue)
+                    //.length;
+
+                    //              return this.state.match.barbecueValue / bbqPlayers;
+
+                    var bbqPlayers = Model.Match.Players.Where(w => w.WithBarbecue).Count();
+                    var bbqValue = Model.Match.BarbecueValue / bbqPlayers;
+
+                    var totalValue = Model.Match.Value / Model.Match.Players.Count();
+
+                    Model.TotalMatchValueEach = (totalValue + bbqValue).ToString("N");
+
+                    ShowBarbecueValue = true;
                 }
 
                 ShowPlayersList = Model.Players.Any();

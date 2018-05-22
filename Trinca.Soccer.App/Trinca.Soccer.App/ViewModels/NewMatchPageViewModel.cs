@@ -42,7 +42,7 @@ namespace Trinca.Soccer.App.ViewModels
 
                 await ClientApi.Matches.Create(match);
 
-                await NavigateTo(Routes.Matches());
+                await NavigateTo(Routes.Matches(true));
             });
         }
 

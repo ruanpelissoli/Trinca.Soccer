@@ -164,7 +164,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\trinca-soccer - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\trinca-soccer - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\trinca-soccer - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\trinca-soccer - Web Deploy1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

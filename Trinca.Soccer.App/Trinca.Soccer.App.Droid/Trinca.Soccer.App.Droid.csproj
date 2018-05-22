@@ -26,7 +26,7 @@
     <JavaOptions />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\Users\ruan\AppData\Local\Xamarin\Mono for Android\Keystore\Trinca Soccer\Trinca Soccer.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>trinca137</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>Trinca Soccer</AndroidSigningKeyAlias>
@@ -42,6 +42,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
